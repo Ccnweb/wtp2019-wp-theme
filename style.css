@@ -1,0 +1,680 @@
+/*!
+Theme Name: Welcome To Paradise
+Theme URI: http://underscores.me/
+Author: Communauté du Chemin Neuf
+Author URI: http://underscores.me/
+Description: Description
+Version: 0.0.5
+License: GNU General Public License v3
+License URI: LICENSE
+Text Domain: wtp2019
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPLv3.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+wtp2019 is based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+*/
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Normalize
+# Typography
+# Elements
+# Forms
+# Navigation
+	## Links
+	## Menus
+# Accessibility
+# Alignments
+# Clearings
+# Widgets
+# Content
+	## Posts and pages
+	## Comments
+# Infinite scroll
+# Media
+	## Captions
+	## Galleries
+--------------------------------------------------------------*/
+
+:root {
+    --primary-color: hsla(35, 65%, 43%, 1);/*hsla(35, 65%, 59%, 1);*/
+    --bg-color: #222;
+    --gold-light: #DCBF7F;
+
+    --header-height: 50px;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url(fonts/HelveticaNeue/HelveticaNeue.eot);
+    src: url(fonts/HelveticaNeue/HelveticaNeue.eot) format('embedded-opentype'), url(fonts/HelveticaNeue/HelveticaNeue.woff) format('woff'), url(fonts/HelveticaNeue/HelveticaNeue.ttf) format('truetype'), url(fonts/HelveticaNeue/HelveticaNeue.svg) format('svg');
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Helvetica Neue LightItalic';
+    src: url(fonts/HelveticaNeue/HelveticaNeue-LightItalic.eot);
+    src: url(fonts/HelveticaNeue/HelveticaNeue-LightItalic.eot) format('embedded-opentype'), url(fonts/HelveticaNeue/HelveticaNeue-LightItalic.woff) format('woff'), url(fonts/HelveticaNeue/HelveticaNeue-LightItalic.ttf) format('truetype'), url(fonts/HelveticaNeue/HelveticaNeue-LightItalic.svg) format('svg');
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Josefin Sans';
+    src: url('fonts/JosefinSans/JosefinSans-Regular.ttf');
+    src: url('fonts/JosefinSans/JosefinSans-Regular.ttf') format('truetype');
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'WTP2019';
+    src: url("fonts/WTP2019/icomoon.eot");
+    src: url("fonts/WTP2019/icomoon.eot?#iefix") format("embedded-opentype"), 
+        url("fonts/WTP2019/icomoon.woff") format("woff"), url("fonts/WTP2019/icomoon.ttf") format("truetype"), 
+        url("fonts/WTP2019/icomoon.svg#icomoon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Traveling Typewriter';
+    src: url('fonts/TravelingTypewriter.ttf') format('truetype');
+    font-style: normal;
+}
+
+html {
+    overflow-y: scroll; 
+    overflow-x:hidden;
+}
+
+html, body {
+    margin: 0;
+    letter-spacing: 3px;
+    font-family: 'Josefin Sans', 'Helvetica Neue', 'Open Sans', 'Calibri', 'Trebuchet MS', 'sans-serif';
+    font-size: 14px;
+}
+
+.wtp-font::before {font-family: 'WTP2019'}
+.wtp-font.wtp-next-step::before {content: '\e900';}
+.wtp-font.wtp-arrows::before {content: '\e901';}
+.wtp-font.wtp-check::before {content: '\e902';}
+
+h1 {margin: 0;}
+a:focus, button:focus {outline: none;}
+a {color: inherit; text-decoration: inherit}
+a:hover {text-decoration: inherit;}
+
+a.button, button {    
+    background: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    letter-spacing: 4px;
+    font-family: 'Helvetica Neue';
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+}
+a.button.white, button.white {
+    color: white;
+    border: 1px solid white;
+}
+a.button.black, button.black {
+    color: white;
+    border: 1px solid white;
+}
+
+.bg-black {background: black;}
+.txt-gold {color: var(--primary-color)}
+.txt-black {color: black}
+.txt-white {color: white}
+
+.flexcc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.flexcol {flex-direction: column;}
+
+.link_container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 1500;
+}
+
+.modal .close {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+}
+
+h1.titre_page {
+    text-align: right;
+    font-size: 1rem;
+    color: var(--primary-color);
+    align-self: flex-end;
+    margin-right: 2.5rem;
+    margin-bottom: 2rem;
+    z-index: 1500;
+    position: sticky;
+    top: 20px;
+}
+
+.subtitle {
+    font-family: 'Helvetica Neue';
+    font-weight: bold;
+    letter-spacing: -1px;
+    color: hsla(35, 65%, 43%, 1);
+    align-self: flex-start;
+    margin-bottom: 1rem;
+}
+.subtitle::after {
+    content: '';
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    border-bottom: 1px solid var(--primary-color);
+    width: 10px;
+}
+
+.text_content {
+    font-family: 'Helvetica Neue';
+    font-size: 1.2rem;
+    line-height: 2rem;
+    letter-spacing: -0.05rem;
+    width: 70vw;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.img_content {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -5;
+    background-size: cover;
+}
+
+.golden_box {
+    position: absolute;
+    left: 0;
+    bottom: 4vh;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Traveling Typewriter', 'Helvetica Neue LightItalic';
+    line-height: 1.6rem;
+    color: white;
+}
+
+.golden_box > .quote {
+    background: black;
+    padding: 2px;
+}
+
+#inscription.round {
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
+    background: var(--gold-light);
+    color: var(--gold-light);
+    font-size: 1.2rem;
+    border: none;
+    /* box-shadow: hsla(35, 65%, 43%, 1) 0 5px 20px 0px; */
+    position: fixed;
+    right: 12px;
+    bottom: 16px;
+    z-index: 1200;
+    cursor: pointer;
+    padding: 12px;
+    transition: all 0.2s ease-in;
+    overflow: hidden;
+}
+
+#inscription > span::before {
+    color: black;
+}
+
+/* #inscription.square {
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    color: hsla(35, 65%, 43%, 1);
+    font-size: 1.5rem;
+    border: none;
+    border-top: 3px solid hsla(35, 65%, 43%, 1);
+    border-left: 3px solid hsla(35, 65%, 43%, 1);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1200;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+} */
+
+#inscription:hover {
+    width: 200px;
+    color: black;
+    transition: all 0.3s cubic-bezier(0.84, 0.01, 0.94, 0.38);
+}
+
+#inscription:hover > span::before {
+    transform: rotate(30deg);
+}
+
+
+/* #inscription.square i {
+    position: relative;
+    top: -25px;
+}
+#inscription.square::before {
+    content: '';
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    top: -13px;
+    left: -18px;
+    border-top: 3px solid hsla(35, 65%, 55%, 1);
+    border-left: 3px solid hsla(35, 65%, 55%, 1);
+} */
+
+/* #inscription.openwidth {
+    transition: all 0.5s ease-in;
+    background: black;
+    border: 3px solid hsla(35, 65%, 43%, 1);
+    width: 100vw;
+}
+#inscription.openheight {
+    transition: all 0.5s ease-in;
+    height: 200px;
+}
+#inscription.openwidth::before, #inscription.openwidth i {
+    display: none;
+} */
+
+/* ====================================== */
+/*                SLIDES                  */
+/* ====================================== */
+
+.section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+/* ====================================== */
+/*     PLEINES PAGES BG_IMG + TITRE       */
+/* ====================================== */
+
+.slide_intro {
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+.slide_intro.fullpage {
+    height: 100vh;
+    margin-top: 0;
+}
+
+.slide_intro .info {
+    background: linear-gradient(transparent, #000);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.slide_intro .titre {
+    text-align: center;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+}
+
+.slide_intro .titre::before {
+    content: "»";
+    display: block;
+    text-align: center;
+    font-size: 4rem;
+}
+
+.slide_intro .soustitre {
+    color: white;
+    font-size: 0.6rem;
+    margin: 1rem 5rem;
+    text-align: center;
+    line-height: 1rem;
+}
+
+.my_arrow_down {
+    position: initial;
+    margin-top: 27px;
+}
+
+/* ====================================== */
+/*              PAGINATION                */
+/* ====================================== */
+
+.onepage-pagination.onwhite li a.active:before {
+    background: black;
+}
+
+.onepage-pagination.onwhite li a:before {
+    background: rgba(0,0,0,0.85);
+}
+
+
+/* ====================================== */
+/*        PAGE ACCUEIL SLIDE INTRO        */
+/* ====================================== */
+.bg_container {
+    /* background: url('img/spot_magicien.jpg'); */
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#video_intro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: black;
+    object-fit: cover;
+}
+
+/* logo next step */
+.logo_container {
+    width: 215px;
+    z-index: 100;
+}
+
+#next_step {
+    position: relative;
+    top: 114px;
+    left: 21px;
+    opacity: 0;
+}
+
+#intro_logo {
+    position: relative;
+    top: 112px;
+    left: 2px;
+    opacity: 0;
+}
+
+#intro_logo.animate {
+    opacity: 1;
+    left: 10px;
+    transition: all 1.3s ease-in;
+}
+
+#next_step.animate {
+    opacity: 1;
+    transition: all 1.3s ease-in;
+}
+
+svg {
+    width: 209px;
+    height: 130px;
+}
+.svg_border {
+    fill: rgba(0, 0, 255, 0);
+    stroke-width: 4px;
+    stroke: #a0724a;
+    stroke-dashoffset: 768;
+    stroke-dasharray: 768;
+}
+.svg_border.animate {
+    stroke-dashoffset: 0;
+    transition: all 0.8s cubic-bezier(0.64, 0, 0.84, 0.77);
+}
+/* fin logo next step */
+
+.logo_wtp {
+    font-family: 'Helvetica Neue';
+    position: absolute;
+    width: 88px;
+    top: 14px;
+    left: 17px;
+    z-index: 500;
+}
+
+/* #intro_logo {
+    width: 218px;
+    max-width: 60vw;
+    margin-top: 108px;
+} */
+
+#intro_magic_words {
+    position: absolute;
+    top: 320px;
+    left: 0;
+    width: 90vw;
+    margin-left: 5vw;
+    word-break: break-word;
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* ====================================== */
+/*              SLIDE 2 TEXT              */
+/* ====================================== */
+
+.bg-arrows::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -10;
+    background: url(img/arrows_white_left.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(1px);
+}
+
+#quote_lacroix {
+    text-align: right;
+    margin-bottom: 3rem;
+    font-family: serif;
+    width: 60vw;
+}
+
+
+
+
+
+.next_arrow {
+    font-size: 2rem;
+    cursor: pointer;
+    animation: boing 500ms linear;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+.next_arrow.fixed {
+    position: absolute;
+    bottom: 7px;
+}
+
+@keyframes boing {
+    0% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.arrow_ghost {
+    opacity: 0.2;
+    color: white;
+}
+
+.arrow_black {
+    color: black;
+}
+
+
+
+
+/* ====================================== */
+/*              TEMOIGNAGES               */
+/* ====================================== */
+
+/* #temoignages .img_content {
+    animation: slow-flash 2s;
+}
+
+@keyframes slow-flash {
+    from {filter: blur(0px)}
+    50% {filter: blur(5px)}
+    to {filter: blur(0px)}
+} */
+
+
+/* ====================================== */
+/*              SLIDE FOOTER              */
+/* ====================================== */
+
+.slide-footer {
+    background: black;
+    padding-bottom: 3rem;
+}
+
+.slide-footer h3 {
+    text-align: center;
+}
+
+.slide-footer .head {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    align-self: flex-start;
+    margin-top: 1rem;
+}
+
+.slide-footer .head img {
+    height: 50px;
+}
+
+.slide-footer .link_container {
+    width: 100%;
+    height: 200px;
+}
+
+.slide-footer .link_container a {
+    width: 180px;
+}
+
+
+.slide-footer .link_social {
+    width: 60vw;
+    justify-content: space-around;
+    font-size: 2rem;
+}
+
+/* ============================================ */
+/*                FORMULAIRES                   */
+/* ============================================ */
+
+/* bugfix issue for the popmaker lightbox modal which has a default z-index too big */
+.pum-container, #pum-280 {
+    z-index: 10000;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+fieldset {border:none}
+
+input {
+    outline: none;
+    height: 42px;
+    width: 282px;
+    margin-top: 12px;
+    padding: 0 6px;
+    border-radius: 2px;
+    border-style: solid;
+    border: 2px solid black;
+    display: block;
+}
+
+input.invalid {
+    border-color: red;
+}
+input:valid {
+    border-color: green;
+}
+
+/* bugfix issue with air datepicker showing behind the popup maker lightbox modal */
+.datepickers-container {
+    z-index: 2000000000;
+}
+
+/* messages d'erreur pour validation des champs */
+.form-error-msg {
+    display: none;
+    font-size: 0.9rem;
+    color: red;
+    margin-top: 3px;
+} 
+.form-error-msg.show {
+    display: block;
+}
+
+/* submit button */
+.submit-btn-container {
+    margin-top: 3rem;
+}
+
+
+/* ============================================ */
+/*           NOTIFICATIONS TOASTR               */
+/* ============================================ */
+
+#toast-container {
+    z-index: 2000000000;
+}

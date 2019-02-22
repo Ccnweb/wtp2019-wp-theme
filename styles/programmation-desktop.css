@@ -1,0 +1,90 @@
+
+/* ======================================== */
+/*            IMAGE D'ACCUEIL               */
+/* ======================================== */
+
+.info .titre {
+    text-align: left;
+    align-self: baseline;
+    font-weight: bold;
+    margin-left: 2rem;
+    line-height: 4.5rem;
+    font-size: 3.5rem;
+}
+
+.info .titre::before {
+    content: '';
+}
+
+.info .soustitre {
+    display: none;
+}
+
+#titrepage {display: none}
+
+
+/* ======================================== */
+/*                 CARDS                    */
+/* ======================================== */
+
+::-webkit-scrollbar-button, ::-webkit-scrollbar {
+    visibility: hidden;
+}
+
+.category_container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.list_next {display: none}
+.list_next::after {
+    display: none;
+
+    position: relative;
+    top: 123px;
+    left: 93vw;
+    content: "»";
+    cursor: pointer;
+    background: var(--primary-color);
+    text-align: center;
+    z-index: 1000;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.card_container {
+    height: 190px;
+}
+.card_container.bestof {
+    height: auto;
+}
+
+.card.bestof {
+    height: 315px;
+    width: 200px;
+}
+
+.card {
+    width: 206px;
+    min-width: 206px;
+    cursor: pointer;
+}
+
+.card:not(.bestof):hover, .card.open {
+    width: 225px;
+    min-width: 225px;
+    height: 185px;
+    position: relative;
+}
+
+.card_title {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.3rem;
+    cursor: pointer;
+    margin-bottom: -2px;
+    height: 72px;
+}

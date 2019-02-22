@@ -1,0 +1,27 @@
+
+ul.types_infos {
+    margin-top: -5rem;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    font-size: 1rem;
+    margin-bottom: 0;
+    box-shadow: #00000082 0 2px 3px;
+}
+
+/* ================================= */
+/*    ELEMENTS D'INFOS PRATIQUES     */
+/* ================================= */
+
+.info_part_content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.element {
+    max-width: 400px;
+}
+
+.info_part_img {
+    height: 400px;
+    line-height: 400px;
+}

@@ -1,0 +1,58 @@
+
+#logo_htc {
+    display: block;
+    width: 70px;
+    position: absolute;
+    bottom: 114px;
+}
+
+.slide_footer {
+    position: absolute;
+    bottom: 48px;
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 2.1rem;
+}
+
+/* ====================================== */
+/*           CARRES MOSAIQUE              */
+/* ====================================== */
+
+.carre_container {
+    width: 100vw;
+    max-width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.carre {
+    width: 200px;
+    max-width: 300px;
+    height: 30vh;
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* ====================================== */
+/*             TEMOIGNAGES                */
+/* ====================================== */
+
+.golden_box {
+    position: absolute;
+    left: 0;
+    bottom: 4vh;
+    width: 60vw;
+    margin-left: 20vw;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Traveling Typewriter', 'Helvetica Neue LightItalic';
+    font-size: 1.7rem;
+    line-height: 3rem;
+    color: white;
+}

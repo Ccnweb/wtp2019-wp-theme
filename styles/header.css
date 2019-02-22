@@ -1,0 +1,21 @@
+header {
+    position: fixed;
+    display: flex;
+    height: 10vh;
+    top: 0;
+    z-index: 1500;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    background: white;
+}
+
+header.black {
+    background: black;
+}
+
+header img {
+    height: 7vh;
+    margin-left: 10px;
+}

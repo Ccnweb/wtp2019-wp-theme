@@ -1,0 +1,10 @@
+.bg-black {background: black;}
+.txt-gold {color: var(--primary-color)}
+.txt-black {color: black}
+
+.flexcc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flexcol {flex-direction: column;}

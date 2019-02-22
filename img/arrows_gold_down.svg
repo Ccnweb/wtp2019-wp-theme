@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 159.22 179.85001"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="arrows_gold_down.svg"
+   width="159.22"
+   height="179.85001"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata20">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Asset 10</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     id="namedview18"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.4825984"
+     inkscape:cx="79.610003"
+     inkscape:cy="89.945004"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg16" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:#a0724a;}</style>
+  </defs>
+  <title
+     id="title6">Asset 10</title>
+  <g
+     id="Layer_2"
+     data-name="Layer 2"
+     transform="rotate(90,79.61,79.61)">
+    <g
+       id="Calque_1"
+       data-name="Calque 1">
+      <g
+         id="bCmH46.tif">
+        <path
+           class="cls-1"
+           d="m 21.64,0 c 0.71,0.77 1.4,1.56 2.15,2.3 L 99.4,78 c 0.73,0.73 1.44,1.5 1.91,2 L 22,159.18 1.37,138.58 59.37,80.67 0,21.32 21.07,0 Z"
+           id="path8"
+           inkscape:connector-curvature="0"
+           style="fill:#a0724a" />
+      </g>
+      <g
+         id="bCmH46.tif-2"
+         data-name="bCmH46.tif">
+        <path
+           class="cls-1"
+           d="m 100.18,0 c 0.71,0.77 1.4,1.56 2.15,2.3 L 177.94,78 c 0.73,0.73 1.44,1.5 1.91,2 l -79.3,79.22 -20.64,-20.6 58,-57.91 L 78.54,21.32 99.61,0 Z"
+           id="path11"
+           inkscape:connector-curvature="0"
+           style="fill:#a0724a" />
+      </g>
+    </g>
+  </g>
+</svg>

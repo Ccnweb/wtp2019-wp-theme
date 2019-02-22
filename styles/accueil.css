@@ -1,0 +1,100 @@
+#logo_htc {
+    display: none;
+}
+
+video {
+    filter: grayscale(1);
+}
+
+.slide_footer {
+    position: absolute;
+    bottom: 66px;
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 0.7rem;
+    line-height: 1.1rem;
+}
+
+/* ====================================== */
+/*              CARRES DORES              */
+/* ====================================== */
+
+/* .watermark {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    overflow: visible;
+    pointer-events: none;
+    background:none !important;
+} */
+
+.carre_container {
+    width: 100vw;
+    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.carre {
+    width: 50vw;
+    max-width: 300px;
+    height: 30vh;
+
+    position: relative;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.carre.white {background: white;}
+.carre.black {background: black;}
+.carre.gold {background: var(--primary-color);}
+
+.carre.arrow::before {
+    content: "»";
+    font-size: 3rem;
+    position: absolute;
+    left: calc(50% - 12px);
+    top: 1rem;
+}
+.carre.arrow.white::before, .carre.arrow.black::before {color: var(--primary-color);}
+.carre.arrow.gold::before {color: black;}
+
+.carre img {
+    width: 100%;
+    height: 100%;
+}
+
+.carre .ligne1 {
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+.carre.black .ligne1 {color: var(--primary-color);}
+.carre.white .ligne1 {color: var(--primary-color);}
+.carre.gold .ligne1 {color: black;}
+
+.carre .ligne2 {
+    margin-top: 4px;
+    margin-bottom: 1rem;
+}
+.carre.black .ligne2 {color: white;}
+.carre.white .ligne2 {color: black;}
+.carre.gold .ligne2 {color: white;}
+
+.carre .detail {
+    text-align: center;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    margin-top: 1rem;
+    letter-spacing: 0px;
+    margin: 0 15px;
+}
+.carre.black .detail {color: white;}
+.carre.white .detail {color: black;}
+.carre.gold .detail {color: white;}

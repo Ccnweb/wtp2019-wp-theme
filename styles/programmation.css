@@ -1,0 +1,121 @@
+body {
+    overflow-y: scroll; overflow-x:hidden;
+    background: black;
+}
+
+h1.titre_page {
+    position: sticky;
+    top: calc(10vh - 1rem);
+    z-index: 1500;
+}
+
+h3 {
+    color: white;
+}
+
+header {
+    background: transparent;
+}
+
+
+#content {
+    margin-top: 13vh;
+    padding-left: 1rem;
+    padding-bottom: 200px;
+}
+
+.category_container h3 {
+    margin: 7px 0 0 0.3rem;
+    font-size: 1rem;
+    font-family: 'Helvetica Neue';
+}
+
+.card_container {
+    display: flex;
+    align-items: center;
+    overflow-x: overlay;
+    padding: 6px 0;
+}
+
+.card {
+    width: 120px;
+    min-width: 120px;
+    height: 165px;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: 0.2s;
+}
+
+.card.bestof {
+    height: 215px;
+    width: 146px;
+}
+
+.card.focus {
+    position: relative;
+    top: -10px;
+    width: 120px;
+    height: 170px;
+    transition: 0.2s;
+}
+.card.grow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: 0.5s;
+}
+
+.card_title {
+    font-size: 0.7rem;
+    overflow-x: hidden;
+    letter-spacing: 1px;
+    height: 42px;
+    padding-top: 10px;
+    text-align: center;
+    color: var(--primary-color);
+    line-height: 1.1rem;
+    background: linear-gradient(transparent 0%, #000000 100%);
+    transition: all 0.3s ease-in;
+}
+
+.card_title::before {
+    content: "»";
+    font-size: 1rem;
+    display: block;
+    margin-top: -10px;
+}
+
+.card_title.open {
+    height: 90%;
+    background: linear-gradient(transparent 0%, #000000ad 20%, #000000 100%);
+    transition: all 0.3s ease-in;
+}
+
+.card_descr {
+    display: none;
+    line-height: 0.9rem;
+    margin-top: 0.5rem;
+    width: 96%;
+    margin-left: 2%;
+    color: white;
+}
+
+#card_details {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    height: 100vh;
+    width: 100vw;
+    background: #aaaaff;
+}
+#card_details.open {
+    z-index: 1000;
+    opacity: 1;
+    transition: 0.3s;
+}
