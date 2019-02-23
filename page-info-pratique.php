@@ -28,7 +28,7 @@ function get_posts_of_type($mytype) {
 }
 ?>
 
-<div id="content" class="content main bg-arrows">
+<div id="content" class="content main">
 
     <!-- <div class="content_header"> -->
         <h1 class="titre_page">INFOS<br>PRATIQUES</h1>

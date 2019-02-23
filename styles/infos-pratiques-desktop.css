@@ -14,14 +14,17 @@ ul.types_infos {
 
 .info_part_content {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .element {
-    max-width: 400px;
+    max-width: 50vw;
 }
 
 .info_part_img {
-    height: 400px;
-    line-height: 400px;
+    width: 100%;
+    height: 25rem;
+    line-height: 25rem;
 }
