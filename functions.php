@@ -158,7 +158,7 @@ function wtp2019_scripts() {
 	// --- infos-pratiques
 	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css');
 	wp_register_style( 'wtp2019-infos-pratiques-desktop', get_template_directory_uri() . '/styles/infos-pratiques-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
-	wp_register_script( 'wtp2019-infos-pratiques-script', "//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js");
+	wp_register_script( 'wtp2019-infos-pratiques-script', get_template_directory_uri() . '/js/infos-pratiques.js', array('jquery'));
 }
 add_action( 'wp_enqueue_scripts', 'wtp2019_scripts' );
 

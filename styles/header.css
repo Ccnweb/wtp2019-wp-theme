@@ -11,7 +11,7 @@ header {
     background: white;
 }
 
-header.black {
+.page-template-page-info-pratique header, header.black {
     background: black;
 }
 

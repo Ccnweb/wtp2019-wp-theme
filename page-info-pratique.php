@@ -42,7 +42,7 @@ function get_posts_of_type($mytype) {
     <!-- </div> -->
 
     <div id="part_transport" class="info_part">
-        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_transport.jpg');background-size:cover;background-position:center;background-attachment:fixed;">
+        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_transport.jpg');background-size:cover;background-position: center;">
             TRANSPORT
         </div>
 
@@ -59,7 +59,7 @@ function get_posts_of_type($mytype) {
     </div>
 
     <div id="part_logement" class="info_part">
-        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_logement.jpg');background-size:cover;background-position:center;background-attachment:fixed;">
+        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_logement.jpg');background-size:cover;background-position: center;">
             LOGEMENT
         </div>
 
@@ -76,7 +76,7 @@ function get_posts_of_type($mytype) {
     </div>
     
     <div id="part_prix" class="info_part">
-        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_transport.jpg');background-size:cover;background-position:center;background-attachment:fixed;">
+        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_prix.jpg');background-size:cover;background-position: center;">
             PRIX
         </div>
 
@@ -93,7 +93,7 @@ function get_posts_of_type($mytype) {
     </div>
 
     <div id="part_volontaires" class="info_part">
-        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_volontaires.jpg');background-size:cover;background-position:center;background-attachment:fixed;">
+        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_volontaires.jpg');background-size:cover;background-position: center;">
             VOLONTAIRES
         </div>
 

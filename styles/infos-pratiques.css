@@ -26,7 +26,8 @@ ul.types_infos {
     width: 100%;
     position: sticky;
     top: 0;
-    background: white;
+    background: black;
+    color: white;
 }
 
 .info_part_content {
@@ -54,6 +55,8 @@ ul.types_infos {
 .element p {
     margin-top: 0;
     text-align: justify;
+    letter-spacing: 1px;
+    line-height: 1.5rem;
 }
 
 .element img {
