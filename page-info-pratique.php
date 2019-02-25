@@ -28,19 +28,21 @@ function get_posts_of_type($mytype) {
 }
 ?>
 
-<div id="content" class="content main">
+<div id="content" class="content main bg-black">
 
     <!-- <div class="content_header"> -->
         <h1 class="titre_page">INFOS<br>PRATIQUES</h1>
 
-        <ul class="types_infos">
-            <li><a href="#part_transport">TRANSPORT</a></li>
-            <li><a href="#part_logement">LOGEMENT</a></li>
-            <li><a href="#part_prix">PRIX</a></li>
-            <li><a href="#part_volontaires">VOLONTAIRES</a></li>
-        </ul>
-        <div class="underline_bar">
-            <div class="mobile_bar"></div>
+        <div class="types_infos_container bg-black">
+            <ul class="types_infos">
+                <li>TRANSPORT</li>
+                <li>LOGEMENT</li>
+                <li>PRIX</li>
+                <li>VOLONTAIRES</li>
+            </ul>
+            <div class="underline_bar">
+                <div class="mobile_bar"></div>
+            </div>
         </div>
     <!-- </div> -->
 
