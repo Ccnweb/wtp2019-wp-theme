@@ -39,6 +39,9 @@ function get_posts_of_type($mytype) {
             <li><a href="#part_prix">PRIX</a></li>
             <li><a href="#part_volontaires">VOLONTAIRES</a></li>
         </ul>
+        <div class="underline_bar">
+            <div class="mobile_bar"></div>
+        </div>
     <!-- </div> -->
 
     <div id="part_transport" class="info_part">
