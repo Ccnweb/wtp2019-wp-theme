@@ -29,7 +29,7 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 			<video  id="video_intro" class="video_player" 
 					height="100%"
 					preload="none" muted autoplay loop playsinline>
-				<source id="mp4" src="<?php echo get_template_directory_uri() ?>/wp-content/uploads/sites/4/2019/02/Video-WTP-pour-SITE-1.mp4"/>
+				<source id="mp4" src="<?php echo get_site_url() ?>/wp-content/uploads/sites/4/2019/02/Video-WTP-pour-SITE-1.mp4"/>
 				<p>Your browser does not support HTML5 Video!</p>
 			</video>
 			<!-- <img id="intro_logo" src="img/logo_next_step.png"> -->
