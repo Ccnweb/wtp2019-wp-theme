@@ -24,7 +24,9 @@
 .tile_card_anim {
     opacity: 1;
     transition-delay: 0.6s;
+	-webkit-transition-delay: 0.6s;
     transition: opacity 0.6s ease-out;
+	-webkit-transition: opacity 0.6s ease-out;
 }
 
 
@@ -39,11 +41,14 @@
 
 .flip-container.flipped .flipper {
     transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
 }
 
 .flipper {
     transition: 0.6s;
+	-webkit-transition: 0.6s;
     transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
     position: relative;
     width: 100%;
     height: 100%;
@@ -54,7 +59,9 @@
 
 .front, .back {
     backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
     transform: rotateX(0deg); /* just to fix bug on firefox for backface-visibility: hidden */
+	-webkit-transform: rotateY(0deg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,5 +77,6 @@
 
 .back {
     transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
     /* background: #aaaaff; */
 }
