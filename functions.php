@@ -153,8 +153,9 @@ function wtp2019_scripts() {
 	wp_register_style( 'wtp2019-programmation', get_template_directory_uri() . '/styles/programmation.css');
 	wp_register_style( 'wtp2019-programmation-desktop', get_template_directory_uri() . '/styles/programmation-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	// --- horaires
-	//wp_register_script( 'wtp2019-programme-script', get_template_directory_uri() . '/js/propositions.js', array(), '20181213', true);
-	wp_register_style( 'wtp2019-programme', get_template_directory_uri() . '/styles/programme.css');
+	wp_register_script( 'wtp2019-menu-scroll', get_template_directory_uri() . '/js/menu-scroll.js', array(), '001', true);
+	wp_register_script( 'wtp2019-horaires-script', get_template_directory_uri() . '/js/horaires.js', array('jquery'), '20181213', true);
+	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css');
 	// --- infos-pratiques
 	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css');
 	wp_register_style( 'wtp2019-infos-pratiques-desktop', get_template_directory_uri() . '/styles/infos-pratiques-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
@@ -250,4 +251,6 @@ function require_once_all_regex($dir_path, $regex = "") {
 }
 endif;
 require_once_all_regex(get_template_directory() . '/custom post types/', "/^wtp/");
+
+require_once_all_regex(get_template_directory() . '/shortcodes/', "");
 

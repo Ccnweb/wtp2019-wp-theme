@@ -1,0 +1,121 @@
+body {
+    overflow-y: scroll; overflow-x:hidden;
+}
+
+.slide {
+    min-height: 100vh;
+}
+
+.slide:last-child {
+    padding-bottom: 40vh;
+}
+
+.slide .text-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 3rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+ul > li {cursor:pointer}
+
+ul.horaires {
+    list-style: none;
+    line-height: 1.6rem;
+}
+
+.heure {
+    color: var(--gold);
+    margin-right: 2rem;
+    width: 3rem;
+    display: inline-block;
+    text-align: right;
+}
+
+.semaine_container {
+    position: sticky;
+    top: 10vh;
+    background: white;
+    padding-top: 1rem;
+    z-index: 300;
+}
+
+ul.semaine {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: space-around;
+    margin-top: 0;
+    padding-left: 0;
+}
+
+.underline_bar {
+    height: 0.1cm;
+    width: 100vw;
+    background: transparent;
+}
+
+.underline_bar .mobile_bar {
+    background: black;
+    height: 100%;
+    width: 10vw;
+    left: 1rem;
+    position: relative;
+}
+
+h2, .ligne_horaire {
+    margin-left: 10vw;
+}
+
+h2 {
+    margin-top: 7rem;
+}
+
+.ligne_horaire {
+    font-size: 1.5rem;
+    font-variant: small-caps;
+}
+
+.carres_container {
+    height: 8rem;
+    position: relative;
+}
+
+.carres_list {
+    display: flex;
+    height: 100%;
+
+	background: #f3f3f3;
+	box-sizing: border-box;
+	
+	white-space: nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+.arrow {
+    font-size: 4rem;
+    line-height: 8rem;
+    position: absolute;
+    top: 0;
+}
+
+.arrow_left {
+    left: 0;
+}
+.arrow_right {
+    right: 0;
+}
+
+.carre {
+    display: inline-block;
+    width: 8rem;
+    height: 100%;
+    margin-right: 0.5cm;
+    padding: 1rem;
+    color: white;
+}

@@ -32,6 +32,7 @@ ul.types_infos {
     width: 100%;
     background: black;
     color: white;
+    cursor: pointer;
 }
 
 .underline_bar {

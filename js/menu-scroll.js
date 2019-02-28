@@ -1,0 +1,89 @@
+function init_menu_scroll(opt) {
+
+    let opt_default = {
+        section_selector:   '.section',         // jquery selector for the sections
+        menu_selector:      '.menu',            // jquery selector for the menu container (preferably not the ul element but a container of the ul element)
+        menu_item_selector: 'li',               // jquery selector for menu items
+        focus_style:        'underline',        // the style of the element that shows in wich section we are
+        scroll_container:   'html, body',       // the element in which we want to scroll
+    }
+    opt = Object.assign(opt_default, opt);
+
+    let $ = jQuery;
+    let scrolling = false;
+
+    // detect section positions
+    let sections = [];
+    $(opt.section_selector).each(function() {
+        sections.push({
+            top: $(this).offset().top,
+            height: $(this).height(),
+        })
+    })
+    for (let i = 0; i < sections.length-1; i++) {
+        sections[i].height = sections[i+1].top - sections[i].top;
+    }
+    sections[sections.length-1].height = $(document).height() - sections[sections.length-1].top;
+
+    // add underline bar if it doesn't exist
+    if (opt.focus_style == 'underline' && $(opt.menu_selector + ' .underline_bar').length == 0) {
+        $(opt.menu_selector).append(`<div class="underline_bar">
+            <div class="mobile_bar"></div>
+        </div>`)
+    }
+
+    // set click event to scroll on specific section
+    let top_offset = 0;// $(opt.menu_selector).eq(0).height() + $(opt.menu_selector).eq(0).height();
+    console.log(top_offset, sections)
+    $(opt.menu_selector + ' ' + opt.menu_item_selector).each(function(ind) {
+        let curr_li = $(this);
+        curr_li.click(function() {
+            scrolling = true;
+
+            // animate menu
+            if (opt.focus_style == 'underline') {
+                $('.mobile_bar').animate({
+                    left: $(this).position().left+'px',
+                    width: $(this).width()+'px'
+                }, 300);
+            }
+
+            // animate scrolling
+            $(opt.scroll_container).animate({
+                scrollTop: (sections[ind].top - top_offset)+'px',
+            }, 300, 'swing', _ => scrolling = false);
+        })
+    })
+
+    // respond to on scroll event to change section
+    let curr_section = 0;
+    let w_height = $(window).height();
+    let marge = w_height / 10;
+    $(opt.scroll_container).scroll(function() {
+        if (scrolling) return;
+        let start = $(this).scrollTop();
+        let i = 0
+        for (let section of sections) {
+            let mem_section = curr_section
+            if (start > section.top - marge && start < section.top + section.height - marge && curr_section != i) {
+                curr_section = i
+            }
+            if (mem_section != curr_section) {
+                scrolling = true;
+                let li = $(`${opt.menu_selector} ${opt.menu_item_selector}:nth-child(${curr_section+1})`)
+
+                // animate menu
+                if (opt.focus_style == 'underline') {
+                    $('.mobile_bar').animate({
+                        left: li.position().left+'px',
+                        width: li.width()+'px'
+                    }, 300, 'swing', _ => scrolling = false);
+                } else {
+                    scrolling = false;
+                }
+                break;
+            }
+            i++
+        }
+    })
+}

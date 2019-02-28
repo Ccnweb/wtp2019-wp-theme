@@ -27,7 +27,7 @@
 
 <!-- bouton call to action en bas à droite fixe -->
 <button id="inscription" class="round">
-	<span class="wtp-font wtp-check popup-preinscription">&nbsp;NEXT STEP</span>
+	<span class="wtp-font wtp-check open_drapeaux">&nbsp;NEXT STEP</span>
 </button>
 
 <?php include 'part-sidebar.php' ?>
