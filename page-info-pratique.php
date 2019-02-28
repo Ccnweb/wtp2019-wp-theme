@@ -46,6 +46,10 @@ function get_posts_of_type($mytype) {
         </div>
     <!-- </div> -->
 
+    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+        <?php echo apply_filters( 'the_content', $post->post_content ); ?>
+    <?php endwhile;  endif;?>
+
     <div id="part_transport" class="info_part">
         <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_transport.jpg');background-size:cover;background-position: center;">
             TRANSPORT

@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
     $('#content h2').each(function() {items.push($(this).text())})
     $('.semaine').append('<li>' + items.join('</li><li>') + '</li>')
     // if we have too many items, we shorten the name
-    if ($('.semaine li').length > 4) $('.semmaine li').each(function() {$(this).text($(this).text().substring(0, 3))})
+    if ($(window).width() < 640 && $('.semaine li').length > 4) $('.semmaine li').each(function() {$(this).text($(this).text().substring(0, 3))})
 
     // initialize menu scrolling
     init_menu_scroll({

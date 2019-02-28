@@ -16,6 +16,10 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 	 * as indicating support for post thumbnails.
 	 */
 	function wtp2019_setup() {
+		add_theme_support('post-thumbnails', array(
+			'post',
+			'page',
+		));
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
@@ -40,7 +44,10 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 		 *
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
-		add_theme_support( 'post-thumbnails' );
+		add_theme_support('post-thumbnails', array(
+			'post',
+			'page',
+		));
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
@@ -79,6 +86,7 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 			'flex-width'  => true,
 			'flex-height' => true,
 		) );
+
 	}
 endif;
 add_action( 'after_setup_theme', 'wtp2019_setup' );
@@ -140,6 +148,7 @@ function wtp2019_scripts() {
 	//wp_enqueue_script( 'wtp2019-jquery', "https://code.jquery.com/jquery-3.3.1.min.js", array(), '20181213', true);
 	//wp_enqueue_script( 'wtp2019-jquery', 'http://code.jquery.com/jquery-migrate-3.0.1.js', array(), '20181213', true);
 	wp_enqueue_script( 'wtp2019-onepage-scroll', get_template_directory_uri() . '/js/jquery.onepage-scroll.min.js', array('jquery'), '20181213', true);
+	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '20181213', true);
 	// burger menu
 	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), '20151215', true );
 
@@ -254,3 +263,40 @@ require_once_all_regex(get_template_directory() . '/custom post types/', "/^wtp/
 
 require_once_all_regex(get_template_directory() . '/shortcodes/', "");
 
+
+
+/* ========================================================= */
+/*                 MULTIPLE FEATURED IMAGES                  */
+/* ========================================================= */
+/**
+ * uses this plugin : https://wordpress.org/plugins/multiple-featured-images/
+ */
+
+// adds a field to add a custom featured image for mobiles
+add_filter( 'kdmfi_featured_images', function( $featured_images ) {
+    $args_mobile = array(
+      'id' => 'featured-image-mobile',
+      'desc' => 'Add a different image for mobiles',
+      'label_name' => 'Mobile featured image',
+      'label_set' => 'Set mobile featured image',
+      'label_remove' => 'Remove mobile featured image',
+      'label_use' => 'Set mobile featured image',
+      'post_type' => array( 'post', 'page' ),
+	);
+	
+	$args_desktop = array(
+		'id' => 'featured-image-desktop',
+		'desc' => 'Add a different image for desktops',
+		'label_name' => 'Desktop featured image',
+		'label_set' => 'Set desktop featured image',
+		'label_remove' => 'Remove desktop featured image',
+		'label_use' => 'Set desktop featured image',
+		'post_type' => array( 'post', 'page' ),
+	  );
+  
+	$featured_images[] = $args_mobile;
+	$featured_images[] = $args_desktop;
+  
+    return $featured_images;
+});
+// to get mobile image url : kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' );

@@ -108,6 +108,10 @@ h2 {
     .arrow {
         display: block;
     }
+
+    .info {
+        padding-bottom: 5rem;
+    }
 }
 
 .arrow {
