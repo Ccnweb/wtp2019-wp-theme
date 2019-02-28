@@ -5,7 +5,7 @@
     </header>
 
     <div class="menu_inside">
-        <button class="black popup-preinscription">JE M'INSCRIS</button>
+        <button class="black open_choix">JE M'INSCRIS</button>
 
         <ul class="menu_entries">
             <li><a href="/">ACCUEIL</a></li>

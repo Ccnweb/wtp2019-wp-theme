@@ -60,7 +60,7 @@ wp_enqueue_script('wtp2019-horaires-script');
                 <li><span class="heure">18<sup>45</sup></span>office/adoration</li>
                 <li><span class="heure">21<sup>00</sup></span>soirée/after</li>
             </ul>
-            <button style="margin-top:3rem;">TÉLÉCHARGER LE PROGRAMME</button>
+            <!-- <button style="margin-top:3rem;">TÉLÉCHARGER LE PROGRAMME</button> -->
         </div>
     </div>
 

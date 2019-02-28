@@ -42,7 +42,7 @@ function ccnwtp_shortcode_programme_carres() {
             while ( $query->have_posts() && $compteur < 1000) {
                 $query->the_post();
                 $background = "background:url('".get_the_post_thumbnail_url()."');background-position:center;background-size:cover";
-                $carre = new CcnHtmlObj('div', ['class' => 'carre', 'style' => $background], get_the_title());
+                $carre = new CcnHtmlObj('div', ['class' => 'carre', 'style' => $background], '<div>'.get_the_title().'<br>'.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true).'</div>');
                 $carres_list->append($carre);
                 $compteur++;
             }

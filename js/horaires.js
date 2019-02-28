@@ -27,6 +27,12 @@ jQuery(document).ready(function($) {
         }
     })
 
+    if ($(window).width() > 640) init_squares_arrows();
+
+})
+
+
+function init_squares_arrows() {
     // ==================================================
     // initialize the list of squares
     // ==================================================
@@ -40,7 +46,9 @@ jQuery(document).ready(function($) {
         $(this).scroll(function() {
             if ($(this).scrollLeft() == 0) {
                 arrow_left.hide();
+                arrow_right.show();
             } else if ($(this).scrollLeft() + $(this).width() >= hidden_width) {
+                arrow_left.show();
                 arrow_right.hide();
             } else {
                 arrow_left.show();
@@ -53,12 +61,11 @@ jQuery(document).ready(function($) {
     $('.carres_container .arrow_right').click(function() {
         let carre_list = $(this).closest('.carres_container').find('.carres_list');
         console.log('scrollRight', carre_list.length, carre_list.scrollLeft());
-        carre_list.animate( { scrollLeft: carre_list.scrollLeft() + 50}, 300);
+        carre_list.animate( { scrollLeft: carre_list.scrollLeft() + 150}, 300);
     })
     $('.carres_container .arrow_left').click(function() {
         let carre_list = $(this).closest('.carres_container').find('.carres_list');
         console.log('scrollLeft', carre_list.length, carre_list.scrollLeft());
-        carre_list.animate( { scrollLeft: carre_list.scrollLeft() - 50}, 300);
+        carre_list.animate( { scrollLeft: carre_list.scrollLeft() - 150}, 300);
     })
-
-})
+}

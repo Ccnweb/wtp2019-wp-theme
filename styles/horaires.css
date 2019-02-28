@@ -14,17 +14,21 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    margin: 0 3rem;
+    margin: 0 2rem;
     justify-content: center;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
+}
+
+h4.subtitle {
+    margin-left: 1rem;
 }
 
 ul > li {cursor:pointer}
 
 ul.horaires {
     list-style: none;
-    line-height: 1.6rem;
+    line-height: 1.4rem;
 }
 
 .heure {
@@ -75,7 +79,7 @@ h2 {
 }
 
 .ligne_horaire {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-variant: small-caps;
 }
 
@@ -88,7 +92,6 @@ h2 {
     display: flex;
     height: 100%;
 
-	background: #f3f3f3;
 	box-sizing: border-box;
 	
 	white-space: nowrap;
@@ -97,11 +100,23 @@ h2 {
 	-webkit-overflow-scrolling: touch;
 }
 
+@media screen and (min-width: 640px) {
+    .carres_list {
+        overflow-x: hidden;
+    }
+
+    .arrow {
+        display: block;
+    }
+}
+
 .arrow {
+    display: none;
     font-size: 4rem;
     line-height: 8rem;
     position: absolute;
     top: 0;
+    cursor: pointer;
 }
 
 .arrow_left {
@@ -118,4 +133,8 @@ h2 {
     margin-right: 0.5cm;
     padding: 1rem;
     color: white;
+}
+
+.carre > div {
+    width: 8rem;
 }

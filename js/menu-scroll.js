@@ -30,6 +30,12 @@ function init_menu_scroll(opt) {
         $(opt.menu_selector).append(`<div class="underline_bar">
             <div class="mobile_bar"></div>
         </div>`)
+        // we underline the first element
+        let li = $(opt.menu_selector + ' ' + opt.menu_item_selector);
+        $('.mobile_bar').animate({
+            left: li.position().left+'px',
+            width: li.width()+'px'
+        }, 300);
     }
 
     // set click event to scroll on specific section
