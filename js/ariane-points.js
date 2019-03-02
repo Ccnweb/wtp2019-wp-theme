@@ -15,7 +15,7 @@ function initArianePoints(section_selector = '.section', options = {}) {
      * 5. We add a function to manage auto scroll if enabled
      */
 
-    let DEBUG = false;
+    let DEBUG = true;
     function log(...args) {if (DEBUG) console.log(...args)}
 
     let default_options = {
@@ -106,14 +106,14 @@ function initArianePoints(section_selector = '.section', options = {}) {
         for (let section of my_sections) {
             let mem_section = curr_section;
             if (section.top < start+10 && start < section.top + section.height*0.5 && curr_section != j) {
-                log('onscroll new section1 : ', j)
+                log('%c get_curr_section new section1 : '+j, 'color:#ddd;font-style:italic')
                 curr_section = j
             } else if (curr_section < my_sections.length-1 && start < section.top + section.height + 10 && start > section.top + section.height*0.5 && curr_section != j+1) {
-                log('onscroll new section2 : ', j+1)
+                log('%c get_curr_section new section2 : '+(j+1).toString(), 'color:#ddd;font-style:italic')
                 curr_section = j+1
             }
             if (mem_section != curr_section) {
-                log('changing point to ', curr_section)
+                log('get_curr_section changing point to ', curr_section)
                 jQuery('ul.ariane_points > li').removeClass('active');
                 jQuery(`ul.ariane_points > li:nth-child(${curr_section+1})`).addClass('active');
                 options.on_section_change(curr_section)
@@ -123,34 +123,45 @@ function initArianePoints(section_selector = '.section', options = {}) {
         }
     }
 
-    function onscroll() {
+    function onscroll(e) {
         if (scrolling) return;
         scrolling = true;
+
+        var e = window.event || e; // old IE support
+
         let start = jQuery(options.scroll_container).scrollTop();
         log('onscroll ongoing... start=', start, "currsection="+curr_section, my_sections)
         
         get_curr_section(start)
 
-        if (options.auto_scroll === true || options.auto_scroll.length) auto_scroll_control();
+        if (options.auto_scroll === true || options.auto_scroll.length) auto_scroll_control(e);
         else {
             scrolling = false;
             log('onscroll released')
         }
     }
-    jQuery(options.scroll_container).scroll(onscroll);
+    //jQuery(options.scroll_container).scroll(onscroll);
+    // IE9, Chrome, Safari, Opera
+    window.addEventListener("mousewheel", onscroll, false);
+    // Firefox
+    window.addEventListener("DOMMouseScroll", onscroll, false);
 
     // == 5. == we control here the auto scroll
-    function auto_scroll_control() {
+    if (options.auto_scroll === true) jQuery(scroll_el).css('overflow-y', 'hidden');
+
+    function auto_scroll_control(e) {
         // we set a lock while we are guiding the scroll
         //if (scrolling) return;
         scrolling = true;
+
+        let delta = (e) ? Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) : 0; 
         
         // we detect scrolling direction up or down
         let start = jQuery(options.scroll_container).scrollTop();
-        log('autoscroll ongoing', 'start='+start)
+        log('%c AS ongoing start='+start, 'color: blue;font-weight:bold')
         let section;
 
-        if (start > mem_scroll_pos+5 && curr_section < my_sections.length-1) { // DOWN
+        if ((start > mem_scroll_pos+5 || delta < 0) && curr_section < my_sections.length-1) { // DOWN
             // if options.auto_scroll is an array of slide indexes, we should auto scroll only for these slides
             log('AS: down to ', curr_section+1)
             if (typeof options.auto_scroll != 'object' || options.auto_scroll.includes(curr_section)) {
@@ -160,18 +171,18 @@ function initArianePoints(section_selector = '.section', options = {}) {
                 scrolling = false;
             }
 
-        } else if (start < mem_scroll_pos && curr_section > 0) { // UP
+        } else if ((start < mem_scroll_pos || delta > 0) && curr_section > 0) { // UP
             // if options.auto_scroll is an array of slide indexes, we should auto scroll only for these slides
             log('AS: up to ', curr_section-1)
             if (typeof options.auto_scroll != 'object' || options.auto_scroll.includes(curr_section)) {
                 section = my_sections[curr_section-1];
             } else {
-                scrolling = false;
                 mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
+                scrolling = false;
             }
 
         } else {
-            //log('none', curr_section)
+            log('AS : nothing to do, curr_section=', curr_section)
             mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
             return scrolling = false;
         }
@@ -180,10 +191,14 @@ function initArianePoints(section_selector = '.section', options = {}) {
         if (!section) return log('null section', start, mem_scroll_pos, curr_section);
         log('AS: animating to ', section.top)
         jQuery(scroll_el).stop(true).animate( { scrollTop: section.top }, options.scroll_speed, 'swing', function() {
-            mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
-            scrolling = false;
-            log('AS: animating released');
-            get_curr_section(mem_scroll_pos)
+            //mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
+            //get_curr_section(mem_scroll_pos)
+            //setTimeout(_ => {
+                mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
+                log('%c AS: animating released, memory='+mem_scroll_pos, 'color: blue');
+                get_curr_section(mem_scroll_pos)
+                scrolling = false
+            //}, 200);
         });
     }
     //if (options.auto_scroll === true || options.auto_scroll.length) jQuery(options.scroll_container).scroll(auto_scroll_control);

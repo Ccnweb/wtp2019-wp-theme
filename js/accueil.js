@@ -249,7 +249,6 @@ $(document).ready(function(){
 
      // gère l'affichage des points de navigation verticaux (blancs sur fond noir et noirs sur fond blanc)
      function dotsBW(ind) {
-        console.log('ind', ind)
         $('#menu .burger').first().removeClass('black')
         if (ind == 0 || ind == 2) return $('ul.ariane_points').removeClass('black');
         if (ind == 1 || ind == 4) { // texte intro
