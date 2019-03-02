@@ -6,6 +6,7 @@ function init_menu_scroll(opt) {
         menu_item_selector: 'li',               // jquery selector for menu items
         focus_style:        'underline',        // the style of the element that shows in wich section we are
         scroll_container:   'html, body',       // the element in which we want to scroll
+        top_offset:         0,                  // an offset to apply when scrolling to element
     }
     opt = Object.assign(opt_default, opt);
 
@@ -16,7 +17,7 @@ function init_menu_scroll(opt) {
     let sections = [];
     $(opt.section_selector).each(function() {
         sections.push({
-            top: $(this).offset().top,
+            top: $(this).offset().top - opt.top_offset,
             height: $(this).height(),
         })
     })
@@ -39,8 +40,6 @@ function init_menu_scroll(opt) {
     }
 
     // set click event to scroll on specific section
-    let top_offset = 0;// $(opt.menu_selector).eq(0).height() + $(opt.menu_selector).eq(0).height();
-    console.log(top_offset, sections)
     $(opt.menu_selector + ' ' + opt.menu_item_selector).each(function(ind) {
         let curr_li = $(this);
         curr_li.click(function() {
@@ -56,7 +55,7 @@ function init_menu_scroll(opt) {
 
             // animate scrolling
             $(opt.scroll_container).animate({
-                scrollTop: (sections[ind].top - top_offset)+'px',
+                scrollTop: (sections[ind].top)+'px',
             }, 300, 'swing', _ => scrolling = false);
         })
     })

@@ -151,6 +151,8 @@ function wtp2019_scripts() {
 	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '20181213', true);
 	// burger menu
 	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), '20151215', true );
+	// menu scrolling for infos-pratiques and horaires menus
+	wp_enqueue_script( 'wtp2019-menu-scroll', get_template_directory_uri() . '/js/menu-scroll.js', array(), '001', true);
 
 	// specific scripts and styles
 	// --- accueil
@@ -162,7 +164,6 @@ function wtp2019_scripts() {
 	wp_register_style( 'wtp2019-programmation', get_template_directory_uri() . '/styles/programmation.css');
 	wp_register_style( 'wtp2019-programmation-desktop', get_template_directory_uri() . '/styles/programmation-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	// --- horaires
-	wp_register_script( 'wtp2019-menu-scroll', get_template_directory_uri() . '/js/menu-scroll.js', array(), '001', true);
 	wp_register_script( 'wtp2019-horaires-script', get_template_directory_uri() . '/js/horaires.js', array('jquery'), '20181213', true);
 	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css');
 	// --- infos-pratiques
@@ -174,9 +175,9 @@ add_action( 'wp_enqueue_scripts', 'wtp2019_scripts' );
 
 
 // admin scripts
-add_action( 'admin_enqueue_scripts', function() {
+/* add_action( 'admin_enqueue_scripts', function() {
 	wp_register_script( 'wtp2019-upload-image-metabox',  get_template_directory_uri() . '/custom post types/wtp-metabox-media/js/wtp_mediaupload_admin.js');
-});
+}); */
 
 /**
  * Implement the Custom Header feature.
@@ -261,7 +262,11 @@ function require_once_all_regex($dir_path, $regex = "") {
 endif;
 require_once_all_regex(get_template_directory() . '/custom post types/', "/^wtp/");
 
+// load shortcodes
 require_once_all_regex(get_template_directory() . '/shortcodes/', "");
+
+// load gutenberg blocks
+require_once_all_regex(get_template_directory() . '/blocks/', "");
 
 
 
