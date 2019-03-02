@@ -224,23 +224,6 @@ $(document).ready(function(){
     // ========================================
     //       INITIALIZE SLIDE SCROLL
     // ========================================
-    /* $(".main").onepage_scroll({
-        sectionContainer: "section",     // sectionContainer accepts any kind of selector in case you don't want to use section
-        easing: "ease",                  // Easing options accepts the CSS3 easing animation such "ease", "linear", "ease-in",
-                                         // "ease-out", "ease-in-out", or even cubic bezier value such as "cubic-bezier(0.175, 0.885, 0.420, 1.310)"
-        animationTime: 600,             // AnimationTime let you define how long each section takes to animate
-        pagination: true,                // You can either show or hide the pagination. Toggle true for show, false for hide.
-        updateURL: false,                // Toggle this true if you want the URL to be updated automatically when the user scroll to each page.
-        beforeMove: dotsBW,             // This option accepts a callback function. The function will be called before the page moves.
-        afterMove: function(index) {},   // This option accepts a callback function. The function will be called after the page moves.
-        loop: false,                     // You can have the page loop back to the top/bottom when the user navigates at up/down on the first/last page.
-        keyboard: true,                  // You can activate the keyboard controls
-        responsiveFallback: false,        // You can fallback to normal page scroll by defining the width of the browser in which
-                                         // you want the responsive fallback to be triggered. For example, set this to 600 and whenever
-                                         // the browser's width is less than 600, the fallback will kick in.
-        direction: "vertical"            // You can now define the direction of the One Page Scroll animation. Options available are "vertical" and "horizontal". The default value is "vertical".  
-     }); */
-
     initArianePoints('.section', {
         scroll_container: 'window',
         on_section_change: dotsBW,
@@ -256,6 +239,9 @@ $(document).ready(function(){
         }
         if (ind != 5) $('.ariane_points').addClass('black');
         if (ind == 5) $('.ariane_points').removeClass('black');
+
+        // animations typewriter
+        if (ind == 1) typewriter_lefestival()
      }
 
     // SLIDE 1 : animation du logo next step
@@ -271,14 +257,21 @@ $(document).ready(function(){
     // SLIDE TEMOIGNAGES ANIMATION
     temoignages_animate()
 
-    // bouton inscription en bas à droite sur toutes les pages
-    //$('#inscription').click(inscription)
-    $('#inscription').focusout(function() {
-        console.log('inscription button back to normal state')
-        inscription_state = 0;
-        /* $(this).css({width: '44px'}) */
-        $(this).removeClass('txt-black')
-    })
+    // typewriter effect
+    let lefestival_animated = false;
+    let lefestival_el = $('.section:nth-child(2) .subtitle').eq(0);
+    let lefestival_texte = lefestival_el.text(); lefestival_el.text('');
+    $('.section:nth-child(2) button').css({opacity: 0});
+    console.log('lefestival', lefestival_texte)
+    function typewriter_lefestival() {
+        console.log('lefestival')
+        if (lefestival_animated) return;
+        lefestival_animated = true;
+        Typewriter(lefestival_el, {
+            _text: lefestival_texte,
+            complete: _ => $('.section:nth-child(2) button').animate({opacity: 1}, 500)
+        })
+    }
 
 });
 

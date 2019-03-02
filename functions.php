@@ -163,18 +163,18 @@ function wtp2019_scripts() {
 
 	// specific scripts and styles
 	// --- accueil
-	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '001', true);
-	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), '20181228', 'all');
-	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '001', 'all and (min-width: 600px)');
+	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '002', true);
+	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), '001', 'all');
+	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '002', 'all and (min-width: 600px)');
 	// --- programmation
 	wp_register_script( 'wtp2019-programmation', get_template_directory_uri() . '/js/programmation.js', array(), '20181213', true);
 	wp_register_style( 'wtp2019-programmation', get_template_directory_uri() . '/styles/programmation.css');
 	wp_register_style( 'wtp2019-programmation-desktop', get_template_directory_uri() . '/styles/programmation-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	// --- horaires
-	wp_register_script( 'wtp2019-horaires-script', get_template_directory_uri() . '/js/horaires.js', array('jquery'), '20181213', true);
-	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css', [], '001', 'all');
+	wp_register_script( 'wtp2019-horaires-script', get_template_directory_uri() . '/js/horaires.js', array('jquery'), '001', true);
+	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css', [], '002', 'all');
 	// --- infos-pratiques
-	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css', [], '001', 'all');
+	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css', [], '002', 'all');
 	wp_register_style( 'wtp2019-infos-pratiques-desktop', get_template_directory_uri() . '/styles/infos-pratiques-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	wp_register_script( 'wtp2019-infos-pratiques-script', get_template_directory_uri() . '/js/infos-pratiques.js', array('jquery'));
 }

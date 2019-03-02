@@ -49,7 +49,7 @@ wp_enqueue_script('wtp2019-horaires-script');
     </div>
     <?php endwhile;?>
 
-    <h1 id="titrepage" class="titre_page" style="position: absolute;top: 21px;right: 3px;">À LA CARTE<br><span class="txt-black"><?php the_title(); ?></span></h1>
+    <h1 id="titrepage" class="titre_page">À LA CARTE<br><span class="txt-black"><?php the_title(); ?></span></h1>
 
     <div class="slide slide-journee-type bg-arrows">
         <div class="text-content">

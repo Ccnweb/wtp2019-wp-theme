@@ -43,8 +43,8 @@
     flex-direction: column;
 }
 
-.ligne1, .ligne2 {font-size: 1rem}
-.detail {font-size: 0.8rem;}
+.carre .ligne1, .carre .ligne2 {font-size: 1rem}
+.carre .detail {font-size: 0.55rem;}
 
 /* ====================================== */
 /*             TEMOIGNAGES                */

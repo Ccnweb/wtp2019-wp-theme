@@ -24,8 +24,9 @@
 <body <?php body_class(); ?>>
 
 <header>
-	<img src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_gold.png"/>
-	<a href="<?php echo get_home_url() ?>"><img src="<?php echo get_template_directory_uri() ?>/img/logo_next_step.png" style="margin-right: calc(50vw - 31px);"/></a>
+	<a href="<?php echo get_home_url() ?>"><img src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_gold.png"/></a>
+	<a class="hide-xs" href="<?php echo get_home_url() ?>"><img src="<?php echo get_template_directory_uri() ?>/img/logo_next_step.png"/></a>
+	<p>&nbsp;</p>
 </header>
 <nav id="menu"><div class="burger black"><span></span><span></span><span></span></div></nav>
 

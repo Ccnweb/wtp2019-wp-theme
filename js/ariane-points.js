@@ -15,7 +15,7 @@ function initArianePoints(section_selector = '.section', options = {}) {
      * 5. We add a function to manage auto scroll if enabled
      */
 
-    let DEBUG = true;
+    let DEBUG = false;
     function log(...args) {if (DEBUG) console.log(...args)}
 
     let default_options = {
@@ -202,57 +202,4 @@ function initArianePoints(section_selector = '.section', options = {}) {
         });
     }
     //if (options.auto_scroll === true || options.auto_scroll.length) jQuery(options.scroll_container).scroll(auto_scroll_control);
-}
-
-
-/* function ariane_auto_scroll(my_sections, options) {
-
-    let curr_section = get_curr_section(my_sections, jQuery(options.scroll_container).scrollTop());
-    let scroll_el = (typeof options.scroll_container == 'string') ? options.scroll_container : 'html, body';
-    
-    let scrolling = false; // the lock to acquire in order to scroll
-    let mem_scroll_pos = jQuery(options.scroll_container).scrollTop(); // memory of the last scroll position
-
-    // == 1 == Set the onscroll event handler
-    jQuery(options.scroll_container).scroll(function(e) {
-        if (scrolling) return;
-        scrolling = true;
-        e.preventDefault();
-        let start = $(this).scrollTop();
-        curr_section = get_curr_section(my_sections, jQuery(options.scroll_container).scrollTop());
-        console.log(curr_section, start, mem_scroll_pos)
-
-        if ((start > mem_scroll_pos+5 || start > my_sections[curr_section].top+5) && curr_section < my_sections.length-1) { // DOWN
-            console.log('down')
-            curr_section++;
-        } else if ((start < mem_scroll_pos-5 || start < my_sections[curr_section].top-5) && curr_section > 0) { // UP
-            console.log('up')
-            curr_section--;
-        } else return scrolling = false;
-
-        jQuery(scroll_el).stop(true).animate( { scrollTop: my_sections[curr_section].top }, options.scroll_speed, 'swing', function() {
-            console.log()
-            mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
-            scrolling = false;
-        });
-
-        mem_scroll_pos = $(this).scrollTop();
-    })
-} */
-
-function get_section(sections, start) {
-    /**
-     * Retrieves the section index of the current section
-     */
-
-    let j = 0
-    for (let section of sections) {
-        if (section.top < start+10 && start < section.top + section.height*0.5) {
-            return j
-        } else if (start < section.top + section.height + 10 && start > section.top + section.height*0.5) {
-            return j+1
-        }
-        j++
-    }
-    return -1;
 }

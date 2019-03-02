@@ -45,7 +45,7 @@ jQuery(document).ready(function($) {
     let animation_done = false;
     jQuery(window).scroll(function() {
         if (animation_done) return;
-        if (top_offset - $(this).scrollTop() < 450) {
+        if (top_offset - $(this).scrollTop() < 550) {
             animation_done = true;
             Typewriter($('h4.subtitle').eq(0), {
                 _text: texte,
@@ -55,24 +55,6 @@ jQuery(document).ready(function($) {
     })
 
 })
-
-function Typewriter(el, opt = {}) {
-    if (!opt._i) opt._i = 1;
-    if (!opt._text) {
-        opt._text = el.text();
-        el.text('');
-    } else if (opt._text.length <= opt._i-1) {
-        el.html(opt._text);
-        if (opt.complete && typeof opt.complete == 'function') opt.complete();
-        return;
-    }
-
-    setTimeout(_ => {
-        el.html(opt._text.substring(0, opt._i) + '<span style="margin-left:2px;font-weight:bold">|</span>');
-        opt._i++;
-        Typewriter(el, opt)
-    }, 30 + Math.random()*40);
-}
 
 
 function init_squares_arrows() {

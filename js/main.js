@@ -22,16 +22,45 @@ jQuery(document).ready(function($) {
     $('#inscription').css({bottom: '50px'})
     setTimeout(_ => $('#inscription').css({bottom: '16px'}), 200)
 
-    jQuery('html, body').scroll(function() {
-        $('#inscription').css({bottom: '30px'})
+    function onscroll() {
+        $('#inscription').css({bottom: '32px'})
         setTimeout(_ => $('#inscription').css({bottom: '16px'}), 200)
-        /* TweenMax.to("#inscription", 0.1, {
-            y:-50, 
-            ease:Bounce.easeOut, 
-            yoyoEase:Power0.easeOut,  
-            repeat:1, 
-            repeatDelay:0,
-            onComplete: _ => animating_inscription_button = false,
-        }); */
-    })
+    }
+    //jQuery(window).scroll(onscroll)
+    onMouseWheel(onscroll)
 })
+
+
+function Typewriter(el, opt = {}) {
+    /**
+     * Creates an animation effect on jQuery element el, as if someone was typing the text
+     * 
+     */
+
+    if (!opt._i) opt._i = 1;
+    if (!opt._text) {
+        opt._text = el.text();
+        el.text('');
+    } else if (opt._text.length <= opt._i-1) {
+        el.html(opt._text);
+        if (opt.complete && typeof opt.complete == 'function') opt.complete();
+        return;
+    }
+
+    setTimeout(_ => {
+        el.html(opt._text.substring(0, opt._i) + '<span style="margin-left:3px;font-weight:bold">|</span>');
+        opt._i++;
+        Typewriter(el, opt)
+    }, 30 + Math.random()*40);
+}
+
+function onMouseWheel(cbk) {
+    /**
+     * Calls a function when mousewheel
+     */
+
+    // IE9, Chrome, Safari, Opera
+    window.addEventListener("mousewheel", cbk, false);
+    // Firefox
+    window.addEventListener("DOMMouseScroll", cbk, false);
+}

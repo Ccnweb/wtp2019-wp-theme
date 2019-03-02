@@ -3,7 +3,7 @@
 * Author: Communauté du Chemin Neuf
 * Author URI: http://underscores.me/
 * Description: Description
-* Version: 0.2.0
+* Version: 0.2.1
 * License: GNU General Public License v3
 * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 * GitHub Theme URI: https://github.com/Ccnweb/bethechurch-wp-theme
@@ -96,7 +96,6 @@ html, body {
     letter-spacing: 3px;
     font-family: 'Josefin Sans', 'Helvetica Neue', 'Open Sans', 'Calibri', 'Trebuchet MS', 'sans-serif';
     font-size: 14px;
-    overflow-x: hidden;
 }
 
 .wtp-font::before {font-family: 'WTP2019'}
@@ -141,6 +140,11 @@ a.button:hover, button:hover {
 .txt-black {color: black}
 .txt-white {color: white}
 
+.hide-xs {display: none;}
+@media screen and (min-width: 640px) {
+    .hide-xs {display: block;}
+}
+
 .flexcc {
     display: flex;
     justify-content: center;
@@ -184,8 +188,9 @@ h1.titre_page {
     margin-right: 2.5rem;
     margin-bottom: 2rem;
     z-index: 1500;
-    position: sticky;
+    position: fixed;
     top: 20px;
+    right: 0;
 }
 
 .subtitle {
@@ -286,37 +291,6 @@ h1.titre_page {
     transition: all 0.3s ease-out 0.21s;
 }
 
-
-/* #inscription.square i {
-    position: relative;
-    top: -25px;
-}
-#inscription.square::before {
-    content: '';
-    display: inline-block;
-    position: relative;
-    width: 30px;
-    height: 30px;
-    top: -13px;
-    left: -18px;
-    border-top: 3px solid hsla(35, 65%, 55%, 1);
-    border-left: 3px solid hsla(35, 65%, 55%, 1);
-} */
-
-/* #inscription.openwidth {
-    transition: all 0.5s ease-in;
-    background: black;
-    border: 3px solid hsla(35, 65%, 43%, 1);
-    width: 100vw;
-}
-#inscription.openheight {
-    transition: all 0.5s ease-in;
-    height: 200px;
-}
-#inscription.openwidth::before, #inscription.openwidth i {
-    display: none;
-} */
-
 /* ====================================== */
 /*                SLIDES                  */
 /* ====================================== */
@@ -342,12 +316,12 @@ h1.titre_page {
 
 .slide_intro {
     height: 90vh;
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 10vh;
+    /* margin-top: 10vh; */
 }
 
 .slide_intro.fullpage {
@@ -360,7 +334,7 @@ h1.titre_page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 100%;
 }
 
 .slide_intro .titre {
