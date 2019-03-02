@@ -1,23 +1,4 @@
 <?php    
-    
-    /* <div id="part_transport" class="info_part">
-        <div class="info_part_img" style="background:url('<?php echo get_template_directory_uri(); ?>/img/info_transport.jpg');background-size:cover;background-position: center;">
-            TRANSPORT
-        </div>
-
-        <div class="info_part_content">
-            <?php get_posts_of_type('transport'); while (have_posts()) : the_post(); ?>
-            <div class="element">
-                <img src="<?php echo get_the_post_thumbnail_url() ?>" alt="">
-                <h3 class="soustitre"><?php the_title(); ?></h3>
-                <?php the_content(); ?>
-            </div>
-            <?php endwhile;?>
-        </div>
-        
-    </div> */
-
-
 include_once(get_template_directory() . '/lib/CcnHtmlObj.php');
 
 function ccnwtp_shortcode_infos_pratiques() {

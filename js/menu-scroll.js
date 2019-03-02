@@ -26,18 +26,26 @@ function init_menu_scroll(opt) {
     }
     sections[sections.length-1].height = $(document).height() - sections[sections.length-1].top;
 
-    // add underline bar if it doesn't exist
+    // add ul/li elements if they don't exist
+    if (opt.focus_style == 'underline' && $(opt.menu_selector + ' ul').length == 0) {
+        let menu = $('<ul></ul>');
+        $(opt.section_selector).each(function() {
+            let titre = ($(this).attr('data-title')) ? $(this).attr('data-title') : $(this).text();
+            menu.append(`<li>${titre}</li>`)
+        })
+        $(opt.menu_selector).append(menu)
+    }
     if (opt.focus_style == 'underline' && $(opt.menu_selector + ' .underline_bar').length == 0) {
         $(opt.menu_selector).append(`<div class="underline_bar">
             <div class="mobile_bar"></div>
         </div>`)
-        // we underline the first element
-        let li = $(opt.menu_selector + ' ' + opt.menu_item_selector);
-        $('.mobile_bar').animate({
-            left: li.position().left+'px',
-            width: li.width()+'px'
-        }, 300);
     }
+    // we underline the first element
+    let li = $(opt.menu_selector + ' ' + opt.menu_item_selector);
+    $('.mobile_bar').animate({
+        left: li.eq(0).position().left+'px',
+        width: li.eq(0).width()+'px'
+    }, 300);
 
     // set click event to scroll on specific section
     $(opt.menu_selector + ' ' + opt.menu_item_selector).each(function(ind) {

@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
     init_menu_scroll({
         section_selector: '#content .bg-title',
         menu_selector: '.types_infos_container',
-        top_offset: $('.types_infos').height() + $('header').height(),
+        top_offset: $('.types_infos_container ul').height() + $('header').height(),
         //scroll_container: 'body',
     })
 

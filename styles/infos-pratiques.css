@@ -23,10 +23,9 @@ body {
     top: 10vh;
 }
 
-ul.types_infos {
+.types_infos_container ul {
     list-style: none;
     display: flex;
-    font-size: 0.7rem;
     padding: 10px 0;
     justify-content: space-around;
     width: 100%;
