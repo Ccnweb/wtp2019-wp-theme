@@ -1,18 +1,21 @@
 jQuery(document).ready(function($) {
 
-    // initialise menu items
-    let items = [];
-    $('#content h2').each(function() {items.push($(this).text())})
-    $('.semaine').append('<li>' + items.join('</li><li>') + '</li>')
-    // if we have too many items, we shorten the name
-    if ($(window).width() < 640 && $('.semaine li').length > 4) $('.semmaine li').each(function() {$(this).text($(this).text().substring(0, 3))})
-
+    // initialize navigation ariane points
+    /* initArianePoints('.slide', {
+        scroll_container: 'window',
+        auto_scroll: [0,1],
+    })
+    $('ul.ariane_points').addClass('black'); */
+    
     // initialize menu scrolling
     init_menu_scroll({
         section_selector: '#content h2',
         menu_selector: '.semaine_container',
-        scroll_container: 'body',
+        scroll_container: 'window',
+        top_offset: $('header').height(),
     })
+    // on mobile, if we have too many items, we shorten the name
+    if ($(window).width() < 640 && $('.semaine_container li').length > 4) $('.semaine_container li').each(function() {$(this).text($(this).text().substring(0, 3))})
     
     // transform <p> tags that begin with a time in a nice way
     $('p').each(function() {
@@ -27,9 +30,49 @@ jQuery(document).ready(function($) {
         }
     })
 
+    // on desktop, we show arrows in the square list
     if ($(window).width() > 640) init_squares_arrows();
 
+
+    // ==================================
+    // journee type animation
+    // ==================================
+    let top_offset = $('ul.horaires').eq(0).offset().top;
+    let texte = $('h4.subtitle').eq(0).text();
+    $('h4.subtitle').eq(0).text('');
+    $('ul.horaires').eq(0).css({opacity: 0});
+
+    let animation_done = false;
+    jQuery(window).scroll(function() {
+        if (animation_done) return;
+        if (top_offset - $(this).scrollTop() < 450) {
+            animation_done = true;
+            Typewriter($('h4.subtitle').eq(0), {
+                _text: texte,
+                complete: _ => $('ul.horaires').eq(0).animate({opacity: 1}, 300)
+            })
+        }
+    })
+
 })
+
+function Typewriter(el, opt = {}) {
+    if (!opt._i) opt._i = 1;
+    if (!opt._text) {
+        opt._text = el.text();
+        el.text('');
+    } else if (opt._text.length <= opt._i-1) {
+        el.html(opt._text);
+        if (opt.complete && typeof opt.complete == 'function') opt.complete();
+        return;
+    }
+
+    setTimeout(_ => {
+        el.html(opt._text.substring(0, opt._i) + '<span style="margin-left:2px;font-weight:bold">|</span>');
+        opt._i++;
+        Typewriter(el, opt)
+    }, 30 + Math.random()*40);
+}
 
 
 function init_squares_arrows() {

@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
         section_selector: '#content .bg-title',
         menu_selector: '.types_infos_container',
         top_offset: $('.types_infos_container ul').height() + $('header').height(),
-        //scroll_container: 'body',
+        scroll_container: 'window',
     })
 
 })

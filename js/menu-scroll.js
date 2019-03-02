@@ -9,6 +9,8 @@ function init_menu_scroll(opt) {
         top_offset:         0,                  // an offset to apply when scrolling to element
     }
     opt = Object.assign(opt_default, opt);
+    if (opt.scroll_container == 'window') opt.scroll_container = window;
+    let scroll_el = (typeof opt.scroll_container == 'string') ? opt.scroll_container : 'html, body';
 
     let $ = jQuery;
     let scrolling = false;
@@ -62,7 +64,7 @@ function init_menu_scroll(opt) {
             }
 
             // animate scrolling
-            $(opt.scroll_container).animate({
+            $(scroll_el).animate({
                 scrollTop: (sections[ind].top)+'px',
             }, 300, 'swing', _ => scrolling = false);
         })

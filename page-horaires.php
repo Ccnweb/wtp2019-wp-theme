@@ -17,6 +17,7 @@ wp_enqueue_script('wtp2019-horaires-script');
     <?php while (have_posts()) : the_post(); 
 
     // on récupère le contenu HTML de la page
+    // TODO : trop moche, faire autrement
     $html = new DOMDocument();
     libxml_use_internal_errors(true);
     $fileContent = mb_convert_encoding(get_the_content(), 'HTML-ENTITIES', 'UTF-8');
@@ -39,7 +40,7 @@ wp_enqueue_script('wtp2019-horaires-script');
     ?>  
 
 
-    <div class="slide_intro" data-img-desktop="<?php echo $img_src_desktop; ?>" style="background:url('<?php echo $img_src; ?>');background-size:cover;background-position:center">
+    <div class="slide slide_intro" data-img-desktop="<?php echo $img_src_desktop; ?>" style="background:url('<?php echo $img_src; ?>');background-size:cover;background-position:center">
         <div class="info">
             <div class="titre"><?php echo $ligne2; ?><br><span class="txt-white"><?php the_title(); ?></span></div>
             <div class="soustitre"><?php echo $soustitre; ?></div>
@@ -50,7 +51,7 @@ wp_enqueue_script('wtp2019-horaires-script');
 
     <h1 id="titrepage" class="titre_page" style="position: absolute;top: 21px;right: 3px;">À LA CARTE<br><span class="txt-black"><?php the_title(); ?></span></h1>
 
-    <div class="slide bg-arrows">
+    <div class="slide slide-journee-type bg-arrows">
         <div class="text-content">
             <h4 class="subtitle">journée type</h4>
             <ul class="horaires">
@@ -67,20 +68,7 @@ wp_enqueue_script('wtp2019-horaires-script');
     </div>
 
     <div class="slide">
-        <div class="semaine_container">
-            <ul class="semaine">
-                <!-- <li>dim</li> -->
-                <!-- <li>lun</li>
-                <li>mar</li>
-                <li>mer</li>
-                <li>jeu</li>
-                <li>ven</li>
-                <li>sam</li> -->
-            </ul>
-            <!-- <div class="underline_bar">
-                <div class="mobile_bar"></div>
-            </div> -->
-        </div>
+        <div class="semaine_container"></div>
 
         <?php
         $query_args = array(

@@ -50,7 +50,8 @@ header {
 
 .card.bestof {
     height: 215px;
-    width: 146px;
+    width: 158px;
+    min-width: 158px;
 }
 
 .card.focus {

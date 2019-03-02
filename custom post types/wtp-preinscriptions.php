@@ -151,7 +151,7 @@ function build_samuel_endpoint_url_preinscr($v = '') {
 
 add_action('admin_menu', 'wtp_register_my_custom_submenu_page');
 function wtp_register_my_custom_submenu_page() {
-    add_submenu_page( 'edit.php?post_type=inscription', 'Config Samuel', 'Config Samuel', 'inscription_options', 'config-samuel-reinscription', 'wtp_custom_submenu_page_callback' ); 
+    add_submenu_page( 'edit.php?post_type=inscription', 'Config Samuel', 'Config Samuel', 'inscription_options', 'config-samuel-preinscription', 'wtp_custom_submenu_page_callback' ); 
     
     add_settings_section( 'section_samuel', 'Options Samuel', function() {
         //echo "<h3>(Options Samuel) Section Lode a te Gesù !</h3>";

@@ -130,7 +130,7 @@ add_action( 'widgets_init', 'wtp2019_widgets_init' );
 function wtp2019_scripts() {
 	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');
-	wp_enqueue_style( 'wtp2019-style-onepage', get_template_directory_uri() . '/styles/onepage-scroll.css');
+	/* wp_enqueue_style( 'wtp2019-style-onepage', get_template_directory_uri() . '/styles/onepage-scroll.css'); */
 	wp_enqueue_style( 'wtp2019-style-helpers', get_template_directory_uri() . '/styles/helpers.css');
 	wp_enqueue_style( 'wtp2019-style-tiles', get_template_directory_uri() . '/styles/tiles.css');
 	wp_enqueue_style( 'wtp2019-style-header', get_template_directory_uri() . '/styles/header.css');
@@ -145,10 +145,17 @@ function wtp2019_scripts() {
 	}
 
 	wp_enqueue_script('jquery');
-	//wp_enqueue_script( 'wtp2019-jquery', "https://code.jquery.com/jquery-3.3.1.min.js", array(), '20181213', true);
-	//wp_enqueue_script( 'wtp2019-jquery', 'http://code.jquery.com/jquery-migrate-3.0.1.js', array(), '20181213', true);
-	wp_enqueue_script( 'wtp2019-onepage-scroll', get_template_directory_uri() . '/js/jquery.onepage-scroll.min.js', array('jquery'), '20181213', true);
+	
+	// TESTS
+	/* wp_enqueue_script('wtp2019-gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js', [], '2.1.1', true); */
+	
+	// NAVIGATION POINTS AND SCROLL
+	wp_enqueue_script('wtp2019-ariane-points-script', get_template_directory_uri() . '/js/ariane-points.js', ['jquery'], '001', true);
+	/* wp_enqueue_script( 'wtp2019-onepage-scroll', get_template_directory_uri() . '/js/jquery.onepage-scroll.min.js', array('jquery'), '20181213', true); */
+	
+	// MAIN WTP SCRIPT
 	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '20181213', true);
+	
 	// burger menu
 	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), '20151215', true );
 	// menu scrolling for infos-pratiques and horaires menus
@@ -156,18 +163,18 @@ function wtp2019_scripts() {
 
 	// specific scripts and styles
 	// --- accueil
-	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '20181213', true);
+	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '001', true);
 	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), '20181228', 'all');
-	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
+	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '001', 'all and (min-width: 600px)');
 	// --- programmation
 	wp_register_script( 'wtp2019-programmation', get_template_directory_uri() . '/js/programmation.js', array(), '20181213', true);
 	wp_register_style( 'wtp2019-programmation', get_template_directory_uri() . '/styles/programmation.css');
 	wp_register_style( 'wtp2019-programmation-desktop', get_template_directory_uri() . '/styles/programmation-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	// --- horaires
 	wp_register_script( 'wtp2019-horaires-script', get_template_directory_uri() . '/js/horaires.js', array('jquery'), '20181213', true);
-	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css');
+	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css', [], '001', 'all');
 	// --- infos-pratiques
-	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css');
+	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css', [], '001', 'all');
 	wp_register_style( 'wtp2019-infos-pratiques-desktop', get_template_directory_uri() . '/styles/infos-pratiques-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	wp_register_script( 'wtp2019-infos-pratiques-script', get_template_directory_uri() . '/js/infos-pratiques.js', array('jquery'));
 }

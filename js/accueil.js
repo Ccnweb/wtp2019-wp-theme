@@ -224,7 +224,7 @@ $(document).ready(function(){
     // ========================================
     //       INITIALIZE SLIDE SCROLL
     // ========================================
-    $(".main").onepage_scroll({
+    /* $(".main").onepage_scroll({
         sectionContainer: "section",     // sectionContainer accepts any kind of selector in case you don't want to use section
         easing: "ease",                  // Easing options accepts the CSS3 easing animation such "ease", "linear", "ease-in",
                                          // "ease-out", "ease-in-out", or even cubic bezier value such as "cubic-bezier(0.175, 0.885, 0.420, 1.310)"
@@ -239,17 +239,24 @@ $(document).ready(function(){
                                          // you want the responsive fallback to be triggered. For example, set this to 600 and whenever
                                          // the browser's width is less than 600, the fallback will kick in.
         direction: "vertical"            // You can now define the direction of the One Page Scroll animation. Options available are "vertical" and "horizontal". The default value is "vertical".  
-     });
+     }); */
+
+    initArianePoints('.section', {
+        scroll_container: 'window',
+        on_section_change: dotsBW,
+        auto_scroll: true,
+    })
 
      // gère l'affichage des points de navigation verticaux (blancs sur fond noir et noirs sur fond blanc)
      function dotsBW(ind) {
+        console.log('ind', ind)
         $('#menu .burger').first().removeClass('black')
-        if (ind == 1) return $('.onepage-pagination').removeClass('onwhite');
-        if (ind == 2 || ind == 5) { // texte intro
+        if (ind == 0 || ind == 2) return $('ul.ariane_points').removeClass('black');
+        if (ind == 1 || ind == 4) { // texte intro
             $('#menu .burger').first().addClass('black')
         }
-        if (ind != 6) $('.onepage-pagination').addClass('onwhite');
-        if (ind == 6) $('.onepage-pagination').removeClass('onwhite');
+        if (ind != 5) $('.ariane_points').addClass('black');
+        if (ind == 5) $('.ariane_points').removeClass('black');
      }
 
     // SLIDE 1 : animation du logo next step
@@ -270,7 +277,7 @@ $(document).ready(function(){
     $('#inscription').focusout(function() {
         console.log('inscription button back to normal state')
         inscription_state = 0;
-        $(this).css({width: '44px'})
+        /* $(this).css({width: '44px'}) */
         $(this).removeClass('txt-black')
     })
 

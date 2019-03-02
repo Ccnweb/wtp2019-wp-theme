@@ -1,3 +1,7 @@
+#menu {
+    position: fixed;
+}
+
 #logo_htc {
     display: none;
 }
@@ -98,3 +102,11 @@ video {
 .carre.black .detail {color: white;}
 .carre.white .detail {color: black;}
 .carre.gold .detail {color: white;}
+
+/* =========================================== */
+/*                TEMOIGNAGES                  */
+/* =========================================== */
+
+#temoignages {
+    height: 100vh;
+}

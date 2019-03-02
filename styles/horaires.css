@@ -1,6 +1,6 @@
-body {
+/* body {
     overflow-y: scroll; overflow-x:hidden;
-}
+} */
 
 .slide {
     min-height: 100vh;
@@ -47,7 +47,7 @@ ul.horaires {
     z-index: 300;
 }
 
-ul.semaine {
+.semaine_container ul {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
@@ -100,20 +100,6 @@ h2 {
 	-webkit-overflow-scrolling: touch;
 }
 
-@media screen and (min-width: 640px) {
-    .carres_list {
-        overflow-x: hidden;
-    }
-
-    .arrow {
-        display: block;
-    }
-
-    .info {
-        padding-bottom: 5rem;
-    }
-}
-
 .arrow {
     display: none;
     font-size: 4rem;
@@ -122,6 +108,8 @@ h2 {
     top: 0;
     cursor: pointer;
 }
+
+
 
 .arrow_left {
     left: 0;
@@ -141,4 +129,22 @@ h2 {
 
 .carre > div {
     width: 8rem;
+}
+
+@media screen and (min-width: 640px) {
+    h4.subtitle {
+        margin-left: 30vw;
+    }
+
+    .carres_list {
+        overflow-x: hidden;
+    }
+
+    .arrow {
+        display: block;
+    }
+
+    .info {
+        padding-bottom: 5rem;
+    }
 }
