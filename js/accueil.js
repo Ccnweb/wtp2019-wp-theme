@@ -199,7 +199,7 @@ function setupModals() {
     $('.modal').append(close_btn)
 
     $('*[data-modal-target]').click(function() {
-        console.log('click button modal')
+        console.log('click button modal', $('#' + $(this).attr('data-modal-target')).length)
         $('#' + $(this).attr('data-modal-target')).show(200);
     })
 }
@@ -220,6 +220,22 @@ $(document).ready(function(){
     flash_words_load();
     temoignages_load_data().then(_ => console.log('temoignages loaded ! Grazie Signore !', temoignages_data)).catch(e => console.log('ERROR loading témoignages', e));
     setupModals();
+
+    // typewriter effect
+    let lefestival_animated = false;
+    let lefestival_el = $('.section:nth-child(2) .subtitle').eq(0);
+    let lefestival_texte = lefestival_el.text(); lefestival_el.text('');
+    $('.section:nth-child(2) button').css({opacity: 0});
+    console.log('lefestival', lefestival_texte)
+    function typewriter_lefestival() {
+        console.log('lefestival')
+        if (lefestival_animated) return;
+        lefestival_animated = true;
+        Typewriter(lefestival_el, {
+            _text: lefestival_texte,
+            complete: _ => $('.section:nth-child(2) button').animate({opacity: 1}, 500)
+        })
+    }
 
     // ========================================
     //       INITIALIZE SLIDE SCROLL
@@ -256,22 +272,6 @@ $(document).ready(function(){
 
     // SLIDE TEMOIGNAGES ANIMATION
     temoignages_animate()
-
-    // typewriter effect
-    let lefestival_animated = false;
-    let lefestival_el = $('.section:nth-child(2) .subtitle').eq(0);
-    let lefestival_texte = lefestival_el.text(); lefestival_el.text('');
-    $('.section:nth-child(2) button').css({opacity: 0});
-    console.log('lefestival', lefestival_texte)
-    function typewriter_lefestival() {
-        console.log('lefestival')
-        if (lefestival_animated) return;
-        lefestival_animated = true;
-        Typewriter(lefestival_el, {
-            _text: lefestival_texte,
-            complete: _ => $('.section:nth-child(2) button').animate({opacity: 1}, 500)
-        })
-    }
 
 });
 

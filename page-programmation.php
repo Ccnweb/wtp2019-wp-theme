@@ -59,8 +59,10 @@ $propositions = array(
 	$xpath = new DOMXpath($html);
 
 	// on récupère l'url de l'image
-	$result = $xpath->query('//img/@src');
-	$img_src = $result->item(0)->nodeValue;
+	//$result = $xpath->query('//img/@src');
+	//$img_src = $result->item(0)->nodeValue;
+	$img_src = kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' );
+    $img_src_desktop = kdmfi_get_featured_image_src( 'featured-image-desktop', 'full' );
 
 	// on récupère l'ADJECTIF (h2)
 	$result = $xpath->query("//h2");
@@ -72,7 +74,7 @@ $propositions = array(
 	?>  
 
 	<!-- add class "fullpage" to have bg img occupy all the page -->
-	<div class="slide_intro fullpage" style="background:url('<?php echo $img_src; ?>');background-size:cover;background-position:center;">
+	<div class="slide_intro fullpage" data-img-desktop="<?php echo $img_src_desktop; ?>" data-img-mobile="'<?php echo $img_src; ?>">
 		<div class="info">
 			<div class="titre"><?php echo $ligne2; ?><br><span class="txt-white"><?php the_title(); ?></span></div>
 			<div class="soustitre"><?php echo $soustitre; ?></div>

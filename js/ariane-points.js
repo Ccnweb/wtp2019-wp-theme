@@ -97,9 +97,14 @@ function initArianePoints(section_selector = '.section', options = {}) {
     // == 3. == on (re)-initialise popperjs pour les tooltips
     if (jQuery('[data-toggle="tooltip"]').tooltip) jQuery('[data-toggle="tooltip"]').tooltip()
 
+    // we call the on_change function
+    let curr_section = 0;
+    let init_start = jQuery(options.scroll_container).scrollTop();
+    get_curr_section(init_start)
+    options.on_section_change(curr_section)
+
 
     // == 4. == on contrôle le défilement pour changer le status des points au bon moment
-    let curr_section = 0;
 
     function get_curr_section(start) {
         let j = 0
@@ -123,38 +128,30 @@ function initArianePoints(section_selector = '.section', options = {}) {
         }
     }
 
-    function onscroll(e) {
+    function onscroll(delta) {
         if (scrolling) return;
         scrolling = true;
-
-        var e = window.event || e; // old IE support
 
         let start = jQuery(options.scroll_container).scrollTop();
         log('onscroll ongoing... start=', start, "currsection="+curr_section, my_sections)
         
         get_curr_section(start)
 
-        if (options.auto_scroll === true || options.auto_scroll.length) auto_scroll_control(e);
+        if (options.auto_scroll === true || options.auto_scroll.length) auto_scroll_control(delta);
         else {
             scrolling = false;
             log('onscroll released')
         }
     }
-    //jQuery(options.scroll_container).scroll(onscroll);
-    // IE9, Chrome, Safari, Opera
-    window.addEventListener("mousewheel", onscroll, false);
-    // Firefox
-    window.addEventListener("DOMMouseScroll", onscroll, false);
+    add_scroll_listener(onscroll)
 
     // == 5. == we control here the auto scroll
     if (options.auto_scroll === true) jQuery(scroll_el).css('overflow-y', 'hidden');
 
-    function auto_scroll_control(e) {
+    function auto_scroll_control(delta) {
         // we set a lock while we are guiding the scroll
         //if (scrolling) return;
         scrolling = true;
-
-        let delta = (e) ? Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) : 0; 
         
         // we detect scrolling direction up or down
         let start = jQuery(options.scroll_container).scrollTop();
@@ -202,4 +199,30 @@ function initArianePoints(section_selector = '.section', options = {}) {
         });
     }
     //if (options.auto_scroll === true || options.auto_scroll.length) jQuery(options.scroll_container).scroll(auto_scroll_control);
+}
+
+function add_scroll_listener(cbk) {
+    function new_cbk(e) {
+        var e = window.event || e; // old IE support
+        e.preventDefault();
+        let delta = (e && (e.wheelDelta || e.detail)) ? Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) : 0;
+        cbk(delta)
+    }
+    //jQuery(options.scroll_container).scroll(onscroll);
+
+    // IE9, Chrome, Safari, Opera
+    window.addEventListener("mousewheel", new_cbk, false);
+
+    // Firefox
+    window.addEventListener("DOMMouseScroll", new_cbk, false);
+
+    // mobile
+    let touch_start = 0;
+    window.addEventListener('touchstart', e => {
+        touch_start = e.changedTouches[0].pageY;
+    }, false);
+    window.addEventListener('touchend', e => {
+        let delta = e.changedTouches[0].pageY - touch_start;
+        cbk(delta)
+    });
 }

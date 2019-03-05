@@ -1,13 +1,36 @@
 jQuery(document).ready(function($) {
 
     // =============================================
+    // create dropdown effect for language menu
+    // =============================================
+
+    $('.menu_langues > ul > li')
+        .mouseenter( function() { $(this).find('ul.sub-menu').show(200) })
+        .mouseleave( function() { $(this).find('ul.sub-menu').hide(200) });
+
+    // =============================================
     // load desktop images if needed
     // =============================================
 
     if ($(window).width() > 640) {
         $('[data-img-desktop]').each(function() {
+            $img_url = $(this).attr('data-img-desktop');
+            if ($img_url.length < 3 && $(this).attr('data-img-mobile') != '') $img_url = $(this).attr('data-img-mobile');
             $(this).css({
-                'background': "url('" + $(this).attr('data-img-desktop') + "')",
+                'background': "url('" + $img_url + "')",
+                'background-position': 'center',
+                'background-size': 'cover',
+                'background-repeat': 'no-repeat',
+            })
+        })
+    } else {
+        $('[data-img-mobile]').each(function() {
+            $img_url = $(this).attr('data-img-mobile');
+            console.log('got mobile url = ', $img_url, $(this).attr('data-img-desktop'))
+            if ($img_url.length < 3 && $(this).attr('data-img-desktop') != '') $img_url = $(this).attr('data-img-desktop');
+            console.log('finally', $img_url)
+            $(this).css({
+                'background': "url('" + $img_url + "')",
                 'background-position': 'center',
                 'background-size': 'cover',
                 'background-repeat': 'no-repeat',
@@ -22,7 +45,8 @@ jQuery(document).ready(function($) {
     $('#inscription').css({bottom: '50px'})
     setTimeout(_ => $('#inscription').css({bottom: '16px'}), 200)
 
-    function onscroll() {
+    function onscroll(delta) {
+        if (delta == 0) return;
         $('#inscription').css({bottom: '32px'})
         setTimeout(_ => $('#inscription').css({bottom: '16px'}), 200)
     }
@@ -39,8 +63,12 @@ function Typewriter(el, opt = {}) {
 
     if (!opt._i) opt._i = 1;
     if (!opt._text) {
-        opt._text = el.text();
-        el.text('');
+        if (el.attr('data-text').length > 0) {
+            opt._text = el.attr('data-text')
+        } else {
+            opt._text = el.text();
+            el.text('');
+        }
     } else if (opt._text.length <= opt._i-1) {
         el.html(opt._text);
         if (opt.complete && typeof opt.complete == 'function') opt.complete();
@@ -59,8 +87,24 @@ function onMouseWheel(cbk) {
      * Calls a function when mousewheel
      */
 
+    function new_cbk(e) {
+        var e = window.event || e; // old IE support
+        let delta = (e && (e.wheelDelta || e.detail)) ? Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) : 0;
+        cbk(delta)
+    }
+
     // IE9, Chrome, Safari, Opera
-    window.addEventListener("mousewheel", cbk, false);
+    window.addEventListener("mousewheel", new_cbk, false);
     // Firefox
-    window.addEventListener("DOMMouseScroll", cbk, false);
+    window.addEventListener("DOMMouseScroll", new_cbk, false);
+
+    // mobile
+    let touch_start = 0;
+    window.addEventListener('touchstart', e => {
+        touch_start = e.changedTouches[0].pageY;
+    }, false);
+    window.addEventListener('touchend', e => {
+        let delta = e.changedTouches[0].pageY - touch_start;
+        cbk(delta)
+    });
 }

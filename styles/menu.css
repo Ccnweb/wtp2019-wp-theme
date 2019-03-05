@@ -106,7 +106,7 @@ Sinon il faut modifier les % de width dans les classes .open
     flex-grow: 1;
 }
 
-.menu_entries {
+.menu_entries ul {
     list-style: none;
     font-family: 'Helvetica Neue';
     margin: 39px 0;
@@ -123,13 +123,32 @@ img.menu_logo_ccn {
 
 #menu_content footer {
     padding: 10px;
-    min-height: 100px;
 }
 
-/* #menu_content .partenaires {
+
+/* ======================== */
+/*     MENU LANGUAGES       */
+/* ======================== */
+
+.choose_lang {
+    color: #989898;
+    font-style: italic;
+}
+
+.menu_langues ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.menu_langues ul > li {
     display: flex;
+    flex-wrap: wrap;
 }
 
-#menu_content .partenaires img {
-    height: 20px;
-} */
+.menu_langues ul.sub-menu {
+    display: none;
+}
+
+.menu_langues ul.sub-menu li {
+    margin-left: 1rem;
+}

@@ -1,6 +1,6 @@
 <?php
 /**
- * The main template file
+ * Template Name: Home
  *
  * This is the most generic template file in a WordPress theme
  * and one of the two required files for a theme (the other being style.css).
@@ -41,7 +41,7 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 				</svg>
 			</div>
 			<div id="intro_magic_words">
-				INDEX.PHP
+				INOUBLIABLE
 			</div>
 		</div>
 		<!-- <img id="logo_htc" src="<?php echo get_template_directory_uri() ?>/img/logo_htc.jpg" width="60" alt=""> -->
@@ -163,13 +163,9 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 			<a href="mailto:jeunes.france@gmail.com" class="button white">CONTACT</a>
 		</div>
 		<div>
-			<h3 class="txt-gold">SUIVEZ-NOUS</h3>
-			<div class="flexcc txt-gold link_social">
-				<a href="https://www.facebook.com/festivalwelcometoparadise/" class="fab fa-facebook-square"></a>
-				<a href="https://www.instagram.com/festival.welcometoparadise/" class="fab fa-instagram"></a>
-				<a href="https://twitter.com/festival_wtp" class="fab fa-twitter"></a>
-				<a href="https://www.youtube.com/user/Jeunes1830ans" class="fab fa-youtube"></a>
-			</div>
+            <h3 class="txt-gold">SUIVEZ-NOUS</h3>
+            <!-- THE LANGUAGES MENU IS LOADED HERE -->
+            <?php wp_nav_menu( array( 'theme_location' => 'menu-social', 'container_class' => 'txt-gold link_social' ) ); ?>
 		</div>
 	</section>
 

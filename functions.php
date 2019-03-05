@@ -49,9 +49,11 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 			'page',
 		));
 
-		// This theme uses wp_nav_menu() in one location.
+		// Register menu locations
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'wtp2019' ),
+			'menu-principal' 	=> esc_html__( 'Primary', 'wtp2019' ),
+			'menu-langues' 		=> esc_html__( 'Langues', 'wtp2019' ),
+			'menu-social' 		=> esc_html__( 'Social', 'wtp2019' ),
 		) );
 
 		/*
@@ -90,6 +92,56 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 	}
 endif;
 add_action( 'after_setup_theme', 'wtp2019_setup' );
+
+/** ================================================
+ * Manage menus
+ * =================================================
+ */
+// source: https://wabeo.fr/hook-nav-menus/
+add_action( 'nav_menu_css_class', 'wtp2019_menu_item_classes', 10, 3 );
+function wtp2019_menu_item_classes( $classes, $item, $args ) {
+    // Gardons seulement les classes qui nous intéressent
+    $classes = array_intersect( $classes, array( 
+                               'menu-item', 
+                               'current-menu-item', 
+                               'current-menu-parent', 
+                               'current-menu-ancestor', 
+                               'menu-item-has-children' 
+                               ) );
+		// Ajoutons la classe pour désigner les éléments vides
+		$regex_prefix = "/^https?\:\/\/([^\.]+\.)?";
+		$regex_suffix = "\./";
+    if ( "#" == $item->url ) {
+      $classes[] = 'empty-item';
+    } else if (preg_match($regex_prefix."facebook".$regex_suffix, $item->url)) {
+			$classes = array_merge($classes, ['fab','fa-facebook-square']);
+		} else if (preg_match($regex_prefix."instagram".$regex_suffix, $item->url)) {
+			$classes = array_merge($classes, ['fab','fa-instagram']);
+		} else if (preg_match($regex_prefix."twitter".$regex_suffix, $item->url)) {
+			$classes = array_merge($classes, ['fab','fa-twitter']);
+		} else if (preg_match($regex_prefix."youtube".$regex_suffix, $item->url)) {
+			$classes = array_merge($classes, ['fab','fa-youtube']);
+		}
+    
+    return $classes;
+}
+add_action( 'walker_nav_menu_start_el', 'wtp2019_empty_nav_links_to_span', 10, 4 );
+function wtp2019_empty_nav_links_to_span( $item_output, $item, $depth, $args ) {
+
+	$regex_prefix = "/^https?\:\/\/([^\.]+\.)?";
+	$regex_suffix = "\./";
+	$social_medias = ['facebook', 'instagram', 'twitter', 'youtube'];
+	if (preg_match($regex_prefix."(".implode('|', $social_medias).")".$regex_suffix, $item->url)) {
+		$item_output = preg_replace( '/(<a.*?>).*<\/a>/', '$1</a>', $item_output );
+	}
+	
+	return $item_output;
+}
+
+
+
+
+
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
