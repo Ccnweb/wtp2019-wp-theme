@@ -98,33 +98,23 @@ add_action( 'after_setup_theme', 'wtp2019_setup' );
  * =================================================
  */
 // source: https://wabeo.fr/hook-nav-menus/
-add_action( 'nav_menu_css_class', 'wtp2019_menu_item_classes', 10, 3 );
-function wtp2019_menu_item_classes( $classes, $item, $args ) {
-    // Gardons seulement les classes qui nous intéressent
-    $classes = array_intersect( $classes, array( 
-                               'menu-item', 
-                               'current-menu-item', 
-                               'current-menu-parent', 
-                               'current-menu-ancestor', 
-                               'menu-item-has-children' 
-                               ) );
-		// Ajoutons la classe pour désigner les éléments vides
-		$regex_prefix = "/^https?\:\/\/([^\.]+\.)?";
-		$regex_suffix = "\./";
-    if ( "#" == $item->url ) {
-      $classes[] = 'empty-item';
-    } else if (preg_match($regex_prefix."facebook".$regex_suffix, $item->url)) {
-			$classes = array_merge($classes, ['fab','fa-facebook-square']);
-		} else if (preg_match($regex_prefix."instagram".$regex_suffix, $item->url)) {
-			$classes = array_merge($classes, ['fab','fa-instagram']);
-		} else if (preg_match($regex_prefix."twitter".$regex_suffix, $item->url)) {
-			$classes = array_merge($classes, ['fab','fa-twitter']);
-		} else if (preg_match($regex_prefix."youtube".$regex_suffix, $item->url)) {
-			$classes = array_merge($classes, ['fab','fa-youtube']);
-		}
-    
-    return $classes;
+
+add_filter( 'nav_menu_link_attributes', 'wtp2019_open_external_nav_link_new_window' );
+function wtp2019_open_external_nav_link_new_window( $atts ) {
+	
+	$regex_prefix = "/^https?\:\/\/([^\.]+\.)?";
+	$regex_suffix = "\./";
+	$social_medias = ['facebook', 'instagram', 'twitter', 'youtube'];
+	$icons = ['facebook' => 'fa-facebook-square', 'instagram' => 'fa-instagram', 'twitter' => 'fa-twitter', 'youtube' => 'fa-youtube'];
+
+	if ( preg_match( $regex_prefix."(".implode('|', $social_medias).")".$regex_suffix, $atts['href'], $match ) ) {
+		$atts['target'] = '_blank';
+		$social = $match[2];
+		$atts['class']  = "fab ".$icons[$social];
+	}
+	return $atts;
 }
+
 add_action( 'walker_nav_menu_start_el', 'wtp2019_empty_nav_links_to_span', 10, 4 );
 function wtp2019_empty_nav_links_to_span( $item_output, $item, $depth, $args ) {
 
@@ -215,7 +205,7 @@ function wtp2019_scripts() {
 
 	// specific scripts and styles
 	// --- accueil
-	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '002', true);
+	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '003', true);
 	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), '001', 'all');
 	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '002', 'all and (min-width: 600px)');
 	// --- programmation
@@ -281,6 +271,11 @@ function tabor_gutenberg_color_palette() {
 				'name'  => esc_html__( 'Gold Light', '@@textdomain' ),
 				'slug' => 'gold-light',
 				'color' => '#dcbf7f',
+			),
+			array(
+				'name'  => esc_html__( 'Black', '@@textdomain' ),
+				'slug' => 'black',
+				'color' => '#000',
 			)
 		)
 	);
@@ -291,12 +286,47 @@ add_action( 'after_setup_theme', 'tabor_gutenberg_color_palette' );
 
 // set upload max size
 
-@ini_set( 'upload_max_size' , '64M' );
+/* @ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '64M');
-@ini_set( 'max_execution_time', '300' );
+@ini_set( 'max_execution_time', '300' ); */
 
 
-// import custom post types
+/* ========================================================= */
+/*               ADD CUSTOM FIELDS TO POSTS                  */
+/* ========================================================= */
+
+function wtp2019_add_custom_fields_to_posts() {
+	if (!defined('CCN_LIBRARY_PLUGIN_DIR')) {
+			echo ('global var CCN_LIBRARY_PLUGIN_DIR is not defined. You should first install the plugin "CCN Library"');
+			return;
+	}
+
+	// we load here some high-level functions to create custom post types
+	require_once(CCN_LIBRARY_PLUGIN_DIR . 'create-custom-post-type.php');
+
+	$prefix = 'wtp2019';
+
+	// on ajoute un field "ordre" pour indiquer un ordre aux articles/posts
+	$field_order = [
+			'id' => 'wtp2019_post_order',
+			'type' => 'number',
+			'description' => "Ordre de l'article",
+			'html_label' => 'Ordre',
+			'show_as_column' => "Ordre",
+			'html_attributes' => ['min' => 0],
+	];
+	// on crée tous les : metakeys, metabox/champs html, save callbacks, ...
+	$metabox_options = array(
+			array('title' => "Ordre d'affichage de l'article", 'fields' => 'ALL')
+	);
+	create_custom_post_fields('post', 'post', $metabox_options, $prefix, array($field_order));
+}
+wtp2019_add_custom_fields_to_posts();
+
+
+// =====================================================================
+// import custom post types, shortcodes and gutenberg blocks
+// =====================================================================
 
 if (!function_exists('require_once_all_regex')):
 function require_once_all_regex($dir_path, $regex = "") {

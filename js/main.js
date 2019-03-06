@@ -63,7 +63,7 @@ function Typewriter(el, opt = {}) {
 
     if (!opt._i) opt._i = 1;
     if (!opt._text) {
-        if (el.attr('data-text').length > 0) {
+        if (el.attr('data-text') && el.attr('data-text').length > 0) {
             opt._text = el.attr('data-text')
         } else {
             opt._text = el.text();

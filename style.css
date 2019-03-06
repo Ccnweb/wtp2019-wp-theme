@@ -3,7 +3,7 @@
 * Author: Communauté du Chemin Neuf
 * Author URI: http://underscores.me/
 * Description: Description
-* Version: 0.2.1
+* Version: 0.3.0
 * License: GNU General Public License v3
 * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 * GitHub Theme URI: https://github.com/Ccnweb/bethechurch-wp-theme
@@ -111,26 +111,27 @@ a:focus, button:focus {outline: none;}
 a {color: inherit; text-decoration: inherit}
 a:hover {text-decoration: inherit;}
 
-a.button, button {    
+a.button, button, a.wp-block-button__link {    
     background: none;
     border-radius: 50px;
     padding: 12px 28px;
     letter-spacing: 4px;
     font-family: 'Helvetica Neue';
+    font-size: 1rem;
     border: 1px solid black;
     text-align: center;
     cursor: pointer;
 }
-a.button.white, button.white {
+a.button.white, button.white, a.wp-block-button__link.white {
     color: white;
     border: 1px solid white;
 }
-a.button.black, button.black {
-    color: white;
-    border: 1px solid white;
+a.button.black, button.black, a.wp-block-button__link.black {
+    color: black;
+    border: 1px solid black;
 }
 
-a.button:hover, button:hover {
+a.button:hover, button:hover, a.wp-block-button__link:hover {
     background-image: linear-gradient(53deg, transparent 8%, #ffffff91 11%, #ffffff99 17%, #ffffff00 21%, #ffffff00 100%);
     background-position: right top;
     background-size: 250% auto;
@@ -139,14 +140,17 @@ a.button:hover, button:hover {
 }
 
 .bg-black {background: black;}
-.txt-gold {color: var(--primary-color)}
-.txt-black {color: black}
-.txt-white {color: white}
+.txt-gold, .has-gold-dark-color {color: var(--primary-color)}
+.txt-black, .has-black-color {color: black}
+.txt-white, .has-white-color {color: white}
 
 .hide-xs {display: none;}
 @media screen and (min-width: 640px) {
     .hide-xs {display: block;}
 }
+
+.w-100 {width: 100%;}
+.mt-1 {margin-top:1rem} .mt-3 {margin-top:3rem} .mt-5 {margin-top:5rem} .mt-7 {margin-top:7rem}
 
 .flexcc {
     display: flex;
@@ -226,6 +230,10 @@ h1.titre_page {
     margin-bottom: 2rem;
 }
 
+.text_content p {
+    width: 100%;
+}
+
 .img_content {
     height: 100vh;
     width: 100vw;
@@ -276,7 +284,7 @@ h1.titre_page {
     transition: all 0.2s ease-in;
 }
 
-#inscription > span > i {
+#inscription i {
     color: black;
     transform: rotate(-45deg);
     font-size: 0.7cm;
@@ -503,9 +511,9 @@ svg {
     filter: blur(1px);
 }
 
-#quote_lacroix {
+.quote_lacroix {
     text-align: right;
-    margin-bottom: 3rem;
+    margin-bottom: -1rem;
     font-family: serif;
     width: 60vw;
 }
@@ -608,6 +616,7 @@ svg {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    list-style: none;
     padding: 0;
 }
 
@@ -722,9 +731,9 @@ ul.ariane_points > li.active {
 /* ============================================ */
 
 @media screen and (min-width: 600px) {
-    html, body {
+    /* html, body {
         font-size: 20px;
-    }
+    } */
     
     #inscription.round {
         right: 1cm;

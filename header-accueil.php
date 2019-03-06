@@ -28,8 +28,8 @@
 <!-- bouton call to action en bas à droite fixe -->
 <button id="inscription" class="round">
 	<!-- <span class="wtp-font wtp-check open_choix">&nbsp;NEXT STEP</span> -->
-	<span class="open_choix">
-		<i class="fas fa-ticket-alt"></i>&nbsp;JE M'INSCRIS !</span>
+	<i class="fas fa-ticket-alt"></i>
+	<span class="open_choix">&nbsp;JE M'INSCRIS !</span>
 </button>
 
 <?php include 'part-sidebar.php' ?>

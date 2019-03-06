@@ -51,14 +51,19 @@ function temoignages_animate() {
         let martyr = temoignages_data[i];
         if (!img_field || !martyr || !martyr[img_field]) return;
         let img_url = (martyr[img_field] != '') ? martyr[img_field]: martyr.img;
-        $('#temoignages').fadeOut('slow', function() {
-            $('#temoignages').find('.img_content').css({
+        let root = $('.temoignages').eq(0);
+        root.html(`<div class="img_content bg-arrows" style="background-size: cover;"></div>
+        <div class="golden_box">
+            <span class="quote"><i class="fas fa-spinner fa-spin"></i></span>
+        </div>`)
+        root.fadeOut('slow', function() {
+            root.find('.img_content').css({
                 'background': `url('${img_url}')`, 
                 'background-size': 'cover',
                 'background-position': 'center'
             })
-            $('#temoignages').find('.quote').html(martyr.texte);
-            $('#temoignages').fadeIn('slow');
+            root.find('.quote').html(martyr.texte);
+            root.fadeIn('slow');
         })
         i = (i+1) % temoignages_data.length;
     }
@@ -106,7 +111,8 @@ function build_carres() {
 function build_carres_desktop() {
     console.log('carres desktop')
     let carres_colors = ['black', 'gold', 'white'];
-    let root_carres = $('#carres_propositions')
+    let root_carres = $('.carres_propositions').eq(0);
+    root_carres.html('');
     for (let i = 0; i < carres_data.length; i++) {
         let data = carres_data[i];
         let link = (data.link && data.link != 'none') ? '/' + data.link : '';
@@ -123,7 +129,8 @@ function build_carres_desktop() {
 
 function build_carres_mobile() {
     let carres_colors = ['black', 'gold', 'white'];
-    let root_carres = $('#carres_propositions')
+    let root_carres = $('.carres_propositions').eq(0);
+    root_carres.html('');
     for (let i = 0; i < carres_data.length-1; i+=2) {
         let data_front = carres_data[i];
         let data_back = carres_data[i+1];
@@ -225,15 +232,13 @@ $(document).ready(function(){
     let lefestival_animated = false;
     let lefestival_el = $('.section:nth-child(2) .subtitle').eq(0);
     let lefestival_texte = lefestival_el.text(); lefestival_el.text('');
-    $('.section:nth-child(2) button').css({opacity: 0});
-    console.log('lefestival', lefestival_texte)
+    $('.section:nth-child(2) .wp-block-button').css({opacity: 0});
     function typewriter_lefestival() {
-        console.log('lefestival')
         if (lefestival_animated) return;
         lefestival_animated = true;
         Typewriter(lefestival_el, {
             _text: lefestival_texte,
-            complete: _ => $('.section:nth-child(2) button').animate({opacity: 1}, 500)
+            complete: _ => $('.section:nth-child(2) .wp-block-button').animate({opacity: 1}, 500)
         })
     }
 

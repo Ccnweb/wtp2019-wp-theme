@@ -1,4 +1,7 @@
 <?php
+/**
+ * This class helps to create HTML elements in PHP
+ */
 
 class CcnHtmlObj implements JsonSerializable {
 

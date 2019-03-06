@@ -32,8 +32,8 @@
 
 <!-- bouton call to action en bas à droite fixe -->
 <button id="inscription" class="round">
-	<span class="open_choix">
-		<i class="fas fa-ticket-alt"></i>&nbsp;JE M'INSCRIS !</span>
+	<i class="fas fa-ticket-alt"></i>
+	<span class="open_choix">&nbsp;JE M'INSCRIS !</span>
 </button>
 
 <?php include 'part-sidebar.php' ?>

@@ -23,14 +23,9 @@ video {
 /*              CARRES DORES              */
 /* ====================================== */
 
-/* .watermark {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    overflow: visible;
-    pointer-events: none;
-    background:none !important;
-} */
+.slide__carres > div {
+    width: 100%;
+}
 
 .carre_container {
     width: 100vw;
@@ -107,6 +102,10 @@ video {
 /*                TEMOIGNAGES                  */
 /* =========================================== */
 
-#temoignages {
+.temoignages {
     height: 100vh;
+}
+
+.slide__temoignages > div {
+    width: 100%;
 }

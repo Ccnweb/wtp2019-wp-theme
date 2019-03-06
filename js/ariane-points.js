@@ -139,7 +139,7 @@ function initArianePoints(section_selector = '.section', options = {}) {
 
         if (options.auto_scroll === true || options.auto_scroll.length) auto_scroll_control(delta);
         else {
-            scrolling = false;
+            setTimeout(_ => scrolling = false, 300);
             log('onscroll released')
         }
     }
@@ -214,14 +214,16 @@ function add_scroll_listener(cbk) {
     window.addEventListener("mousewheel", new_cbk, false);
 
     // Firefox
-    window.addEventListener("DOMMouseScroll", new_cbk, false);
+    window.addEventListener("DOMMouseScroll", e => new_cbk, false);
 
     // mobile
     let touch_start = 0;
     window.addEventListener('touchstart', e => {
+        console.log('touchstart')
         touch_start = e.changedTouches[0].pageY;
     }, false);
     window.addEventListener('touchend', e => {
+        console.log('touchend')
         let delta = e.changedTouches[0].pageY - touch_start;
         cbk(delta)
     });

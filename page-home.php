@@ -53,82 +53,10 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 		
 	</section>
 
-	<!-- ########################################################## -->
-	<!-- ################# TEXTE D'INTRO ########################## -->
-	<!-- ########################################################## -->
-	<section class="section" data-index="2">
-		<img class="logo_wtp" src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_gold.png">
-		<div class="section_content bg-arrows flexcc flexcol">
-			<div id="quote_lacroix">
-				<div><a href="https://www.la-croix.com/Religion/Actualite/Vacances-de-reve-pour-jeunes-cathos-2014-08-08-1189538">
-					Vacances de rêve pour jeunes cathos</a></div>
-				<img src="<?php echo get_template_directory_uri() ?>/img/logo_lacroix.png" alt="" width="70">
-			</div>
-
-			<?php query_posts(array("category_name" => "accueil")); while (have_posts()) : the_post(); ?>
-			<div class="subtitle">
-				<?php the_title(); ?>
-			</div>
-			<div class="text_content">
-				<?php the_content() ?>
-			</div>
-			<?php endwhile; ?>
-
-			<!-- <a class="button" href="https://www.youtube.com/watch?v=f_tn338ntWY">VOIR LA VIDÉO</a> -->
-			<button data-modal-target="youtube_modal">VOIR LA VIDÉO</button>
-
-		</div>
-		<div class="modal" id="youtube_modal">
-			<iframe width="560" height="315" 
-				src="https://www.youtube.com/embed/f_tn338ntWY" 
-				frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-				style="width: 100vw;height: 90vh;margin-top: 5vh;"
-				allowfullscreen></iframe>
-		</div>
-		<i class="fas fa-angle-double-down next_arrow arrow_ghost arrow_black fixed" onclick="$('.main').moveDown();"></i>
-	</section>
-
-	<!-- ############################################################ -->
-	<!-- ################### CARRES DORES ########################### -->
-	<!-- ############################################################ -->
-	<section class="section bg-black" data-index="3">
-		<img class="logo_wtp" src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_white.png">
-		<div id="carres_propositions" class="carre_container"><!-- contenu généré onload par jQuery dans accueil.js --></div>
-	</section>
-
-	<!-- ############################################################ -->
-	<!-- ##################### TÉMOIGNAGE ########################### -->
-	<!-- ############################################################ -->
-	<section class="section" data-index="4">
-		<img class="logo_wtp" src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_gold.png">
-		<div id="temoignages" class="section_content">
-			
-			<div class="img_content bg-arrows" style="background-size: cover;"></div>
-			<div class="golden_box">
-				<span class="quote"><i class="fas fa-spinner fa-spin"></i></span>
-			</div>
-		</div>
-	</section>
-
-	<!-- ########################################################## -->
-	<!-- ############# THEME / NOUVELLE FORMULE ################### -->
-	<!-- ########################################################## -->
-	<section class="section" data-index="5">
-		<img class="logo_wtp" src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_gold.png">
-		<div class="section_content bg-arrows flexcc flexcol">
-
-			<?php query_posts(array("category_name" => "letheme")); while (have_posts()) : the_post(); ?>
-			<div class="subtitle">
-				<?php the_title(); ?>
-			</div>
-			<div class="text_content">
-				<?php the_content() ?>
-			</div>
-			<?php endwhile; ?>
-
-		</div>
-		<i class="fas fa-angle-double-down next_arrow arrow_ghost arrow_black fixed" onclick="$('.main').moveDown();"></i>
-	</section>
+	<!-- get page content -->
+	<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+		<?php echo apply_filters( 'the_content', $post->post_content ); ?>
+	<?php endwhile;  endif;?>
 
 
 	<!-- ########################################################## -->

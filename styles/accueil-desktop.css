@@ -43,11 +43,20 @@
     flex-direction: column;
 }
 
-.carre .ligne1, .carre .ligne2 {font-size: 1rem}
+/* .carre .ligne1, .carre .ligne2 {font-size: 1rem} */
+
+/* .carre .ligne2 {
+    margin-top: -0.5rem;
+}
+
 .carre .detail {
     font-size: 0.55rem;
     line-height: 0.6rem;
 }
+
+.carre.arrow::before {
+    top: 0;
+} */
 
 /* ====================================== */
 /*             TEMOIGNAGES                */

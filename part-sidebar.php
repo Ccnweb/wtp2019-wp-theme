@@ -5,7 +5,7 @@
     </header>
 
     <div class="menu_inside">
-        <button class="black open_choix">JE M'INSCRIS</button>
+        <button class="white open_choix">JE M'INSCRIS</button>
 
         <!-- THE MAIN MENU IS LOADED HERE -->
         <?php wp_nav_menu( array( 'theme_location' => 'menu-principal', 'container_class' => 'menu_entries' ) ); ?>
