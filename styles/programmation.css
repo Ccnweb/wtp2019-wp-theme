@@ -1,6 +1,7 @@
-body {
+html, body {
     overflow-y: scroll; overflow-x:hidden;
     background: black;
+    width: 100vw;
 }
 
 h1.titre_page {
@@ -9,7 +10,7 @@ h1.titre_page {
     z-index: 1500;
 }
 
-h3 {
+h2, h3 {
     color: white;
 }
 
@@ -20,24 +21,40 @@ header {
 
 #content {
     margin-top: 13vh;
-    padding-left: 1rem;
+    /* padding-left: 1rem; */
     padding-bottom: 200px;
 }
 
-.category_container h3 {
-    margin: 7px 0 0 0.3rem;
+.carousel {
+    position: relative;
+    top: -9rem;
+}
+
+.carousel p {
+    display: none;
+}
+
+.carousel h3.soustitre {
+    margin: 0;
+    padding: 2rem 2rem 5rem 2rem;
+    background: linear-gradient(#ffffff00, #000000);
+    font-size: 2rem;
+}
+
+.category_container h2, .category_container h3 {
+    margin: 2rem 0px 1rem 0.3rem;
     font-size: 1rem;
     font-family: 'Helvetica Neue';
 }
 
-.card_container {
+.card_container, .carres_list {
     display: flex;
     align-items: center;
-    overflow-x: overlay;
+    overflow-x: scroll;
     padding: 6px 0;
 }
 
-.card {
+.card, .carre {
     width: 120px;
     min-width: 120px;
     height: 165px;
@@ -48,10 +65,11 @@ header {
     transition: 0.2s;
 }
 
-.card.bestof {
-    height: 215px;
-    width: 158px;
-    min-width: 158px;
+.card.bestof, .carres_container.bestof .card {
+    height: 38vh;
+    width: 45vw;
+    min-width: 45vw;
+    margin: 0 1rem;
 }
 
 .card.focus {
@@ -61,7 +79,7 @@ header {
     height: 170px;
     transition: 0.2s;
 }
-.card.grow {
+.card.grow, .carre.grow {
     position: fixed;
     top: 0;
     left: 0;
@@ -76,6 +94,7 @@ header {
     letter-spacing: 1px;
     height: 42px;
     padding-top: 10px;
+    margin-bottom: -2px;
     text-align: center;
     color: var(--primary-color);
     line-height: 1.1rem;
@@ -103,6 +122,16 @@ header {
     width: 96%;
     margin-left: 2%;
     color: white;
+}
+
+.arrow {
+    color: var(--gold);
+    top: 4.5rem;
+    display: none;
+}
+
+.carres_container.bestof .arrow {
+    top: 10rem;
 }
 
 #card_details {

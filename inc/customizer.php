@@ -27,33 +27,54 @@ function wtp2019_customize_register( $wp_customize ) {
 		) );
 	}
 
+	// ========================================
 	// Animations
+	// ========================================
 	$wp_customize->add_section( 'animations' , array(
 		'title' => __( 'Animations' ),
 		'priority' => 105, // Before Widgets.
 	) );
 
-	$wp_customize->add_setting( 'temoignages_duree', array(
-		'type' => 'theme_mod', // or 'option'
-		'capability' => 'edit_theme_options',
-		'theme_supports' => '', // Rarely needed.
-		'default' => 6000,
-		'transport' => 'refresh', // or postMessage
-		'sanitize_callback' => '',
-		'sanitize_js_callback' => '', // Basically to_json.
-	) );
+	
+	// == speed in ms of the "magic words" in the welcome page
+	$wp_customize->add_setting('flashing_words_speed', array(
+        'default'        => 200,
+        'capability'     => 'edit_theme_options',
+		'type'           => 'option',
+		'sanitize_callback' => function($val, $setting) {
+			$val = absint($val);
+			// If the input is an absolute integer, return it; otherwise, return the default
+  			return ( $val ? $val : $setting->default );
+		}, 
+    ));
+ 
+    $wp_customize->add_control('wtp2019_flash_words', array(
+		'label'      => __('Mots flash', 'wtp2019'),
+		'description'=> __('Durée d\'affichage d\'un mot-flash en page d\'accueil (ms)', 'wtp2019'),
+        'section'    => 'animations',
+        'settings'   => 'flashing_words_speed',
+	));
 
-	$wp_customize->add_control( 'Durée des témoignages', array(
-		'type' => 'range',
-		'section' => 'animations',
-		'label' => __( 'Range' ),
-		'description' => __( 'Ajuster la durée d\'affichage des témoignages.' ),
-		'input_attrs' => array(
-		  'min' => 2000,
-		  'max' => 20000,
-		  'step' => 200,
-		),
-	) );
+	// == display duration in ms for a témoignage ==
+	$wp_customize->add_setting('temoignages_duration', array(
+        'default'        => 6000,
+        'capability'     => 'edit_theme_options',
+		'type'           => 'option',
+		'sanitize_callback' => function($val, $setting) {
+			$val = absint($val);
+			// If the input is an absolute integer, return it; otherwise, return the default
+  			return ( $val ? $val : $setting->default );
+		}, 
+    ));
+ 
+    $wp_customize->add_control('wtp2019_temoignages_duration', array(
+		'label'      => __('Durée témoignage', 'wtp2019'),
+		'description'=> __('Durée d\'affichage des témoignages en page d\'accueil (ms)', 'wtp2019'),
+        'section'    => 'animations',
+        'settings'   => 'temoignages_duration',
+	));
+
+
 }
 add_action( 'customize_register', 'wtp2019_customize_register' );
 

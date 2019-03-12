@@ -19,6 +19,9 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 		add_theme_support('post-thumbnails', array(
 			'post',
 			'page',
+			'propositions',
+			'temoignages',
+			'infospratiques',
 		));
 		/*
 		 * Make theme available for translation.
@@ -92,6 +95,15 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 	}
 endif;
 add_action( 'after_setup_theme', 'wtp2019_setup' );
+
+
+/** ================================================
+ * SETUP TRANSLATIONS
+ * ================================================= 
+*/
+
+include_once(get_template_directory() . '/translation.php');
+
 
 /** ================================================
  * Manage menus
@@ -192,11 +204,18 @@ function wtp2019_scripts() {
 	/* wp_enqueue_script('wtp2019-gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js', [], '2.1.1', true); */
 	
 	// NAVIGATION POINTS AND SCROLL
-	wp_enqueue_script('wtp2019-ariane-points-script', get_template_directory_uri() . '/js/ariane-points.js', ['jquery'], '001', true);
+	wp_enqueue_script('alloyfinger', 'https://cdn.jsdelivr.net/npm/alloyfinger@0.1.16/alloy_finger.min.js', [], '0.1.16', true);
+	wp_enqueue_script('wtp2019-ariane-points-script', get_template_directory_uri() . '/js/ariane-points.js', ['jquery', 'alloyfinger'], '002', true);
 	/* wp_enqueue_script( 'wtp2019-onepage-scroll', get_template_directory_uri() . '/js/jquery.onepage-scroll.min.js', array('jquery'), '20181213', true); */
 	
+	// CAROUSEL
+	wp_enqueue_style('owlcarousel-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', [], '001', 'all');
+	//wp_enqueue_style('owlcarousel-theme-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css', [], '001', 'all');
+	wp_enqueue_script('owlcarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', ['jquery'], '2.3.4', true);
+	wp_enqueue_script('wtp2019-carousel', get_template_directory_uri() . '/js/carousel.js', array('owlcarousel'), '002', true);
+
 	// MAIN WTP SCRIPT
-	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '20181213', true);
+	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '002', true);
 	
 	// burger menu
 	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), '20151215', true );
@@ -205,7 +224,7 @@ function wtp2019_scripts() {
 
 	// specific scripts and styles
 	// --- accueil
-	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array(), '003', true);
+	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array('jquery'), '006', true);
 	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), '001', 'all');
 	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '002', 'all and (min-width: 600px)');
 	// --- programmation

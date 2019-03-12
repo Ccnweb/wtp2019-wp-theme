@@ -13,6 +13,7 @@ function ccnwtp_shortcode_programme_carres() {
         $atts = shortcode_atts(
             array(
                 'theme' => 'unknown',
+                'class' => '',
             ), $atts, 'programme-carres' );
 
         // == 3. == on récupère les articles de la catégorie
@@ -34,7 +35,7 @@ function ccnwtp_shortcode_programme_carres() {
         );
         $query = new WP_Query( $query_args );
 
-        $html = new CcnHtmlObj('div', ['class' => 'carres_container']);
+        $html = new CcnHtmlObj('div', ['class' => 'carres_container '.$atts['class']]);
         $carres_list = new CcnHtmlObj('div', ['class' => 'carres_list']);
         
         $compteur = 0;
@@ -42,7 +43,10 @@ function ccnwtp_shortcode_programme_carres() {
             while ( $query->have_posts() && $compteur < 1000) {
                 $query->the_post();
                 $background = "background:url('".get_the_post_thumbnail_url()."');background-position:center;background-size:cover";
-                $carre = new CcnHtmlObj('div', ['class' => 'carre', 'style' => $background], '<div>'.get_the_title().'<br>'.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true).'</div>');
+                $carre_title = new CcnHtmlObj('div', ['class' => 'card_title'], get_the_title().'<br>'.
+                    '<span class="txt-white">'.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true).'</span>'.
+                    '<div class="card_descr">'.get_post_meta(get_the_ID(), '_wtpprop_descr_metakey', true).'</div>');
+                $carre = new CcnHtmlObj('div', ['class' => 'carre card', 'style' => $background], $carre_title->toString());
                 $carres_list->append($carre);
                 $compteur++;
             }

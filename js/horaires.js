@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
     // on mobile, if we have too many items, we shorten the name
     if ($(window).width() < 640 && $('.semaine_container li').length > 4) $('.semaine_container li').each(function() {$(this).text($(this).text().substring(0, 3))})
     
-    // transform <p> tags that begin with a time in a nice way
+    // transform <p> tags that start with a time (like 900 or 1430) in a nice way
     $('p').each(function() {
         let texte = $(this).text();
         if (res = /^([0-9]{3,4})\s+(.*)$/.exec(texte)) {
@@ -55,42 +55,3 @@ jQuery(document).ready(function($) {
     })
 
 })
-
-
-function init_squares_arrows() {
-    // ==================================================
-    // initialize the list of squares
-    // ==================================================
-    $('.carres_container .arrow_left').hide();
-
-    // set onscroll events
-    $('.carres_container .carres_list').each(function() {
-        let hidden_width = 50; $(this).find('.carre').each(function() {hidden_width += $(this).outerWidth()})
-        let arrow_left = $(this).parent().find('.arrow_left');
-        let arrow_right = $(this).parent().find('.arrow_right');
-        $(this).scroll(function() {
-            if ($(this).scrollLeft() == 0) {
-                arrow_left.hide();
-                arrow_right.show();
-            } else if ($(this).scrollLeft() + $(this).width() >= hidden_width) {
-                arrow_left.show();
-                arrow_right.hide();
-            } else {
-                arrow_left.show();
-                arrow_right.show();
-            }
-        })
-    })
-
-    // set on click events
-    $('.carres_container .arrow_right').click(function() {
-        let carre_list = $(this).closest('.carres_container').find('.carres_list');
-        console.log('scrollRight', carre_list.length, carre_list.scrollLeft());
-        carre_list.animate( { scrollLeft: carre_list.scrollLeft() + 150}, 300);
-    })
-    $('.carres_container .arrow_left').click(function() {
-        let carre_list = $(this).closest('.carres_container').find('.carres_list');
-        console.log('scrollLeft', carre_list.length, carre_list.scrollLeft());
-        carre_list.animate( { scrollLeft: carre_list.scrollLeft() - 150}, 300);
-    })
-}

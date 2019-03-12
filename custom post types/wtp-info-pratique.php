@@ -39,7 +39,7 @@ function wtpip_custom_post_type() {
 		'labels'              => $labels,
         'menu_icon'           => 'dashicons-info',
 		// On définit les options disponibles dans l'éditeur de notre custom post type ( un titre, un auteur...)
-		'supports'            => array( 'title', 'editor', 'thumbnail', ),
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'custom-fields'),
 		/* 
 		* Différentes options supplémentaires
 		*/	

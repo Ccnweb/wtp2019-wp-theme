@@ -16,7 +16,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<link rel="icon" href="<?php echo get_template_directory_uri() ?>/img/favicon/favicon.ico" />
+	<link rel="icon" href="<?php get_site_icon_url(); ?>" />
 
 	<?php wp_head(); ?>
 </head>
@@ -26,10 +26,10 @@
 <nav id="menu"><div class="burger"><span></span><span></span><span></span></div></nav>
 
 <!-- bouton call to action en bas à droite fixe -->
-<button id="inscription" class="round">
+<button id="inscription" class="open_choix round">
 	<!-- <span class="wtp-font wtp-check open_choix">&nbsp;NEXT STEP</span> -->
 	<i class="fas fa-ticket-alt"></i>
-	<span class="open_choix">&nbsp;JE M'INSCRIS !</span>
+	<span class="">&nbsp;JE M'INSCRIS !</span>
 </button>
 
 <?php include 'part-sidebar.php' ?>

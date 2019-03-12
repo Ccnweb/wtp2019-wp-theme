@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 #menu {
     position: fixed;
 }

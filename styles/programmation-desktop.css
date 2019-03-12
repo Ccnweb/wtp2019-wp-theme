@@ -31,7 +31,7 @@
     visibility: hidden;
 }
 
-.category_container h3 {
+.category_container h2, .category_container h3 {
     font-size: 1rem;
     margin-bottom: 0;
     margin-top: 2rem;
@@ -55,36 +55,45 @@
     display: block;
 }
 
-.card_container {
+.card_container, .carres_list {
     height: 190px;
 }
-.card_container.bestof {
+.carres_container.bestof .carres_list {
     height: auto;
 }
 
-.card.bestof {
-    height: 315px;
-    width: 200px;
+.carres_container.bestof .card {
+    height: 25rem;
+    width: 16rem;
+    min-width: 16rem;
 }
 
-.card {
+.card, .carre {
     width: 206px;
     min-width: 206px;
     cursor: pointer;
 }
 
-.card:not(.bestof):hover, .card.open {
+.carres_container:not(.bestof) .card:hover, .card.open {
     width: 225px;
     min-width: 225px;
     height: 185px;
     position: relative;
 }
 
-.card_title {
-    font-size: 0.7rem;
+.bestof .card_title {
+    font-size: 1.3rem;
     font-weight: bold;
-    line-height: 1.3rem;
+    line-height: 1.7rem;
     cursor: pointer;
     margin-bottom: -2px;
-    height: 72px;
+    height: 6rem;
+}
+
+.bestof .card_title::before {
+    content: "»";
+    font-size: 2.4rem;
+    display: block;
+    padding-bottom: 0.5rem;
+    margin-top: -1rem;
 }

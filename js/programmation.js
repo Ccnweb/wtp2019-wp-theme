@@ -49,7 +49,8 @@ $(document).ready(function() {
     $('#menu .burger').removeClass('black').addClass('gold');
 
     // click event on cards
-    $('.card_title').click(function() {
+    $('.card_title').click(function(e) {
+        e.stopPropagation();
         if ($(this).hasClass('open')) return closeCard($(this));
         openCard($(this));
     })
@@ -58,12 +59,12 @@ $(document).ready(function() {
     header_state = 'none';
     scroll_pos_test = $('#content').offset().top;
 
-    // hide/show next arrow for card horiz scrolling
-    // TODO
+    // on desktop, we show arrows in the square list
+    if ($(window).width() > 640) init_squares_arrows();
     
 })
 
-$('body').scroll(function() {
+/* $('body').scroll(function() {
     let y_scroll_pos = $(this).scrollTop();
 
     if (y_scroll_pos > scroll_pos_test && header_state != 'black') {
@@ -73,4 +74,4 @@ $('body').scroll(function() {
         $('header').css({background: 'none'})
         header_state = 'transparent'
     }
-});
+}); */

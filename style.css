@@ -227,7 +227,7 @@ h1.titre_page {
     letter-spacing: -0.05rem;
     width: 60vw;
     /* font-weight: bold; */
-    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 
 .text_content p {
@@ -374,18 +374,6 @@ h1.titre_page {
 .my_arrow_down {
     position: initial;
     margin-top: 27px;
-}
-
-/* ====================================== */
-/*              PAGINATION                */
-/* ====================================== */
-
-.onepage-pagination.onwhite li a.active:before {
-    background: black;
-}
-
-.onepage-pagination.onwhite li a:before {
-    background: rgba(0,0,0,0.85);
 }
 
 
@@ -680,6 +668,31 @@ input:valid {
 
 
 /* ==================================================== */
+/*      HORIZONTAL LIST OF SQUARES                      */
+/* ==================================================== */
+
+.carres_container {
+    height: 100%;
+    position: relative;
+}
+
+.arrows_container .arrow {
+    display: none;
+    font-size: 4rem;
+    line-height: 8rem;
+    position: absolute;
+    top: 2rem;
+    cursor: pointer;
+}
+
+.arrows_container .arrow_left {
+    left: 0;
+}
+.arrows_container .arrow_right {
+    right: 0;
+}
+
+/* ==================================================== */
 /*      POINTS D'ARIANE / NAVIGATION                    */
 /* ==================================================== */
 
@@ -714,6 +727,40 @@ ul.ariane_points > li.active {
     font-size: 0.4cm;
 }
 
+
+/* ============================================ */
+/*              CAROUSEL                   */
+/* ============================================ */
+
+/* .carousel {
+    display: flex;
+    flex: 1 1 500px;
+    list-style: none;
+    padding: 0;
+    margin: 0 10px;
+    overflow-x: auto;
+}
+
+.carousel .item {
+    flex: 0 0 150px;
+    height: 215px;
+    margin-left: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+} */
+
+.carousel .element {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.owl-stage {
+    display: flex;
+}
+
 /* ============================================ */
 /*           NOTIFICATIONS TOASTR               */
 /* ============================================ */
@@ -744,3 +791,5 @@ ul.ariane_points > li.active {
         right: 1cm;
     }
 }
+
+

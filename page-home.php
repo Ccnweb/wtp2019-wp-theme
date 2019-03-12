@@ -58,24 +58,6 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 		<?php echo apply_filters( 'the_content', $post->post_content ); ?>
 	<?php endwhile;  endif;?>
 
-
-	<!-- ########################################################## -->
-	<!-- ############# INSPIRATION ################### -->
-	<!-- ########################################################## -->
-	<!-- <section class="section bg-black" data-index="6">
-		<img class="logo_wtp" src="<?php echo get_template_directory_uri() ?>/img/logo_wtp_gold.png">
-		<div class="section_content row">
-
-			<?php query_posts(array("category_name" => "inspiration")); while (have_posts()) : the_post(); ?>
-			<div class="text_content col-sm-6" style="background:url('<?php the_post_thumbnail_url() ?>')">
-				<?php the_content() ?>
-			</div>
-			<?php endwhile; ?>
-
-		</div>
-		<i class="fas fa-angle-double-down next_arrow arrow_ghost arrow_black fixed" onclick="$('.main').moveDown();"></i>
-	</section> -->
-
 	<!-- ########################################################## -->
 	<!-- ###################### FOOTER ############################ -->
 	<!-- ########################################################## -->
@@ -91,7 +73,7 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 			<a href="mailto:jeunes.france@gmail.com" class="button white">CONTACT</a>
 		</div>
 		<div>
-            <h3 class="txt-gold">SUIVEZ-NOUS</h3>
+            <h3 class="txt-gold"><?php echo pll__('Suivez-nous'); ?></h3>
             <!-- THE LANGUAGES MENU IS LOADED HERE -->
             <?php wp_nav_menu( array( 'theme_location' => 'menu-social', 'container_class' => 'txt-gold link_social' ) ); ?>
 		</div>

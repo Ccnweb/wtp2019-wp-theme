@@ -17,23 +17,15 @@ jQuery(document).ready(function($) {
             $img_url = $(this).attr('data-img-desktop');
             if ($img_url.length < 3 && $(this).attr('data-img-mobile') != '') $img_url = $(this).attr('data-img-mobile');
             $(this).css({
-                'background': "url('" + $img_url + "')",
-                'background-position': 'center',
-                'background-size': 'cover',
-                'background-repeat': 'no-repeat',
+                'background': `center / cover no-repeat url(${$img_url})`,
             })
         })
     } else {
         $('[data-img-mobile]').each(function() {
-            $img_url = $(this).attr('data-img-mobile');
-            console.log('got mobile url = ', $img_url, $(this).attr('data-img-desktop'))
-            if ($img_url.length < 3 && $(this).attr('data-img-desktop') != '') $img_url = $(this).attr('data-img-desktop');
-            console.log('finally', $img_url)
+            let img_url = $(this).attr('data-img-mobile');
+            if (img_url.length < 3 && $(this).attr('data-img-desktop') != '') img_url = $(this).attr('data-img-desktop');
             $(this).css({
-                'background': "url('" + $img_url + "')",
-                'background-position': 'center',
-                'background-size': 'cover',
-                'background-repeat': 'no-repeat',
+                'background': `center / cover no-repeat url(${img_url})`,
             })
         })
     }
@@ -82,6 +74,52 @@ function Typewriter(el, opt = {}) {
     }, 30 + Math.random()*40);
 }
 
+function init_squares_arrows() {
+    // ==================================================
+    //          initialize the list of squares 
+    //    (like in horaires or programmation pages)
+    // ==================================================
+    let $ = jQuery;
+    $('.carres_container .arrow_left').hide();
+    $('.carres_container .arrow_right').hide();
+
+    // set onscroll events
+    $('.carres_container .carres_list').each(function() {
+        let hidden_width = 50; $(this).find('.carre').each(function() {hidden_width += $(this).outerWidth()})
+        let arrow_left = $(this).parent().find('.arrow_left');
+        let arrow_right = $(this).parent().find('.arrow_right');
+
+        let content_width = 0; $(this).find('.card').each(function() {content_width += $(this).width()});
+        if (content_width <= jQuery(window).width()-5) return;
+
+        arrow_right.show();
+        $(this).scroll(function() {
+            if ($(this).scrollLeft() == 0) {
+                arrow_left.hide();
+                arrow_right.show();
+            } else if ($(this).scrollLeft() + $(this).width() >= hidden_width) {
+                arrow_left.show();
+                arrow_right.hide();
+            } else {
+                arrow_left.show();
+                arrow_right.show();
+            }
+        })
+    })
+
+    // set on click events
+    $('.carres_container .arrow_right').click(function() {
+        let carre_list = $(this).closest('.carres_container').find('.carres_list');
+        console.log('scrollRight', carre_list.length, carre_list.scrollLeft());
+        carre_list.animate( { scrollLeft: carre_list.scrollLeft() + 150}, 300);
+    })
+    $('.carres_container .arrow_left').click(function() {
+        let carre_list = $(this).closest('.carres_container').find('.carres_list');
+        console.log('scrollLeft', carre_list.length, carre_list.scrollLeft());
+        carre_list.animate( { scrollLeft: carre_list.scrollLeft() - 150}, 300);
+    })
+}
+
 function onMouseWheel(cbk) {
     /**
      * Calls a function when mousewheel
@@ -107,4 +145,15 @@ function onMouseWheel(cbk) {
         let delta = e.changedTouches[0].pageY - touch_start;
         cbk(delta)
     });
+}
+
+function get_wp_theme_option(opt_name, default_value = '') {
+    /**
+     * Retrieve Wordpress theme options and deals with wp instanciation problems
+     */
+    if (!wp || !wp.customize) {
+        console.error('wp not initialized', opt_name, wp);
+        return default_value;
+    }
+    return wp.customize.instance(opt_name).get();
 }

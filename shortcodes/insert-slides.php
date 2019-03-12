@@ -81,7 +81,7 @@ function ccnwtp_shortcode_insert_slides() {
 
         } else {
             // no posts found ($query->request permet de voir la requête SQL)
-            $html->append('NO POSTS');
+            return 'NO POSTS';
         }
 
         return implode("\n", array_map(function($s) {return $s->toString();}, $slides));

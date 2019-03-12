@@ -2,20 +2,26 @@
 //       GENERER LES FLASH WORDS
 // ========================================
 
-let flash_words_delay = 200; // ms
+
 
 let flash_words = []
 async function flash_words_load() {
+    
     // on récupère l'ID de la catégorie de l'article "flash words"
     let categories = await fetch('/wp-json/wp/v2/categories').then(response => response.json());
     let flash_category_id = categories.find(cat => cat.name == 'flash-words').id;
+    
     // on récupère tous les articles de cette catégorie (il n'y en a qu'un)
     let flash_articles = await fetch('/wp-json/wp/v2/posts?categories=' + flash_category_id).then(response => response.json());
+    
     // dans l'html de l'article, on récupère tous les textes dans les <p> et on les met dans l'array flash_words
     let html = $('<div>' + flash_articles[0].content.rendered + '</div>').find('p')
     html.each(function() {flash_words.push($(this).text())})
+    
     // on initialise l'animation des flash words
     let i = 0;
+    let flash_words_delay = get_wp_theme_option('flashing_words_speed', 200); // ms
+    console.log('flash speed', flash_words_delay);
     setInterval(_ => {
         $('#intro_magic_words').text(flash_words[i]);
         i = (i+1) % flash_words.length;
@@ -28,7 +34,6 @@ async function flash_words_load() {
 // ========================================
 
 let temoignages_data = [];
-let temoignages_duree_vizu = 6000; // ms
 
 async function temoignages_load_data() {
     // on récupère tous les témoignages (uniquement le texte et l'image, pas tout le html)
@@ -69,6 +74,7 @@ function temoignages_animate() {
     }
 
     show_temoignage();
+    let temoignages_duree_vizu = get_wp_theme_option('temoignages_duration', 6000); // ms
     setInterval(show_temoignage, temoignages_duree_vizu);
 }
 
@@ -214,7 +220,7 @@ function setupModals() {
 
 
 
-$(document).ready(function(){
+jQuery(document).ready(function(){
 
     // on met ou non la video en background
     /* console.log('WIDTH', $(window).width(), $(document).width())
@@ -224,6 +230,7 @@ $(document).ready(function(){
     // ========================================
     //       INITIALIZE CONTENT
     // ========================================
+    console.log('wp', wp.customize);
     flash_words_load();
     temoignages_load_data().then(_ => console.log('temoignages loaded ! Grazie Signore !', temoignages_data)).catch(e => console.log('ERROR loading témoignages', e));
     setupModals();
