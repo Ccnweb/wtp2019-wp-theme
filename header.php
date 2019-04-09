@@ -25,7 +25,7 @@
 
 <header>
 	<?php the_custom_logo(); ?>
-	<a class="hide-xs" href="<?php echo get_home_url() ?>"><img src="<?php echo get_template_directory_uri() ?>/img/logo_next_step.png"/></a>
+	<a class="hide-xs" href="<?php echo get_home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/logo_next_step.png"/></a>
 	<p>&nbsp;</p>
 </header>
 <nav id="menu"><div class="burger black"><span></span><span></span><span></span></div></nav>

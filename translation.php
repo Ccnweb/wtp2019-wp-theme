@@ -8,6 +8,8 @@
 
 add_action('init', function() {
 
+  if (!function_exists('pll_register_string')) return;
+
   // define strings to be translated
   $strings = [
     'ui' => [['suivez-nous', 'Suivez-nous']],

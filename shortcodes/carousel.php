@@ -4,6 +4,9 @@ include_once(get_template_directory() . '/lib/CcnHtmlObj.php');
 function ccnwtp_shortcode_carousel() {
 
     $shortcode_fun = function($atts = [], $content = null, $tag = '') {
+
+        // == 0. == Predefined options TODO rendre ça modifiable via l'interface
+        $no_title_post_types = ['temoignages'];
         
         // == 1. == on normalise les attributs
         $atts = array_change_key_case((array)$atts, CASE_LOWER);
@@ -17,7 +20,7 @@ function ccnwtp_shortcode_carousel() {
 
         // == 3. == on récupère les articles de la catégorie
         $query_args = array(
-            'post_type' => $atts['post_type'],
+            'post_type'     => $atts['post_type'],
             'post_status'   => 'publish',
             'lang'          =>  pll_current_language(),
         );
@@ -33,17 +36,30 @@ function ccnwtp_shortcode_carousel() {
         }
         $query = new WP_Query( $query_args );
 
-        $html = new CcnHtmlObj('div', ['class' => 'carousel']);
+        $html = new CcnHtmlObj('div', ['class' => 'carousel post_type__'.$atts['post_type']]);
         
         $compteur = 0;
         if ( $query->have_posts() ) {
             while ( $query->have_posts() && $compteur < 1000) {
                 $query->the_post();
+
+                // get post tags
+                $posttags = get_the_tags();
+                $s_posttags = '';
+                if (is_array($posttags)) {
+                    $arr_posttags = array_map(function($tag) {return $tag->name;}, $posttags);
+                    $s_posttags = '##'.implode('##', $arr_posttags).'##';
+                }
                 
-                $title = '<h3 class="soustitre">'.get_the_title().'</h3>';
+                $title = (in_array($atts['post_type'], $no_title_post_types)) ? '': '<h3 class="soustitre">'.get_the_title().'</h3>';
+                $img_url = get_the_post_thumbnail_url();
+
                 $carre = new CcnHtmlObj('div', [
                     'class' => 'element',
-                    'style' => 'background: center / cover no-repeat url('.get_the_post_thumbnail_url().')',
+                    // add a "?" at the end of data-img-mobile for ex, to tell that this attribute should only be added if the value is not falsy
+                    'data-img-mobile' => lib\one_of(kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' ), get_the_post_thumbnail_url()),
+                    'data-img-desktop' => kdmfi_get_featured_image_src( 'featured-image-desktop', 'full' ),
+                    'style' => 'background: center / cover no-repeat url('.$img_url.')',
                 ], $title.'<p>'.get_the_content().'</p>');
 
                 $html->append($carre);

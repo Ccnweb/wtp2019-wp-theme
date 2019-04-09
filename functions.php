@@ -224,7 +224,7 @@ function wtp2019_scripts() {
 
 	// specific scripts and styles
 	// --- accueil
-	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array('jquery'), '006', true);
+	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array('jquery'), '009', true);
 	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), '001', 'all');
 	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), '002', 'all and (min-width: 600px)');
 	// --- programmation
@@ -316,7 +316,7 @@ add_action( 'after_setup_theme', 'tabor_gutenberg_color_palette' );
 
 function wtp2019_add_custom_fields_to_posts() {
 	if (!defined('CCN_LIBRARY_PLUGIN_DIR')) {
-			echo ('global var CCN_LIBRARY_PLUGIN_DIR is not defined. You should first install the plugin "CCN Library"');
+			//die('global var CCN_LIBRARY_PLUGIN_DIR is not defined. You should first install the plugin "CCN Library"');
 			return;
 	}
 
@@ -376,6 +376,9 @@ require_once_all_regex(get_template_directory() . '/shortcodes/', "");
 // load gutenberg blocks
 require_once_all_regex(get_template_directory() . '/blocks/', "");
 
+// load REST endpoints
+require_once_all_regex(get_template_directory() . '/rest endpoints/', "");
+
 
 
 /* ========================================================= */
@@ -394,7 +397,7 @@ add_filter( 'kdmfi_featured_images', function( $featured_images ) {
       'label_set' => 'Set mobile featured image',
       'label_remove' => 'Remove mobile featured image',
       'label_use' => 'Set mobile featured image',
-      'post_type' => array( 'post', 'page' ),
+      'post_type' => array( 'post', 'page', 'temoignages' ),
 	);
 	
 	$args_desktop = array(
@@ -404,7 +407,7 @@ add_filter( 'kdmfi_featured_images', function( $featured_images ) {
 		'label_set' => 'Set desktop featured image',
 		'label_remove' => 'Remove desktop featured image',
 		'label_use' => 'Set desktop featured image',
-		'post_type' => array( 'post', 'page' ),
+		'post_type' => array( 'post', 'page', 'temoignages' ),
 	  );
   
 	$featured_images[] = $args_mobile;

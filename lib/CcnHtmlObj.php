@@ -19,9 +19,14 @@ class CcnHtmlObj implements JsonSerializable {
 
     public function toString() {
         $s_attrs = ' ';
+        
+        // we add all the html attributes
         foreach($this->attrs as $k => $v) {
-            $s_attrs .= $k.'="'.str_replace('"', '\\"', $v).'" ';
+            $k_name = (substr($k, -1) == '?') ? substr($k, 0, -1) : $k;
+            if (substr($k, -1) != '?' || $v) $s_attrs .= $k_name.'="'.str_replace('"', '\\"', $v).'" ';
         }
+
+        // add and wrap everything
         $el = '<'.$this->tag_name.$s_attrs.'>';
         if (isset($this->attrs['_end_tag']) && $this->attrs['_end_tag']) return $el;
         return $el.$this->content.'</'.$this->tag_name.'>';

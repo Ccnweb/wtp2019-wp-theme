@@ -33,9 +33,16 @@ async function flash_words_load() {
 //       GENERER LES TEMOIGNAGES
 // ========================================
 
-let temoignages_data = [];
+/* function fine_tune_temoignages() {
+    let descriptions = jQuery('.carousel .post_type__temoignages p:nth-child(2)');
+    descriptions.each(function() {
+        $(this).html("<span>" + $(this).html() + "</span>")
+    })
+} */
 
-async function temoignages_load_data() {
+//let temoignages_data = [];
+
+/* async function temoignages_load_data() {
     // on récupère tous les témoignages (uniquement le texte et l'image, pas tout le html)
     temoignages_json = await fetch('/wp-json/wp/v2/temoignages').then(response => response.json());
     for (let temoignage of temoignages_json) {
@@ -53,6 +60,7 @@ function temoignages_animate() {
     let img_field = ($(window).width() > 700) ? 'img_ordi': 'img'; 
 
     function show_temoignage() {
+        console.log('show temoignage');
         let martyr = temoignages_data[i];
         if (!img_field || !martyr || !martyr[img_field]) return;
         let img_url = (martyr[img_field] != '') ? martyr[img_field]: martyr.img;
@@ -76,7 +84,7 @@ function temoignages_animate() {
     show_temoignage();
     let temoignages_duree_vizu = get_wp_theme_option('temoignages_duration', 6000); // ms
     setInterval(show_temoignage, temoignages_duree_vizu);
-}
+} */
 
 // ========================================
 //       GENERER LES CARRES
@@ -87,17 +95,20 @@ let carres_data = [];
 
 async function carres_load_data() {
     carres_data = [];
-    carres_json = await fetch('/wp-json/wp/v2/carre').then(response => response.json());
-    for (let carre of carres_json) {
+    let lang = document.documentElement.lang.substr(0, 2);
+    console.log('lang', lang);
+    carres_data = await fetch('/wp-json/wtp/v1/carres/' + lang).then(response => response.json());
+    return carres_data;
+    /* for (let carre of carres_json) {
         carres_data.push({
             titres: [carre['meta']['_wtpcarre_adj_metakey'][0], carre['title']['rendered']],
             descr: carre['meta']['_wtpcarre_descr_metakey'][0],
             link: carre['meta']['_wtpcarre_pagelink_metakey'][0],
             img: (carre['_links']['wp:featuredmedia']) ? carre['_links']['wp:featuredmedia'][0]['href']: ''
         });
-    }
+    } */
     // on récupère les vraies url des images
-    let plist = []
+    /* let plist = []
     for (let carre of carres_data) {
         if (carre['img'] !== '') plist.push(fetch(carre['img']).then(response => response.json()));
         else plist.push(Promise.resolve(''))
@@ -106,7 +117,7 @@ async function carres_load_data() {
         for (let i = 0; i < arr_img.length; i++) {
             carres_data[i].img = (arr_img[i]['guid']) ? arr_img[i]['guid'].rendered: '';
         }
-    })
+    }) */
 }
 
 function build_carres() {
@@ -119,7 +130,7 @@ function build_carres_desktop() {
     let carres_colors = ['black', 'gold', 'white'];
     let root_carres = $('.carres_propositions').eq(0);
     root_carres.html('');
-    for (let i = 0; i < carres_data.length; i++) {
+    for (let i = 0; i < carres_data.length && i < 6; i++) {
         let data = carres_data[i];
         let link = (data.link && data.link != 'none') ? '/' + data.link : '';
         let carre_img = $(`<div class="carre" style="background: url('${data.img}');background-size: cover;background-position:center;"></div>`);
@@ -232,7 +243,7 @@ jQuery(document).ready(function(){
     // ========================================
     console.log('wp', wp.customize);
     flash_words_load();
-    temoignages_load_data().then(_ => console.log('temoignages loaded ! Grazie Signore !', temoignages_data)).catch(e => console.log('ERROR loading témoignages', e));
+    //temoignages_load_data().then(_ => console.log('temoignages loaded ! Grazie Signore !', temoignages_data)).catch(e => console.log('ERROR loading témoignages', e));
     setupModals();
 
     // typewriter effect
@@ -283,7 +294,7 @@ jQuery(document).ready(function(){
     carres_load_data().then(_ => console.log("carres_data", carres_data)).then(build_carres)
 
     // SLIDE TEMOIGNAGES ANIMATION
-    temoignages_animate()
+    //temoignages_animate()
 
 });
 

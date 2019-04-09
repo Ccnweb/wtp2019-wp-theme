@@ -24,7 +24,7 @@ $custom_meta_fields = array(array(
 ));
 
 // Add the Meta Box
-function wtp_mediaupload_add_custom_meta_box() {
+/* function wtp_mediaupload_add_custom_meta_box() {
     $screens = ['temoignages']; // to what post types do you want to add the metabox
     foreach ($screens as $screen) {
         add_meta_box(
@@ -36,7 +36,7 @@ function wtp_mediaupload_add_custom_meta_box() {
             'low'); // $priority
     }
 }
-add_action('add_meta_boxes', 'wtp_mediaupload_add_custom_meta_box');
+add_action('add_meta_boxes', 'wtp_mediaupload_add_custom_meta_box'); */
 
 
 // The Callback

@@ -265,7 +265,7 @@ function add_scroll_listener(el, cbk, opt) {
 
     function new_cbk(e) {
         var e = window.event || e; // old IE support
-        if (opt.preventDefault) e.preventDefault();
+        //if (opt.preventDefault) e.preventDefault();
         let delta = (e && (e.wheelDelta || e.detail)) ? Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))) : 0;
         cbk(delta)
     }

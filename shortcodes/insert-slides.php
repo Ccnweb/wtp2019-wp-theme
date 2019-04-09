@@ -67,7 +67,7 @@ function ccnwtp_shortcode_insert_slides() {
                 $title = (preg_match("/##no-title##/", $s_posttags)) ? '' : '<h2 class="subtitle">'.get_the_title().'</h2>';
 
                 // generate slide content
-                $content = new CcnHtmlObj('div', ['class' => 'text_content flexcc flexcol'], $title.get_the_content());
+                $content = new CcnHtmlObj('div', ['class' => 'text_content flexcc flexcol'], $title.do_shortcode(get_the_content()));
 
                 // add new slide element
                 $slides[] = new CcnHtmlObj('section', [

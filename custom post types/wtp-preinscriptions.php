@@ -8,8 +8,7 @@
 
 // we need to have the CCN Library plugin activated
 if (!defined('CCN_LIBRARY_PLUGIN_DIR')) {
-    echo ('global var CCN_LIBRARY_PLUGIN_DIR is not defined');
-    die('global var CCN_LIBRARY_PLUGIN_DIR is not defined');
+    //die('global var CCN_LIBRARY_PLUGIN_DIR is not defined');
     return;
 }
 
