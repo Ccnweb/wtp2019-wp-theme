@@ -1,5 +1,6 @@
 <?php    
 include_once(get_template_directory() . '/lib/CcnHtmlObj.php');
+require_once(CCN_LIBRARY_PLUGIN_DIR . 'lib.php'); use \ccn\lib as lib;
 
 function ccnwtp_shortcode_carousel() {
 

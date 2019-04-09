@@ -27,8 +27,16 @@ function ccnwtp_shortcode_insert_slides() {
             ), $atts, 'insert-slides' );
 
         // == 3. == on récupère les articles de la catégorie
+        $cat_in = [];
+        $cat_original = get_category_by_slug( $atts['category'] );
+        if ($cat_original) $cat_in[] = $cat_original->term_id;
+        $local_cat_slug = $atts['category']."-".pll_current_language();
+        $cat_local = get_category_by_slug( $local_cat_slug );
+        if ($cat_local) $cat_in[] = $cat_local->term_id;
+
         $query_args = array(
-            'category_name' => $atts['category'],
+            //'category_name' => $atts['category'],
+            'category__in'  =>  $cat_in,
             'post_status'   => 'publish',
             'lang'          =>  pll_current_language(),
             'meta_key'      => 'wtp2019_post_order',

@@ -2,14 +2,15 @@
 //       GENERER LES FLASH WORDS
 // ========================================
 
-
+let lang = document.documentElement.lang.substr(0, 2);
 
 let flash_words = []
 async function flash_words_load() {
     
     // on récupère l'ID de la catégorie de l'article "flash words"
     let categories = await fetch('/wp-json/wp/v2/categories').then(response => response.json());
-    let flash_category_id = categories.find(cat => cat.name == 'flash-words').id;
+    console.log('cat', categories);
+    let flash_category_id = categories.find(cat => cat.slug == 'flash-words-'+lang).id;
     
     // on récupère tous les articles de cette catégorie (il n'y en a qu'un)
     let flash_articles = await fetch('/wp-json/wp/v2/posts?categories=' + flash_category_id).then(response => response.json());
@@ -95,29 +96,9 @@ let carres_data = [];
 
 async function carres_load_data() {
     carres_data = [];
-    let lang = document.documentElement.lang.substr(0, 2);
     console.log('lang', lang);
     carres_data = await fetch('/wp-json/wtp/v1/carres/' + lang).then(response => response.json());
     return carres_data;
-    /* for (let carre of carres_json) {
-        carres_data.push({
-            titres: [carre['meta']['_wtpcarre_adj_metakey'][0], carre['title']['rendered']],
-            descr: carre['meta']['_wtpcarre_descr_metakey'][0],
-            link: carre['meta']['_wtpcarre_pagelink_metakey'][0],
-            img: (carre['_links']['wp:featuredmedia']) ? carre['_links']['wp:featuredmedia'][0]['href']: ''
-        });
-    } */
-    // on récupère les vraies url des images
-    /* let plist = []
-    for (let carre of carres_data) {
-        if (carre['img'] !== '') plist.push(fetch(carre['img']).then(response => response.json()));
-        else plist.push(Promise.resolve(''))
-    }
-    return Promise.all(plist).then(arr_img => {
-        for (let i = 0; i < arr_img.length; i++) {
-            carres_data[i].img = (arr_img[i]['guid']) ? arr_img[i]['guid'].rendered: '';
-        }
-    }) */
 }
 
 function build_carres() {
