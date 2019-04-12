@@ -209,13 +209,13 @@ function wtp2019_scripts() {
 	/* wp_enqueue_script( 'wtp2019-onepage-scroll', get_template_directory_uri() . '/js/jquery.onepage-scroll.min.js', array('jquery'), '20181213', true); */
 	
 	// CAROUSEL
-	wp_enqueue_style('owlcarousel-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', [], '001', 'all');
+	wp_enqueue_style('owlcarousel-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', ['wtp2019-main-script'], '001', 'all');
 	//wp_enqueue_style('owlcarousel-theme-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css', [], '001', 'all');
 	wp_enqueue_script('owlcarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', ['jquery'], '2.3.4', true);
 	wp_enqueue_script('wtp2019-carousel', get_template_directory_uri() . '/js/carousel.js', array('owlcarousel'), '002', true);
 
 	// MAIN WTP SCRIPT
-	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '002', true);
+	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '003', true);
 	
 	// burger menu
 	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), '20151215', true );
@@ -238,6 +238,17 @@ function wtp2019_scripts() {
 	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css', [], '002', 'all');
 	wp_register_style( 'wtp2019-infos-pratiques-desktop', get_template_directory_uri() . '/styles/infos-pratiques-desktop.css', array(), '20181228', 'all and (min-width: 600px)');
 	wp_register_script( 'wtp2019-infos-pratiques-script', get_template_directory_uri() . '/js/infos-pratiques.js', array('jquery'));
+
+	// ## 3 ## For connected users
+	// Translation tools
+	global $wp_post_types;
+	wp_register_style( 'wtp2019-translation-style', get_template_directory_uri() . '/components/translation_ui/translation.css', array(), '001', 'all');
+	wp_register_script('wtp2019-translation-script', get_template_directory_uri() . '/components/translation_ui/translation.js', array(), '003');
+	wp_localize_script('wtp2019-translation-script', 'translationAjaxData', array(
+		'post_type_slugs' => array_keys($wp_post_types),
+		'root_url' => get_site_url(),
+		'nonce' => wp_create_nonce('wp_rest') //secret value created every time you log in and can be used for authentication to alter content 
+	));
 }
 add_action( 'wp_enqueue_scripts', 'wtp2019_scripts' );
 

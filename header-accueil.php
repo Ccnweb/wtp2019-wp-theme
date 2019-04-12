@@ -33,6 +33,7 @@
 </button>
 
 <?php include 'part-sidebar.php' ?>
+<?php require "components/translation_ui/translation.php"; ?>
 
 
 	

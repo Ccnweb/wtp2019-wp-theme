@@ -80,6 +80,10 @@ wp_enqueue_script('wtp2019-horaires-script');
         if ( $query->have_posts() ) {
             while ( $query->have_posts() ) {
                 $query->the_post();
+
+                // lien pour éditer l'article
+                echo (current_user_can('edit_posts')) ? '<a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__("Éditer cette page", 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
+
                 echo do_shortcode(get_the_content());
             }
         }

@@ -74,11 +74,15 @@ function ccnwtp_shortcode_insert_slides() {
                 // get title
                 $title = (preg_match("/##no-title##/", $s_posttags)) ? '' : '<h2 class="subtitle">'.get_the_title().'</h2>';
 
+                // lien pour éditer l'article
+                $ifeditlink = (current_user_can('edit_posts')) ? '<a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__('Éditer', 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
+
                 // generate slide content
-                $content = new CcnHtmlObj('div', ['class' => 'text_content flexcc flexcol'], $title.do_shortcode(get_the_content()));
+                $content = new CcnHtmlObj('div', ['class' => 'text_content flexcc flexcol'], $ifeditlink . $title . do_shortcode(get_the_content()));
 
                 // add new slide element
                 $slides[] = new CcnHtmlObj('section', [
+                    'data-post-id' => 'post__post@'.$slug,
                     'class' => 'section'.$tag_classes.' slide__'.$slug,
                 ], $logo_wtp.$content->toString());
 

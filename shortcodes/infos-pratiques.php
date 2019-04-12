@@ -36,9 +36,13 @@ function ccnwtp_shortcode_infos_pratiques() {
         if ( $query->have_posts() ) {
             while ( $query->have_posts() && $compteur < 1000) {
                 $query->the_post();
+
+                // lien pour éditer l'article
+                $ifeditlink = (current_user_can('edit_posts')) ? '<a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__('Éditer', 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
+
                 $img = '<img src="'.get_the_post_thumbnail_url().'" alt="">';
                 $title = '<h3 class="soustitre">'.get_the_title().'</h3>';
-                $carre = new CcnHtmlObj('div', ['class' => 'element'], $img.$title.'<p>'.get_the_content().'</p>');
+                $carre = new CcnHtmlObj('div', ['class' => 'element'], $ifeditlink.$img.$title.'<p>'.get_the_content().'</p>');
                 $html->append($carre);
                 $compteur++;
             }

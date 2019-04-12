@@ -24,6 +24,7 @@ function get_carres( WP_REST_Request $request ) {
     $carres = [];
     while ( $query->have_posts() && $compteur < 100) {
         $query->the_post();
+
         $carre = [
             'slug' => get_post_field( 'post_name', get_post() ),
             //'tags' => get_the_tags(),
@@ -31,6 +32,7 @@ function get_carres( WP_REST_Request $request ) {
             'adjectif' => get_post_meta(get_the_ID(), '_wtpcarre_adj_metakey', true),
             'descr' => get_post_meta(get_the_ID(), '_wtpcarre_descr_metakey', true),
             'link' => get_post_meta(get_the_ID(), '_wtpcarre_pagelink_metakey', true),
+            'edit_link' => (current_user_can('edit_posts')) ? get_edit_post_link(get_the_ID()) : '',
             'img' => get_the_post_thumbnail_url(),
         ];
         $carre['titres'] = [$carre['adjectif'], $carre['title']];
@@ -43,7 +45,10 @@ add_action( 'rest_api_init', function () {
     register_rest_route( 'wtp/v1', '/carres/(?P<lang>[A-z\-_]+)', array(
       'methods' => 'GET',
       'callback' => 'get_carres',
-    ) );
+      'permission_callback' => function($request){
+            return true;//is_user_logged_in();
+        },
+    ));
 } );
 
 ?>

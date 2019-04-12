@@ -42,11 +42,22 @@ function ccnwtp_shortcode_programme_carres() {
         if ( $query->have_posts() ) {
             while ( $query->have_posts() && $compteur < 1000) {
                 $query->the_post();
+
+                // get the post slug 
+                $slug = get_post_field( 'post_name', get_post() );
+
+                // lien pour éditer l'article
+                $ifeditlink = (current_user_can('edit_posts')) ? '<br><a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__('Éditer', 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
+
                 $background = "background:url('".get_the_post_thumbnail_url()."');background-position:center;background-size:cover";
                 $carre_title = new CcnHtmlObj('div', ['class' => 'card_title'], get_the_title().'<br>'.
                     '<span class="txt-white">'.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true).'</span>'.
-                    '<div class="card_descr">'.get_post_meta(get_the_ID(), '_wtpprop_descr_metakey', true).'</div>');
-                $carre = new CcnHtmlObj('div', ['class' => 'carre card', 'style' => $background], $carre_title->toString());
+                    '<div class="card_descr">'.get_post_meta(get_the_ID(), '_wtpprop_descr_metakey', true).'</div>'.$ifeditlink);
+                $carre = new CcnHtmlObj('div', [
+                    'class' => 'carre card',
+                    'data-post-id' => 'post__propositions@'.$slug, 
+                    'style' => $background
+                ], $carre_title->toString());
                 $carres_list->append($carre);
                 $compteur++;
             }

@@ -26,6 +26,7 @@ function initArianePoints(section_selector = '.section', options = {}) {
         tooltips: '', // fonction ou liste des tooltips à afficher ou attribut HTML associé au @selection_selector pour récupérer le texte du tooltip
         auto_scroll: false, // animated auto scroll that stops only perfectly at a specific slide
         scroll_container: 'html, body',
+        key_control: true, // allows to pass slides with the keyboard
     }
     options = Object.assign(default_options, options);
     if (options.scroll_container == 'window') options.scroll_container = window;
@@ -152,14 +153,16 @@ function initArianePoints(section_selector = '.section', options = {}) {
     add_scroll_listener(options.scroll_container, onscroll, {preventDefault: options.auto_scroll})
 
     // manage arrow keys down/up
-    $(options.scroll_container).keydown(function(e){
-        if (e.which == 40) { // 37-left, 38-up, 39-right, 40-down
-            goToSlide(curr_section+1)
-        } else if (e.which == 38) {
-            goToSlide(curr_section-1)
-        }
-        return false;
-    });
+    if (options.key_control) {
+        $(options.scroll_container).keydown(function(e){
+            if (e.which == 40) { // 37-left, 38-up, 39-right, 40-down
+                goToSlide(curr_section+1)
+            } else if (e.which == 38) {
+                goToSlide(curr_section-1)
+            }
+            return false;
+        });
+    }
 
     // == 5. == we control here the auto scroll
     if (options.auto_scroll === true) jQuery(scroll_el).css('overflow-y', 'hidden');
@@ -168,7 +171,7 @@ function initArianePoints(section_selector = '.section', options = {}) {
         // we set a lock while we are guiding the scroll
         //if (scrolling) return;
         scrolling = true;
-        console.log('entered AS')
+        //console.log('entered AS')
         
         // we detect scrolling direction up or down
         let start = jQuery(options.scroll_container).scrollTop();
@@ -209,19 +212,18 @@ function initArianePoints(section_selector = '.section', options = {}) {
             duration:   options.scroll_speed, 
             easing:     'swing', 
         }).promise().then(function() {
-            console.log('riri')
             /* jQuery(options.scroll_container).clearQueue().stop().finish();
             jQuery(window).clearQueue().stop().finish();
             jQuery(document).clearQueue().stop().finish();
             jQuery(scroll_el).clearQueue().stop().finish();
             jQuery(this).clearQueue().stop().finish(); */
-            console.log("queue", jQuery(options.scroll_container).queue(), jQuery(scroll_el).queue(), jQuery(document).queue(), jQuery(window).queue())
+            //console.log("queue", jQuery(options.scroll_container).queue(), jQuery(scroll_el).queue(), jQuery(document).queue(), jQuery(window).queue())
 
             mem_scroll_pos = jQuery(options.scroll_container).scrollTop();
             log('%c AS: animating released, memory='+mem_scroll_pos, 'color: blue');
             get_curr_section(mem_scroll_pos)
             setTimeout(_ => {
-                console.log("queue", jQuery(this).queue(), jQuery(options.scroll_container).queue(), jQuery(scroll_el).queue(), jQuery(document).queue(), jQuery(window).queue())
+                //console.log("queue", jQuery(this).queue(), jQuery(options.scroll_container).queue(), jQuery(scroll_el).queue(), jQuery(document).queue(), jQuery(window).queue())
                 scrolling = false
             }, 200);
         });
@@ -257,7 +259,7 @@ function add_scroll_listener(el, cbk, opt) {
 
     let af = new AlloyFinger(el, {
         swipe: function(ev) {
-            console.log("swipe", ev)
+            //console.log("swipe", ev)
             if (ev.isTrusted && ev.direction == 'Up') return cbk(-1);
             if (ev.isTrusted && ev.direction == 'Down') return cbk(1);
         }

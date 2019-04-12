@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
     $('.carousel').owlCarousel({
         loop:true,
         margin:0,
-        autoplay:true,
+        autoplay: !user_is_connected_with_rights(),
         autoplayTimeout: 5000,
         responsiveClass:true,
         responsive:{

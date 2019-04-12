@@ -44,6 +44,12 @@ function ccnwtp_shortcode_carousel() {
             while ( $query->have_posts() && $compteur < 1000) {
                 $query->the_post();
 
+                // get the post slug 
+                $slug = get_post_field( 'post_name', get_post() );
+
+                // lien pour éditer l'article
+                $ifeditlink = (current_user_can('edit_posts')) ? '<a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__('Éditer', 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
+
                 // get post tags
                 $posttags = get_the_tags();
                 $s_posttags = '';
@@ -56,12 +62,13 @@ function ccnwtp_shortcode_carousel() {
                 $img_url = get_the_post_thumbnail_url();
 
                 $carre = new CcnHtmlObj('div', [
+                    'data-post-id' => 'post__'.$atts['post_type'].'@'.$slug,
                     'class' => 'element',
                     // add a "?" at the end of data-img-mobile for ex, to tell that this attribute should only be added if the value is not falsy
                     'data-img-mobile' => lib\one_of(kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' ), get_the_post_thumbnail_url()),
                     'data-img-desktop' => kdmfi_get_featured_image_src( 'featured-image-desktop', 'full' ),
                     'style' => 'background: center / cover no-repeat url('.$img_url.')',
-                ], $title.'<p>'.get_the_content().'</p>');
+                ], $title.'<p>'.get_the_content().'</p>'.$ifeditlink);
 
                 $html->append($carre);
                 $compteur++;

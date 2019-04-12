@@ -9,7 +9,6 @@ async function flash_words_load() {
     
     // on récupère l'ID de la catégorie de l'article "flash words"
     let categories = await fetch('/wp-json/wp/v2/categories').then(response => response.json());
-    console.log('cat', categories);
     let flash_category_id = categories.find(cat => cat.slug == 'flash-words-'+lang).id;
     
     // on récupère tous les articles de cette catégorie (il n'y en a qu'un)
@@ -22,7 +21,7 @@ async function flash_words_load() {
     // on initialise l'animation des flash words
     let i = 0;
     let flash_words_delay = get_wp_theme_option('flashing_words_speed', 200); // ms
-    console.log('flash speed', flash_words_delay);
+    //console.log('flash speed', flash_words_delay);
     setInterval(_ => {
         $('#intro_magic_words').text(flash_words[i]);
         i = (i+1) % flash_words.length;
@@ -96,8 +95,12 @@ let carres_data = [];
 
 async function carres_load_data() {
     carres_data = [];
-    console.log('lang', lang);
-    carres_data = await fetch('/wp-json/wtp/v1/carres/' + lang).then(response => response.json());
+    carres_data = await fetch('/wp-json/wtp/v1/carres/' + lang, {
+        credentials: 'include',
+        headers: new Headers({
+            'X-WP-Nonce': translationAjaxData.nonce,
+        }),
+    }).then(response => response.json());
     return carres_data;
 }
 
@@ -107,15 +110,16 @@ function build_carres() {
 }
 
 function build_carres_desktop() {
-    console.log('carres desktop')
+    //console.log('carres desktop')
     let carres_colors = ['black', 'gold', 'white'];
     let root_carres = $('.carres_propositions').eq(0);
     root_carres.html('');
     for (let i = 0; i < carres_data.length && i < 6; i++) {
         let data = carres_data[i];
         let link = (data.link && data.link != 'none') ? '/' + data.link : '';
+        let edit_link = (data.edit_link) ? `<a class="edit_post_link" target="_blank" href="${data.edit_link}">Edit &nbsp;<i class="fas fa-external-link-alt"></i></a>` : '';
         let carre_img = $(`<div class="carre" style="background: url('${data.img}');background-size: cover;background-position:center;"></div>`);
-        let carre_txt = $(`<div class="carre arrow ${carres_colors[i % carres_colors.length]}">
+        let carre_txt = $(`<div data-post-id="post__carre@${data.slug}" class="carre arrow ${carres_colors[i % carres_colors.length]}">${edit_link}
                 <div class="ligne1"><a href="${link}">${data.titres[0]}</a></div>
                 <div class="ligne2">${data.titres[1]}</div>
                 <div class="detail">${data.descr}</div>
@@ -183,7 +187,7 @@ function animateFlipCarres() {
     });
     if (flipcarres_animations.length) return;
     flipcarres_animations.push("done")
-    console.log('animating carrés')
+    //console.log('animating carrés')
     
     $('.flip-container').each(function(ind) {
         setTimeout(_ => {
@@ -245,9 +249,10 @@ jQuery(document).ready(function(){
     //       INITIALIZE SLIDE SCROLL
     // ========================================
     initArianePoints('.section', {
-        scroll_container: 'window',
+        scroll_container: 'window', 
         on_section_change: dotsBW,
-        auto_scroll: true,
+        auto_scroll: !user_is_connected_with_rights(), // no auto scroll if user is connected
+        key_control: !user_is_connected_with_rights(), // no keyboard control if user is connected
     })
 
      // gère l'affichage des points de navigation verticaux (blancs sur fond noir et noirs sur fond blanc)
