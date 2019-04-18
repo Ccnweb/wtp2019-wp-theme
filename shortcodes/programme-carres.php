@@ -28,6 +28,7 @@ function ccnwtp_shortcode_programme_carres() {
             ),
             'post_status'   => 'publish',
             'lang'          =>  pll_current_language(),
+            'limit'         => 10000,
             /* 'meta_key'      => 'ccnbtc_post_order',
             'orderby'       => 'meta_value_num', // nécessaire lorsque la meta_key est numérique
             'order'         => 'ASC',

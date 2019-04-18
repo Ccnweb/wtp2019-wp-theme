@@ -215,7 +215,13 @@ function wtp2019_scripts() {
 	wp_enqueue_script('wtp2019-carousel', get_template_directory_uri() . '/js/carousel.js', array('owlcarousel'), '002', true);
 
 	// MAIN WTP SCRIPT
+	global $wp_post_types;
 	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '003', true);
+	wp_localize_script('wtp2019-main-script', 'translationAjaxData', array(
+		'post_type_slugs' => array_keys($wp_post_types),
+		'root_url' => get_site_url(),
+		'nonce' => wp_create_nonce('wp_rest') //secret value created every time you log in and can be used for authentication to alter content 
+	));
 	
 	// burger menu
 	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), '20151215', true );
@@ -241,14 +247,12 @@ function wtp2019_scripts() {
 
 	// ## 3 ## For connected users
 	// Translation tools
-	global $wp_post_types;
 	wp_register_style( 'wtp2019-translation-style', get_template_directory_uri() . '/components/translation_ui/translation.css', array(), '001', 'all');
 	wp_register_script('wtp2019-translation-script', get_template_directory_uri() . '/components/translation_ui/translation.js', array(), '003');
-	wp_localize_script('wtp2019-translation-script', 'translationAjaxData', array(
-		'post_type_slugs' => array_keys($wp_post_types),
-		'root_url' => get_site_url(),
-		'nonce' => wp_create_nonce('wp_rest') //secret value created every time you log in and can be used for authentication to alter content 
+	wp_localize_script('wtp2019-translation-script', 'edit_mode', array(
+		'available' => true,
 	));
+	
 }
 add_action( 'wp_enqueue_scripts', 'wtp2019_scripts' );
 

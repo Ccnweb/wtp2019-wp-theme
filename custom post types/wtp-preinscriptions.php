@@ -13,6 +13,7 @@ if (!defined('CCN_LIBRARY_PLUGIN_DIR')) {
 }
 
 require_once(CCN_LIBRARY_PLUGIN_DIR . 'log.php'); use \ccn\lib\log as log;
+require_once(CCN_LIBRARY_PLUGIN_DIR . 'lib.php'); use \ccn\lib as lib;
 // we load here some high-level functions to create custom post types
 require_once(CCN_LIBRARY_PLUGIN_DIR . 'create-custom-post-type.php');
 // on charge la librairie pour créer des REST POST backend
@@ -147,13 +148,14 @@ function build_samuel_endpoint_url_preinscr($v = '') {
 
 // add an options page
 // source : https://codex.wordpress.org/Settings_API
-
-add_action('admin_menu', 'wtp_register_my_custom_submenu_page');
-function wtp_register_my_custom_submenu_page() {
-    add_submenu_page( 'edit.php?post_type=inscription', 'Config Samuel', 'Config Samuel', 'inscription_options', 'config-samuel-preinscription', 'wtp_custom_submenu_page_callback' ); 
+add_action('admin_menu', 'wtp_register_samuel_custom_submenu_page');
+function wtp_register_samuel_custom_submenu_page() {
+    $b = add_submenu_page( 'edit.php?post_type=inscription', 'Config Samuel', 'Config Samuel', 'edit_theme_options', 'config-samuel-preinscription', 'wtp_custom_submenu_page_callback' ); 
+    if ($b === false) lib\php_console_log('PHP : Could not add amdin page for Samuel Pre-inscriptions !!!', 'log', 'color:red');
     
     add_settings_section( 'section_samuel', 'Options Samuel', function() {
         //echo "<h3>(Options Samuel) Section Lode a te Gesù !</h3>";
+        //lib\php_console_log('PHP I was here ! Grazie Signore !');
     }, 'inscription_options' );
     
     add_settings_field( 'samuel_endpoint_preinscr', 'Endpoint Samuel Préinscriptions', function() {
@@ -185,7 +187,7 @@ function wtp_register_my_custom_submenu_page() {
 }
 function wtp_custom_submenu_page_callback() {
 	// check user capabilities
-    if (!current_user_can('manage_options')) {
+    if (!current_user_can('edit_theme_options')) {
         return;
     }
     ?>

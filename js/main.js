@@ -174,7 +174,7 @@ function clear_php_console_logs() {
 
 function user_is_connected_with_rights() {
     try{ 
-        translationAjaxData;
+        edit_mode;
         return true;
     } catch(e) {
         if(e.name == "ReferenceError") {
