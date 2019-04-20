@@ -35,6 +35,7 @@ function get_carres( WP_REST_Request $request ) {
             'edit_link' => (current_user_can('edit_posts')) ? get_edit_post_link(get_the_ID()) : '',
             'img' => get_the_post_thumbnail_url(),
         ];
+        if(empty($carre['img'])) $carre['img'] = kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' );
         $carre['titres'] = [$carre['adjectif'], $carre['title']];
         $carres[] = $carre;
     }

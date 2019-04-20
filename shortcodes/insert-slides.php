@@ -81,9 +81,14 @@ function ccnwtp_shortcode_insert_slides() {
                 $content = new CcnHtmlObj('div', ['class' => 'text_content flexcc flexcol'], $ifeditlink . $title . do_shortcode(get_the_content()));
 
                 // add new slide element
+                $class_categories = array_map(function($el) {$c = get_category($el); return 'cat_'.$c->slug;}, wp_get_post_categories(get_the_ID()));
+                var_dump($class_categories);
                 $slides[] = new CcnHtmlObj('section', [
                     'data-post-id' => 'post__post@'.$slug,
-                    'class' => 'section'.$tag_classes.' slide__'.$slug,
+                    'class' => array_merge([
+                        'section'.$tag_classes, 
+                        'slide__'.$slug, 
+                    ], $class_categories),
                 ], $logo_wtp.$content->toString());
 
                 $compteur++;

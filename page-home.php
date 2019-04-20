@@ -37,7 +37,7 @@ wp_enqueue_style('wtp2019-accueil-desktop');
 				<img id="next_step" src="<?php echo get_template_directory_uri() ?>/img/logo_next_step_nu.png" width="165">
 				<img id="intro_logo" src="<?php echo get_template_directory_uri() ?>/img/arrows_gold_right.svg" width="40">
 				<svg viewBox="0 -2 100 104" preserveAspectRatio="none">
-					<path d="M 100 50 L 100 0 L 0 0 L 0 100 L 100 100 L 100 90" class="svg_border"/> 
+					<path d="M 100 50 L 100 0 L 0 0 L 0 100 L 100 100 L 100 90" class="svg_border"/>
 				</svg>
 			</div>
 			<div id="intro_magic_words">

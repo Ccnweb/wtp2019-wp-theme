@@ -110,22 +110,22 @@ video {
     height: 100vh;
 }
 
-.slide__temoignages > div {
+/* .slide__temoignages > div {
     width: 100%;
     margin-top: 0;
-}
+} */
 
-.slide__temoignages .owl-item p:nth-child(2) > span {
+.post_type__temoignages .owl-item p:nth-child(2) > span {
     color: white;
     background: black;
     font-family: "Traveling Typewriter";
 }
 
-.slide__temoignages .owl-item p:nth-child(2) {
+.post_type__temoignages .owl-item p:nth-child(2) {
     margin: 0 1rem;
     width: auto;
 }
 
-.slide__temoignages .owl-nav, .slide__temoignages .owl-dots {
+.post_type__temoignages .owl-nav, .post_type__temoignages .owl-dots {
     display: none;
 }

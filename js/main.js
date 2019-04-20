@@ -174,11 +174,11 @@ function clear_php_console_logs() {
 
 function user_is_connected_with_rights() {
     try{ 
-        edit_mode;
-        return true;
+        let a = edit_mode;
+        return edit_mode.available;
     } catch(e) {
         if(e.name == "ReferenceError") {
-           return false;
+            return false;
         }
     }
 }
