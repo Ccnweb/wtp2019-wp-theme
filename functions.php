@@ -16,6 +16,7 @@ if ( ! function_exists( 'wtp2019_setup' ) ) :
 	 * as indicating support for post thumbnails.
 	 */
 	function wtp2019_setup() {
+
 		add_theme_support('post-thumbnails', array(
 			'post',
 			'page',
@@ -182,7 +183,7 @@ add_action( 'widgets_init', 'wtp2019_widgets_init' );
  * Enqueue scripts and styles.
  */
 function wtp2019_scripts() {
-	$last_version = '005';
+	$last_version = '006';
 
 	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');
@@ -397,6 +398,21 @@ require_once_all_regex(get_template_directory() . '/blocks/', "");
 require_once_all_regex(get_template_directory() . '/rest endpoints/', "");
 
 
+
+/* ========================================================= */
+/*                				FILTERS					                   */
+/* ========================================================= */
+
+// add filter to transform tags like class-* in a css class to the root element
+// TODO fix this (does not work)
+function wtp_wrap_post($content) {
+	/**
+	 * wraps the content
+	 */
+
+	return lib\tags_to_wrap_content($content);
+}
+add_filter( 'the_content', '\ccn\lib\tags_to_wrap_content');
 
 /* ========================================================= */
 /*                 MULTIPLE FEATURED IMAGES                  */

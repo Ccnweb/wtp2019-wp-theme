@@ -1,15 +1,8 @@
 jQuery(document).ready(function($) {
-
-    // initialize navigation ariane points
-    /* initArianePoints('.slide', {
-        scroll_container: 'window',
-        auto_scroll: [0,1],
-    })
-    $('ul.ariane_points').addClass('black'); */
     
     // initialize menu scrolling
     init_menu_scroll({
-        section_selector: '#content h2',
+        section_selector: '.menu-scroll h2',
         menu_selector: '.semaine_container',
         scroll_container: 'window',
         top_offset: $('header').height(),
@@ -35,6 +28,23 @@ jQuery(document).ready(function($) {
 
 
     // ==================================
+    // Golden time : shows time in gold
+    // ==================================
+    $('.golden-time h3, .golden-time li, h3.golden-time, li.golden-time').each(function() {
+        let texte = $(this).text();
+        if (/^[0-9]{2,3}/gi.test(texte)) {
+            let regex_res = /^([0-9]{3,4})\s+(.*)$/gi.exec(texte);
+            if (regex_res && regex_res.length > 2) {
+                let hours = regex_res[1].substr(0, regex_res[1].length-2);
+                let minutes = regex_res[1].substr(regex_res[1].length-2);
+                let horaire = `<span class="txt-gold">${hours}<sup>${minutes}</sup></span>`;
+                $(this).html(horaire + ' ' + regex_res[2]);
+            }
+        }
+    })
+
+
+    // ==================================
     // journee type animation
     // ==================================
     let top_offset = $('ul.horaires').eq(0).offset().top;
@@ -53,5 +63,6 @@ jQuery(document).ready(function($) {
             })
         }
     })
+
 
 })

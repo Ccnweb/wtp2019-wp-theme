@@ -31,7 +31,7 @@ ul.horaires {
     line-height: 1.4rem;
 }
 
-.heure {
+ul.horaires > li > span {
     color: var(--gold);
     margin-right: 2rem;
     width: 3rem;

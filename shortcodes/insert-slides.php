@@ -82,7 +82,8 @@ function ccnwtp_shortcode_insert_slides() {
 
                 // add new slide element
                 $class_categories = array_map(function($el) {$c = get_category($el); return 'cat_'.$c->slug;}, wp_get_post_categories(get_the_ID()));
-                var_dump($class_categories);
+                //var_dump($class_categories);
+                
                 $slides[] = new CcnHtmlObj('section', [
                     'data-post-id' => 'post__post@'.$slug,
                     'class' => array_merge([

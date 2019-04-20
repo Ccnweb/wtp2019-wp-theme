@@ -4,6 +4,7 @@ function init_menu_scroll(opt) {
         section_selector:   '.section',         // jquery selector for the sections
         menu_selector:      '.menu',            // jquery selector for the menu container (preferably not the ul element but a container of the ul element)
         menu_item_selector: 'li',               // jquery selector for menu items
+        menu_class:         'the-menu',         // the menu css class to be added
         focus_style:        'underline',        // the style of the element that shows in wich section we are
         scroll_container:   'html, body',       // the element in which we want to scroll
         top_offset:         0,                  // an offset to apply when scrolling to element
@@ -18,6 +19,7 @@ function init_menu_scroll(opt) {
     // detect section positions
     let sections = [];
     $(opt.section_selector).each(function() {
+        console.log('got section', $(this).text())
         sections.push({
             top: $(this).offset().top - opt.top_offset,
             height: $(this).height(),
@@ -30,12 +32,12 @@ function init_menu_scroll(opt) {
 
     // add ul/li elements if they don't exist
     if (opt.focus_style == 'underline' && $(opt.menu_selector + ' ul').length == 0) {
-        let menu = $('<ul></ul>');
+        let menu = $(`<ul class="${opt.menu_class}"></ul>`);
         $(opt.section_selector).each(function() {
             let titre = ($(this).attr('data-title')) ? $(this).attr('data-title') : $(this).text();
             menu.append(`<li>${titre}</li>`)
         })
-        $(opt.menu_selector).append(menu)
+        $(opt.menu_selector).prepend(menu)
     }
     if (opt.focus_style == 'underline' && $(opt.menu_selector + ' .underline_bar').length == 0) {
         $(opt.menu_selector).append(`<div class="underline_bar">
