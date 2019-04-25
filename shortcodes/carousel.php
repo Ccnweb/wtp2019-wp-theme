@@ -7,6 +7,7 @@ function ccnwtp_shortcode_carousel() {
     $shortcode_fun = function($atts = [], $content = null, $tag = '') {
 
         // == 0. == Predefined options TODO rendre ça modifiable via l'interface
+        // post types in this array will not display the post title in the carousel
         $no_title_post_types = ['temoignages'];
         
         // == 1. == on normalise les attributs
@@ -32,6 +33,7 @@ function ccnwtp_shortcode_carousel() {
                     'taxonomy' => 'themes',
                     'field'    => 'slug',
                     'terms'    => $atts['theme'],
+                    'posts_per_page'=>  10000,
                 ),
             );
         }

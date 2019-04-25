@@ -2,6 +2,14 @@ body {
     overflow-x: hidden;
 }
 
+.text_content {
+    margin-top: 0;
+}
+
+.slide__temoignages .text_content, .slide__temoignages-en .text_content {
+    width: 100%;
+}
+
 #menu {
     position: fixed;
 }

@@ -90,10 +90,10 @@ wp_enqueue_script('wtp2019-horaires-script');
             // for each article in "horaires" category
             while ( $query->have_posts() ) {
                 $query->the_post();
-
+                
                 // show link to edit the article
                 echo (current_user_can('edit_posts')) ? '<a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__("Éditer cette page", 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
-
+                
                 // get the post slug 
                 $slug = get_post_field( 'post_name', get_post() );
 

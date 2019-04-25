@@ -42,7 +42,7 @@ function ccnwtp_shortcode_insert_slides() {
             'meta_key'      => 'wtp2019_post_order',
             'orderby'       => 'meta_value_num', // nécessaire lorsque la meta_key est numérique
             'order'         => 'ASC',
-            'limit'         => 100,
+            'posts_per_page'=> 10000,
         );
         $query = new WP_Query( $query_args );
 
