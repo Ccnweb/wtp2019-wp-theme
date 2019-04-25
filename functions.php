@@ -183,7 +183,7 @@ add_action( 'widgets_init', 'wtp2019_widgets_init' );
  * Enqueue scripts and styles.
  */
 function wtp2019_scripts() {
-	$last_version = '006';
+	$last_version = '007';
 
 	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');

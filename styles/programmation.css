@@ -18,6 +18,9 @@ header {
     background: transparent;
 }
 
+.bg-title {
+    height: 100%;
+}
 
 #content {
     margin-top: 13vh;
