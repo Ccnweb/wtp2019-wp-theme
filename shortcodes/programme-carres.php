@@ -50,7 +50,16 @@ function ccnwtp_shortcode_programme_carres() {
                 // lien pour éditer l'article
                 $ifeditlink = (current_user_can('edit_posts')) ? '<br><a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__('Éditer', 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
 
-                $background = "background:url('".get_the_post_thumbnail_url()."');background-position:center;background-size:cover";
+                $background = "
+                    background-image:   linear-gradient(
+                                            to bottom, 
+                                            rgba(255, 255, 255, 0.05),
+                                            rgba(173, 173, 173, 0.23), 
+                                            rgba(25, 25, 25, 0.75)
+                                        ), url('".get_the_post_thumbnail_url()."');
+                    background-position:center,center;
+                    background-size:    cover,cover
+                ";
                 $carre_title = new CcnHtmlObj('div', ['class' => 'card_title'], get_the_title().'<br>'.
                     '<span class="txt-white">'.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true).'</span>'.
                     '<div class="card_descr">'.get_post_meta(get_the_ID(), '_wtpprop_descr_metakey', true).'</div>'.$ifeditlink);

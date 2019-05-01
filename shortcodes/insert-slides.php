@@ -12,6 +12,7 @@
  */
 
 include_once(get_template_directory() . '/lib/CcnHtmlObj.php');
+require_once(CCN_LIBRARY_PLUGIN_DIR . '/lib.php'); use \ccn\lib as lib;
 
 function ccnwtp_shortcode_insert_slides() {
 
@@ -63,14 +64,13 @@ function ccnwtp_shortcode_insert_slides() {
                     $arr_posttags = array_map(function($tag) {return $tag->name;}, $posttags);
                     $s_posttags = '##'.implode('##', $arr_posttags).'##';
                 }
+                //lib\php_console_log("PHP : ".$s_posttags);
 
                 // logo WTP in the top left corner ?
                 $logo_wtp = (preg_match("/##logo-wtp##/", $s_posttags)) ? '<img class="logo_wtp" src="'.get_template_directory_uri().'/img/logo_wtp_gold.png">' : '';
 
                 // get the classes defined as tags (in the form "class-...")
-                preg_match_all('/#class-(.+?)#/', $s_posttags, $result);
-                $tag_classes = ($result) ? ' '.implode(' ', $result[1]): '';
-                //echo "POSTTAGS ".$s_posttags." ".json_encode($result)."\n<br>";
+                $tag_classes = lib\tags_to_css_classes();
 
                 // get title
                 $title = (preg_match("/##no-title##/", $s_posttags)) ? '' : '<h2 class="subtitle">'.get_the_title().'</h2>';
