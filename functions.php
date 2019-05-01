@@ -185,7 +185,7 @@ add_action( 'widgets_init', 'wtp2019_widgets_init' );
 function wtp2019_scripts() {
 	$last_version = '007';
 
-	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri(), [], '001', 'all' );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');
 	/* wp_enqueue_style( 'wtp2019-style-onepage', get_template_directory_uri() . '/styles/onepage-scroll.css'); */
 	wp_enqueue_style( 'wtp2019-style-helpers', get_template_directory_uri() . '/styles/helpers.css');
