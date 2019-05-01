@@ -1,11 +1,11 @@
 // ========================================
-//       GENERER LES FLASH WORDS
+//       GENERATE FLASH/MAGIC WORDS
 // ========================================
 
 let lang = document.documentElement.lang.substr(0, 2);
 
-let flash_words = []
-async function flash_words_load() {
+/* let flash_words = []
+async function flash_words_load_old() {
     
     // on récupère l'ID de la catégorie de l'article "flash words"
     let categories = await fetch('/wp-json/wp/v2/categories').then(response => response.json());
@@ -28,63 +28,19 @@ async function flash_words_load() {
     }, flash_words_delay)
 }
 
+async function flash_words_load() {
+    let flash_words_delay = get_wp_theme_option('flashing_words_speed', 200); // ms
 
-// ========================================
-//       GENERER LES TEMOIGNAGES
-// ========================================
-
-/* function fine_tune_temoignages() {
-    let descriptions = jQuery('.carousel .post_type__temoignages p:nth-child(2)');
-    descriptions.each(function() {
-        $(this).html("<span>" + $(this).html() + "</span>")
+    jQuery('[data-flash-words]').each(function() {
+        let i = 0;
+        let flash_words = $(this).attr('data-flash-words').split(/\s*\,\s* /);
+        setInterval(_ => {
+            $(this).text(flash_words[i]);
+            i = (i+1) % flash_words.length;
+        }, flash_words_delay)
     })
-} */
-
-//let temoignages_data = [];
-
-/* async function temoignages_load_data() {
-    // on récupère tous les témoignages (uniquement le texte et l'image, pas tout le html)
-    temoignages_json = await fetch('/wp-json/wp/v2/temoignages').then(response => response.json());
-    for (let temoignage of temoignages_json) {
-        let html = $('<div>' + temoignage.content.rendered + '</div>');
-        let img = html.find('img').attr('src');
-        let texte = html.find('p').html();
-        let img_ordi = (temoignage.meta['_wtpmediaupload_img_metakey']) ? temoignage.meta['_wtpmediaupload_img_metakey'][0] : '';
-        temoignages_data.push({img, texte, img_ordi});
-    }
-    $('#temoignages').find('.img_content').removeClass('bg-arrows');
 }
-function temoignages_animate() {
-    let i = 0;
-    console.log('initialising témoignage animation');
-    let img_field = ($(window).width() > 700) ? 'img_ordi': 'img'; 
-
-    function show_temoignage() {
-        console.log('show temoignage');
-        let martyr = temoignages_data[i];
-        if (!img_field || !martyr || !martyr[img_field]) return;
-        let img_url = (martyr[img_field] != '') ? martyr[img_field]: martyr.img;
-        let root = $('.temoignages').eq(0);
-        root.html(`<div class="img_content bg-arrows" style="background-size: cover;"></div>
-        <div class="golden_box">
-            <span class="quote"><i class="fas fa-spinner fa-spin"></i></span>
-        </div>`)
-        root.fadeOut('slow', function() {
-            root.find('.img_content').css({
-                'background': `url('${img_url}')`, 
-                'background-size': 'cover',
-                'background-position': 'center'
-            })
-            root.find('.quote').html(martyr.texte);
-            root.fadeIn('slow');
-        })
-        i = (i+1) % temoignages_data.length;
-    }
-
-    show_temoignage();
-    let temoignages_duree_vizu = get_wp_theme_option('temoignages_duration', 6000); // ms
-    setInterval(show_temoignage, temoignages_duree_vizu);
-} */
+ */
 
 // ========================================
 //       GENERER LES CARRES
@@ -227,7 +183,7 @@ jQuery(document).ready(function(){
     //       INITIALIZE CONTENT
     // ========================================
     console.log('wp', wp.customize);
-    flash_words_load();
+    //flash_words_load();
     //temoignages_load_data().then(_ => console.log('temoignages loaded ! Grazie Signore !', temoignages_data)).catch(e => console.log('ERROR loading témoignages', e));
     setupModals();
 
@@ -304,9 +260,3 @@ function inscription() {
         PUM.open(280)
     }
 }
-
-// SLIDE 1 : open/close inscription button
-/* function openInscriptionButton() {
-    $('#inscription').addClass('openwidth');
-    setTimeout(_ => $('#inscription').addClass('openheight'), 500)
-} */

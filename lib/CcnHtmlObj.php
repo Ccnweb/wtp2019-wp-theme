@@ -22,6 +22,7 @@ class CcnHtmlObj implements JsonSerializable {
         
         // we add all the html attributes
         foreach($this->attrs as $k => $v) {
+            if (empty($v)) continue;
             $k_name = (substr($k, -1) == '?') ? substr($k, 0, -1) : $k;
             if (is_array($v)) $v = implode(' ', $v);
             if (substr($k, -1) != '?' || $v) $s_attrs .= $k_name.'="'.str_replace('"', '\\"', $v).'" ';

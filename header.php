@@ -15,6 +15,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#222" />
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<link rel="icon" href="<?php get_site_icon_url(); ?>" />
 
@@ -25,7 +26,7 @@
 
 <header>
 	<?php the_custom_logo(); ?>
-	<a class="hide-xs" href="<?php echo get_home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/logo_next_step.png"/></a>
+	<a class="hide-xs" href="<?php echo get_home_url(); ?>"><img class="header_logo_next_step" src="<?php echo get_template_directory_uri(); ?>/img/logo_next_step.png"/></a>
 	<p>&nbsp;</p>
 </header>
 <nav id="menu"><div class="burger black"><span></span><span></span><span></span></div></nav>

@@ -12,11 +12,16 @@
 
 .slide_footer {
     position: absolute;
-    bottom: 1.5cm;
+    bottom: 1.1cm;
     color: var(--primary-color);
     text-align: center;
     font-size: 1.2rem;
     line-height: 2.1rem;
+}
+
+.video_player {
+    /* top: -36px; */
+    width: 100%;
 }
 
 /* ====================================== */

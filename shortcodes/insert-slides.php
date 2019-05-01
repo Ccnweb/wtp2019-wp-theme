@@ -68,17 +68,36 @@ function ccnwtp_shortcode_insert_slides() {
                 $logo_wtp = (preg_match("/##logo-wtp##/", $s_posttags)) ? '<img class="logo_wtp" src="'.get_template_directory_uri().'/img/logo_wtp_gold.png">' : '';
 
                 // get the classes defined as tags (in the form "class-...")
-                preg_match_all('/##class-([^#]+)##/', $s_posttags, $result);
+                preg_match_all('/#class-(.+?)#/', $s_posttags, $result);
                 $tag_classes = ($result) ? ' '.implode(' ', $result[1]): '';
+                //echo "POSTTAGS ".$s_posttags." ".json_encode($result)."\n<br>";
 
                 // get title
                 $title = (preg_match("/##no-title##/", $s_posttags)) ? '' : '<h2 class="subtitle">'.get_the_title().'</h2>';
+
+                // get bg video
+                $bg_video_url = get_post_meta(get_the_ID(), 'background_video', true);
+                $bg_video_html = '';
+                if (!empty($bg_video_url)) {
+                    if (!preg_match("/^http/", $bg_video_url) && !preg_match("/^\//", $bg_video_url)) $bg_video_url = '/'.$bg_video_url;
+                    if (!empty($bg_video_url) && preg_match("/^\//", $bg_video_url)) $bg_video_url = get_site_url().$bg_video_url;
+                    
+                    $bg_video_html = '<video class="video_player" 
+                            height="100%"
+                            preload="none" muted autoplay loop playsinline>
+                        <source src="'.$bg_video_url.'"/>
+                        <p>Your browser does not support HTML5 Video!</p>
+                    </video>';
+                }
 
                 // lien pour éditer l'article
                 $ifeditlink = (current_user_can('edit_posts')) ? '<a class="edit_post_link" target="_blank" href="'.get_edit_post_link(get_the_ID()).'">'.__('Éditer', 'ccnbtc').'&nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>' : '';
 
                 // generate slide content
-                $content = new CcnHtmlObj('div', ['class' => 'text_content flexcc flexcol'], $ifeditlink . $title . do_shortcode(get_the_content()));
+                $content = new CcnHtmlObj('div', 
+                    ['class' => 'text_content flexcc flexcol'], 
+                    $ifeditlink . $bg_video_html . $title . do_shortcode(get_the_content())
+                );
 
                 // add new slide element
                 $class_categories = array_map(function($el) {$c = get_category($el); return 'cat_'.$c->slug;}, wp_get_post_categories(get_the_ID()));
@@ -90,7 +109,7 @@ function ccnwtp_shortcode_insert_slides() {
                         'section'.$tag_classes, 
                         'slide__'.$slug, 
                     ], $class_categories),
-                ], $logo_wtp.$content->toString());
+                ], $logo_wtp . $content->toString());
 
                 $compteur++;
             }

@@ -2,6 +2,12 @@ body {
     overflow-x: hidden;
 }
 
+header {
+    background: transparent;
+}
+
+.header_logo_next_step, header .custom-logo-link {display: none;}
+
 .text_content {
     margin-top: 0;
 }
@@ -27,6 +33,8 @@ video {
     bottom: 66px;
     color: var(--primary-color);
     text-align: center;
+    font-family: 'Josefin Sans';
+    letter-spacing: 3px;
     font-size: 0.7rem;
     line-height: 1.1rem;
 }
