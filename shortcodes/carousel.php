@@ -68,7 +68,7 @@ function ccnwtp_shortcode_carousel() {
                     'class' => 'element',
                     // add a "?" at the end of data-img-mobile for ex, to tell that this attribute should only be added if the value is not falsy
                     'data-img-mobile' => lib\one_of(kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' ), get_the_post_thumbnail_url()),
-                    'data-img-desktop' => kdmfi_get_featured_image_src( 'featured-image-desktop', 'full' ),
+                    'data-img-desktop' => lib\one_of(kdmfi_get_featured_image_src( 'featured-image-desktop', 'full' ), kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' )),
                     'style' => 'background: center / cover no-repeat url('.$img_url.')',
                 ], $title.'<p>'.get_the_content().'</p>'.$ifeditlink);
 

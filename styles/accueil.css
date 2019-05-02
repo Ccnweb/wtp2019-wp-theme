@@ -6,7 +6,7 @@ header {
     background: transparent;
 }
 
-.header_logo_next_step, header .custom-logo-link {display: none;}
+.header_logo_next_step, header .custom-logo-link:nth-child(2) {display: none;}
 
 .text_content {
     margin-top: 0;
@@ -26,6 +26,13 @@ header {
 
 video {
     filter: grayscale(1);
+    transform: scale(1.2);
+}
+
+.bring_forward_white {
+    position: relative;
+    z-index: 100;
+    background: white;
 }
 
 .slide_footer {

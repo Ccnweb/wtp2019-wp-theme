@@ -57,14 +57,17 @@ $(document).ready(function() {
 
     // 
     header_state = 'none';
-    scroll_pos_test = $('#content').offset().top;
+    scroll_pos_test = $('.carres_container').eq(0).offset().top;
 
     // on desktop, we show arrows in the square list
     if ($(window).width() > 640) init_squares_arrows();
     
 })
 
-/* $('body').scroll(function() {
+// ====================================================
+//      Change header style on scroll
+// ====================================================
+$(window).scroll(function() {
     let y_scroll_pos = $(this).scrollTop();
 
     if (y_scroll_pos > scroll_pos_test && header_state != 'black') {
@@ -74,4 +77,4 @@ $(document).ready(function() {
         $('header').css({background: 'none'})
         header_state = 'transparent'
     }
-}); */
+});

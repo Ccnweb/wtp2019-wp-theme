@@ -191,31 +191,48 @@ add_action('add_meta_boxes', 'wtpprop_add_custom_box');
 function wtpprop_custom_box_html($post) {
 	$value_adj = get_post_meta($post->ID, '_wtpprop_adj_metakey', true);
 	$value_descr = get_post_meta($post->ID, '_wtpprop_descr_metakey', true);
+	$value_linkedprop = get_post_meta($post->ID, '_wtpprop_linkedprop_metakey', true);
+
+	// retrieve all propositions for the linked proposition dropdown
+	$query_args = array(
+		'post_type' => 'propositions',
+		'post_status'   => 'publish',
+		'lang'          =>  pll_current_language(),
+		'posts_per_page'=> 10000,
+	);
+	$query = new WP_Query( $query_args );
     ?>
 	<div class="wtpprop_custom_metabox" style="display:flex;flex-direction:column">
+
 		<!-- Adjectif -->
 		<div class="wtpprop_field_container">
             <label for="wtpprop_adjectif_field">Adjectif ou deuxième ligne : </label>
             <input type="text" name="wtpprop_adjectif_field" id="wtpprop_adjectif_field" class="postbox" value="<?php echo $value_adj ?>" />
-        </div>
+		</div>
+		
 		<!-- Description -->
         <div class="wtpprop_field_container" style="display:flex">
             <label for="wtpprop_descr_field">Description : </label>
             <textarea type="text" name="wtpprop_descr_field" id="wtpprop_descr_field" class="postbox" rows="5"><?php echo $value_descr ?></textarea>
-        </div>
-		<!-- le champ du type de proposition (soiree, priere, workshop, ...) -->
-		<!-- <div class="wtpprop_field_container">
-			<label for="wtp_field">Choisis un type de proposition : </label>
-			<select name="wtp_field" id="wtp_field" class="postbox">
-				<option value="soiree" <?php selected($value, 'soiree'); ?>>Soirée</option>
-				<option value="sport" <?php selected($value, 'sport'); ?>>Sport</option>
-				<option value="bar" <?php selected($value, 'bar'); ?>>Bar Kawaco</option>
-				<option value="temoignage" <?php selected($value, 'temoignage'); ?>>Témoignage</option>
-				<option value="workshop" <?php selected($value, 'workshop'); ?>>Workshop</option>
-				<option value="intervenant" <?php selected($value, 'intervenant'); ?>>Intervenant</option>
-				<option value="priere" <?php selected($value, 'priere'); ?>>École de prière</option>
+		</div>
+	
+		<!-- The dropdown to select  -->
+		<div class="wtpprop_field_container">
+			<label for="wtpprop_linkedprop_field">Proposition liée : </label>
+			<select name="wtpprop_linkedprop_field" id="wtpprop_linkedprop_field" class="postbox">
+				<option value="no_linkedprop"><i>Pas de proposition liée</i></option>
+				<?php 
+				$propositions = [];
+				while ( $query->have_posts() && $compteur < 1000) {
+					$query->the_post();
+					$propositions[] = ['id' => get_the_ID(), "title" => get_the_title().' '.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true)];
+				}
+				uasort($propositions, function($a, $b) {return (remove_accents($a["title"]) < remove_accents($b["title"])) ? -1: 1;});
+				foreach ($propositions as $prop): ?>
+					<option value="<?php echo $prop["id"] ?>" <?php selected($value_linkedprop, $prop["id"]); ?>><?php echo $prop["title"] ?></option>
+			<?php endforeach; ?>
 			</select>
-		</div> -->
+		</div>
 	</div>
     <?php
 }
@@ -223,7 +240,8 @@ function wtpprop_custom_box_html($post) {
 function wtpprop_save_postdata($post_id)
 {
 	$fields = [array('field' => 'wtpprop_adjectif_field', 'metakey' => '_wtpprop_adj_metakey'), 
-            array('field' => 'wtpprop_descr_field', 'metakey' => '_wtpprop_descr_metakey')
+			array('field' => 'wtpprop_descr_field', 'metakey' => '_wtpprop_descr_metakey'),
+			array('field' => 'wtpprop_linkedprop_field', 'metakey' => '_wtpprop_linkedprop_metakey')
     ];
 
     foreach ($fields as $f) {
@@ -241,7 +259,8 @@ add_action('save_post', 'wtpprop_save_postdata');
 
 function wtpprop_register_fields() {
 	$fields = [array('key' => '_wtpprop_adj_metakey', 'descr' => 'Adjectif for post-type proposition'),
-				array('key' => '_wtpprop_descr_metakey', 'descr' => 'Description for post-type proposition')
+				array('key' => '_wtpprop_descr_metakey', 'descr' => 'Description for post-type proposition'),
+				array('field' => 'wtpprop_linkedprop_field', 'metakey' => '_wtpprop_linkedprop_metakey')
 	];
 
 	foreach ($fields as $f) {
