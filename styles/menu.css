@@ -116,6 +116,11 @@ Sinon il faut modifier les % de width dans les classes .open
     margin: 12px 0;
 }
 
+/* /!\ specific rule to add margin at 5th item element in menu !!!! */
+.menu_entries li:nth-child(5) {
+    margin-top: 3.5rem;
+}
+
 img.menu_logo_ccn {
     width: 30vw;
     max-width: 128px;
