@@ -38,6 +38,8 @@ function ccnwtp_shortcode_programme_carres() {
 
         $html = new CcnHtmlObj('div', ['class' => 'carres_container '.$atts['class']]);
         $carres_list = new CcnHtmlObj('div', ['class' => 'carres_list']);
+        $modal_ids = [];
+        $modal_data = [];
         
         $compteur = 0;
         if ( $query->have_posts() ) {
@@ -63,11 +65,26 @@ function ccnwtp_shortcode_programme_carres() {
                 $carre_title = new CcnHtmlObj('div', ['class' => 'card_title'], get_the_title().'<br>'.
                     '<span class="txt-white">'.get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true).'</span>'.
                     '<div class="card_descr">'.get_post_meta(get_the_ID(), '_wtpprop_descr_metakey', true).'</div>'.$ifeditlink);
-                $carre = new CcnHtmlObj('div', [
+                $carre_options = [
                     'class' => 'carre card',
                     'data-post-id' => 'post__propositions@'.$slug, 
                     'style' => $background
-                ], $carre_title->toString());
+                ];
+
+                // we add the modal popup with carre details
+                $linkedprop_id = get_post_meta(get_the_ID(), '_wtpprop_linkedprop_metakey', true);
+                if (!empty($linkedprop_id) && $linkedprop_id != "no_linkedprop") {
+                    $linked_html_id = 'details_of_post_'.$linkedprop_id;
+                    /* $modal = new CcnHtmlObj('div', [
+                        'id' => $linked_html_id,
+                        'class' => 'carre_modal',
+                        //'style' => 'display:none',
+                    ], 'MODAL with linked proposition '.$linkedprop_id); */
+                    $carre_options["data-featherlight"] = '#'.$linked_html_id;
+                    $modal_ids[] = $linkedprop_id;
+                    $modal_data[$linkedprop_id] = ['img' => get_the_post_thumbnail_url()];
+                }
+                $carre = new CcnHtmlObj('div', $carre_options, $carre_title->toString());
                 $carres_list->append($carre);
                 $compteur++;
             }
@@ -85,6 +102,42 @@ function ccnwtp_shortcode_programme_carres() {
 
         $html->append($carres_list);
         $html->append($arrows);
+
+        // =======================================
+        // add modals
+        // =======================================
+        if (!empty($modal_ids)) {
+            $modal_list = [];
+            $query_args = array(
+                'post_type' => 'propositions',
+                'post__in'      => $modal_ids,
+                'post_status'   => 'publish',
+                'lang'          =>  pll_current_language(),
+                'posts_per_page'=>  10000,
+            );
+            $query = new WP_Query( $query_args );
+
+            while ( $query->have_posts()) {
+                $query->the_post();
+
+                $linked_html_id = 'details_of_post_'.get_the_ID();
+
+                $img1 = '<img src="'.$modal_data[get_the_ID()]['img'].'">';
+                $img2 = '<img src="'.get_the_post_thumbnail_url().'">';
+                $title = "<h3>".get_the_title() . ' ' . get_post_meta(get_the_ID(), '_wtpprop_adj_metakey', true)."</h3>";
+                $content = $img1 . $img2 . '<div class="content">' . 
+                    $title . "<p>" . get_post_meta(get_the_ID(), '_wtpprop_descr_metakey', true) . "</p>"
+                .'</div>';
+
+                $modal = new CcnHtmlObj('div', [
+                    'id' => $linked_html_id,
+                    'class' => 'carre_modal',
+                ], $content);
+                $modal_list[] = $modal->toString();
+            }
+
+            $html->append('<div style="display:none">'.implode(' ', $modal_list).'</div>');   
+        }
         return $html->toString();
     };
 

@@ -816,3 +816,46 @@ ul.ariane_points > li.active {
 }
 
 
+/* ============================================ */
+/*              MODAL (Featherlight)            */
+/* ============================================ */
+
+.featherlight {
+    position: fixed;
+    top: 0;
+    background: #00000080;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000000000;
+}
+
+.featherlight-content {
+    height: 80vh;
+    width: 80vw;
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+    z-index: 20000000000;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0px 2px 8px black;
+}
+
+.featherlight-close-icon {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    font-size: 2rem;
+}
+
+.featherlight .carre_modal .content {
+    margin: 2rem;
+}
+
+.featherlight .carre_modal img {
+    height: 30vh;
+}

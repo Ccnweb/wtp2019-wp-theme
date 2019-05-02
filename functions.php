@@ -217,6 +217,10 @@ function wtp2019_scripts() {
 	wp_enqueue_script('owlcarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', ['jquery'], '2.3.4', true);
 	wp_enqueue_script('wtp2019-carousel', get_template_directory_uri() . '/js/carousel.js', array('owlcarousel'), '002', true);
 
+	// MODAL JQUERY (FEATHERLIGHT)
+	wp_enqueue_script( 'featherlight', 'https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js', ['jquery'], '1.7.13', true );
+	wp_enqueue_style( 'featherlight-style', 'https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.css', [], '1.7.13', true );
+
 	// MAIN WTP SCRIPT
 	global $wp_post_types;
 	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), $last_version, true);
