@@ -183,15 +183,23 @@ add_action( 'widgets_init', 'wtp2019_widgets_init' );
  * Enqueue scripts and styles.
  */
 function wtp2019_scripts() {
+
+	$get_template_uri = function($relative_path) {
+		if ($relative_path[0] != '/') $relative_path = '/'.$relative_path;
+		$child_path = get_stylesheet_directory().$relative_path;
+		if (file_exists($child_path)) return get_stylesheet_directory_uri().$relative_path;
+		return get_template_directory_uri().$relative_path;
+	};
+
 	$last_version = '008';
 
 	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri(), [], '001', 'all' );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');
 	/* wp_enqueue_style( 'wtp2019-style-onepage', get_template_directory_uri() . '/styles/onepage-scroll.css'); */
-	wp_enqueue_style( 'wtp2019-style-helpers', get_template_directory_uri() . '/styles/helpers.css');
-	wp_enqueue_style( 'wtp2019-style-tiles', get_template_directory_uri() . '/styles/tiles.css');
-	wp_enqueue_style( 'wtp2019-style-header', get_template_directory_uri() . '/styles/header.css');
-	wp_enqueue_style( 'wtp2019-style-menu', get_template_directory_uri() . '/styles/menu.css');
+	wp_enqueue_style( 'wtp2019-style-helpers', $get_template_uri('/styles/helpers.css'));
+	wp_enqueue_style( 'wtp2019-style-tiles', $get_template_uri('/styles/tiles.css'));
+	wp_enqueue_style( 'wtp2019-style-header', $get_template_uri('/styles/header.css'));
+	wp_enqueue_style( 'wtp2019-style-menu', $get_template_uri('/styles/menu.css'));
 
 	/* wp_enqueue_script( 'wtp2019-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true ); */
 
@@ -208,14 +216,14 @@ function wtp2019_scripts() {
 	
 	// NAVIGATION POINTS AND SCROLL
 	wp_enqueue_script('alloyfinger', 'https://cdn.jsdelivr.net/npm/alloyfinger@0.1.16/alloy_finger.min.js', [], '0.1.16', true);
-	wp_enqueue_script('wtp2019-ariane-points-script', get_template_directory_uri() . '/js/ariane-points.js', ['jquery', 'alloyfinger'], '002', true);
+	wp_enqueue_script('wtp2019-ariane-points-script', $get_template_uri('/js/ariane-points.js'), ['jquery', 'alloyfinger'], '002', true);
 	/* wp_enqueue_script( 'wtp2019-onepage-scroll', get_template_directory_uri() . '/js/jquery.onepage-scroll.min.js', array('jquery'), '20181213', true); */
 	
 	// CAROUSEL
 	wp_enqueue_style('owlcarousel-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', ['wtp2019-main-script'], '001', 'all');
 	//wp_enqueue_style('owlcarousel-theme-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css', [], '001', 'all');
 	wp_enqueue_script('owlcarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', ['jquery'], '2.3.4', true);
-	wp_enqueue_script('wtp2019-carousel', get_template_directory_uri() . '/js/carousel.js', array('owlcarousel'), '002', true);
+	wp_enqueue_script('wtp2019-carousel', $get_template_uri('/js/carousel.js'), array('owlcarousel'), '002', true);
 
 	// MODAL JQUERY (FEATHERLIGHT)
 	wp_enqueue_script( 'featherlight', 'https://cdn.rawgit.com/noelboss/featherlight/1.7.13/release/featherlight.min.js', ['jquery'], '1.7.13', true );
@@ -223,7 +231,7 @@ function wtp2019_scripts() {
 
 	// MAIN WTP SCRIPT
 	global $wp_post_types;
-	wp_enqueue_script( 'wtp2019-main-script', get_template_directory_uri() . '/js/main.js', array('jquery'), $last_version, true);
+	wp_enqueue_script( 'wtp2019-main-script', $get_template_uri('/js/main.js'), array('jquery'), $last_version, true);
 	wp_localize_script('wtp2019-main-script', 'translationAjaxData', array(
 		'post_type_slugs' => array_keys($wp_post_types),
 		'root_url' => get_site_url(),
@@ -231,31 +239,31 @@ function wtp2019_scripts() {
 	));
 	
 	// burger menu
-	wp_enqueue_script( 'wtp2019-script-menu', get_template_directory_uri() . '/js/menu.js', array(), $last_version, true );
+	wp_enqueue_script( 'wtp2019-script-menu', $get_template_uri('/js/menu.js'), array(), $last_version, true );
 	// menu scrolling for infos-pratiques and horaires menus
-	wp_enqueue_script( 'wtp2019-menu-scroll', get_template_directory_uri() . '/js/menu-scroll.js', array(), $last_version, true);
+	wp_enqueue_script( 'wtp2019-menu-scroll', $get_template_uri('/js/menu-scroll.js'), array(), $last_version, true);
 
 	// specific scripts and styles
 	// --- accueil
-	wp_register_script( 'wtp2019-accueil', get_template_directory_uri() . '/js/accueil.js', array('jquery'), $last_version, true);
-	wp_register_style( 'wtp2019-accueil-mobile', get_template_directory_uri() . '/styles/accueil.css', array(), $last_version, 'all');
-	wp_register_style( 'wtp2019-accueil-desktop', get_template_directory_uri() . '/styles/accueil-desktop.css', array(), $last_version, 'all and (min-width: 600px)');
+	wp_register_script( 'wtp2019-accueil', $get_template_uri('/js/accueil.js'), array('jquery'), $last_version, true);
+	wp_register_style( 'wtp2019-accueil-mobile', $get_template_uri('/styles/accueil.css'), array(), $last_version, 'all');
+	wp_register_style( 'wtp2019-accueil-desktop', $get_template_uri('/styles/accueil-desktop.css'), array(), $last_version, 'all and (min-width: 600px)');
 	// --- programmation
-	wp_register_script( 'wtp2019-programmation', get_template_directory_uri() . '/js/programmation.js', array(), $last_version, true);
-	wp_register_style( 'wtp2019-programmation', get_template_directory_uri() . '/styles/programmation.css', [], $last_version, 'all');
-	wp_register_style( 'wtp2019-programmation-desktop', get_template_directory_uri() . '/styles/programmation-desktop.css', array(), $last_version, 'all and (min-width: 600px)');
+	wp_register_script( 'wtp2019-programmation', $get_template_uri('/js/programmation.js'), array(), $last_version, true);
+	wp_register_style( 'wtp2019-programmation', $get_template_uri('/styles/programmation.css'), [], $last_version, 'all');
+	wp_register_style( 'wtp2019-programmation-desktop', $get_template_uri('/styles/programmation-desktop.css'), array(), $last_version, 'all and (min-width: 600px)');
 	// --- horaires
-	wp_register_script( 'wtp2019-horaires-script', get_template_directory_uri() . '/js/horaires.js', array('jquery'), $last_version, true);
-	wp_register_style( 'wtp2019-horaires', get_template_directory_uri() . '/styles/horaires.css', [], $last_version, 'all');
+	wp_register_script( 'wtp2019-horaires-script', $get_template_uri('/js/horaires.js'), array('jquery'), $last_version, true);
+	wp_register_style( 'wtp2019-horaires', $get_template_uri('/styles/horaires.css'), [], $last_version, 'all');
 	// --- infos-pratiques
-	wp_register_style( 'wtp2019-infos-pratiques', get_template_directory_uri() . '/styles/infos-pratiques.css', [], $last_version, 'all');
-	wp_register_style( 'wtp2019-infos-pratiques-desktop', get_template_directory_uri() . '/styles/infos-pratiques-desktop.css', array(), $last_version, 'all and (min-width: 600px)');
-	wp_register_script( 'wtp2019-infos-pratiques-script', get_template_directory_uri() . '/js/infos-pratiques.js', array('jquery'), [], $last_version, true);
+	wp_register_style( 'wtp2019-infos-pratiques', $get_template_uri('/styles/infos-pratiques.css'), [], $last_version, 'all');
+	wp_register_style( 'wtp2019-infos-pratiques-desktop', $get_template_uri('/styles/infos-pratiques-desktop.css'), array(), $last_version, 'all and (min-width: 600px)');
+	wp_register_script( 'wtp2019-infos-pratiques-script', $get_template_uri('/js/infos-pratiques.js'), array('jquery'), [], $last_version, true);
 
 	// ## 3 ## For connected users
 	// Translation tools
-	wp_register_style( 'wtp2019-translation-style', get_template_directory_uri() . '/components/translation_ui/translation.css', array(), $last_version, 'all');
-	wp_register_script('wtp2019-translation-script', get_template_directory_uri() . '/components/translation_ui/translation.js', array(), $last_version);
+	wp_register_style( 'wtp2019-translation-style', $get_template_uri('/components/translation_ui/translation.css'), array(), $last_version, 'all');
+	wp_register_script('wtp2019-translation-script', $get_template_uri('/components/translation_ui/translation.js'), array(), $last_version);
 	wp_localize_script('wtp2019-translation-script', 'edit_mode', array(
 		'available' => true,
 	));

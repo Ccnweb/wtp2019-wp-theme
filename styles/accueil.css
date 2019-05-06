@@ -26,12 +26,12 @@ header {
 
 video {
     filter: grayscale(1);
-    transform: scale(1.2);
+    /* transform: scale(1.2); */
 }
 
 .bring_forward_white {
     position: relative;
-    z-index: 100;
+    z-index: 1000;
     background: white;
 }
 

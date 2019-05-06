@@ -25,6 +25,7 @@ function ccnwtp_shortcode_carousel() {
             'post_type'     => $atts['post_type'],
             'post_status'   => 'publish',
             'lang'          =>  pll_current_language(),
+            'posts_per_page'=>  -1,
         );
         // si un theme est défini, on l'inclut dans la requête
         if ($atts['theme'] != '') {
@@ -33,7 +34,7 @@ function ccnwtp_shortcode_carousel() {
                     'taxonomy' => 'themes',
                     'field'    => 'slug',
                     'terms'    => $atts['theme'],
-                    'posts_per_page'=>  10000,
+                    'posts_per_page'=>  -1,
                 ),
             );
         }
