@@ -61,7 +61,9 @@ function wtp_admin_page_gen_content() {
 }
 
 function wtp_prepare_translation($lang) {
-    if (!in_array($lang, pll_languages_list())) return "Invalid language ".$lang;
+    $available_languages = pll_languages_list();
+    echo "Available languages ".json_encode($available_languages);
+    if (!in_array($lang, $available_languages)) return "Invalid language ".$lang;
     if ($lang == pll_default_language()) return "Il s'agit de la langue par défaut, impossible de traduire dans cette langue.";
     
     //available post_types
@@ -99,14 +101,18 @@ function wtp_prepare_translation($lang) {
                     'post_status' => 'publish'
                 ] );
 
-                // set the post language and linked translated parent post
+                // set the post language 
                 pll_set_post_language($new_post_id, $lang);
-                pll_save_post_translations([
-                    $orig_lang => $post->ID,
-                    $lang => $new_post_id,
-                ]);
+                // set the linked translated parent post
+                $translations = [];
+                foreach ($available_languages as $tr_lang) {
+                    $tr_postid = pll_get_post($post->ID, $tr_lang);
+                    if ($tr_postid) $translations[$tr_lang] = $tr_postid;
+                }
+                $translations[$lang] = $new_post_id;
+                echo "translations ".json_encode($translations)."<br>";
+                pll_save_post_translations($translations);
             }
-            return 'ok debug';
         }
     }
 
