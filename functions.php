@@ -409,6 +409,9 @@ require_once_all_regex(get_template_directory() . '/blocks/', "");
 // load REST endpoints
 require_once_all_regex(get_template_directory() . '/rest endpoints/', "");
 
+// load admin pages
+require_once_all_regex(get_template_directory() . '/admin-pages/', "");
+
 
 
 /* ========================================================= */
