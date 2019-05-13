@@ -64,55 +64,78 @@ function wtp_prepare_translation($lang) {
     $available_languages = pll_languages_list();
     echo "Available languages ".json_encode($available_languages);
     if (!in_array($lang, $available_languages)) return "Invalid language ".$lang;
-    if ($lang == pll_default_language()) return "Il s'agit de la langue par défaut, impossible de traduire dans cette langue.";
+    $default_lang = pll_default_language();
+    if ($lang == $default_lang) return "Il s'agit de la langue par défaut, impossible de traduire dans cette langue.";
     
+    // translate categories
+    $new_cat_translations = [];
+    $categories = get_categories();
+    foreach ($categories as $cat) {
+        if (pll_get_term_language($cat->term_id) != $default_lang) continue;
+        $cat_translations = pll_get_term_translations($cat->term_id);
+        if (!empty($cat_translations[$lang])) continue;
+        $new_cat_id = wp_create_category($cat->slug . "-" . $lang);
+        if ($new_cat_id > 0) {
+            pll_set_term_language($new_cat_id, $lang);
+            $cat_translations[$lang] = $new_cat_id;
+            pll_save_term_translations($cat_translations);
+            $new_cat_translations[$cat->slug] = $new_cat_id;
+        }
+    }
+
     //available post_types
     $post_types = get_post_types([
         'public' => true,
     ]);
 
     foreach ($post_types as $pt => $pt_label) {
-        if (isset($_POST[$pt]) && $_POST[$pt]) {
+        if (!isset($_POST[$pt]) || !$_POST[$pt]) continue;
 
-            // get all posts of this type in default language
-            $query = new WP_Query(array(
-                'post_type' => $pt,
-                'post_status' => 'publish',
-                'posts_per_page' => -1,
-                'lang' => pll_default_language()
-            ));
-            $posts = $query->posts;
-            echo "Translating ".count($posts)." posts of type ".$pt."<br>\n";
+        // get all posts of this type in default language
+        $query = new WP_Query(array(
+            'post_type' => $pt,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'lang' => pll_default_language()
+        ));
+        $posts = $query->posts;
+        echo "Translating ".count($posts)." posts of type ".$pt."<br>\n";
 
-            foreach ($posts as $post) {
-                // check if a translation of the post exists already
-                $postid_target_lang = pll_get_post($post->ID, $lang);
-                if ($postid_target_lang) continue;
-                
-                // duplicate the post
-                echo $post->ID." - ".$postid_target_lang."<br>";
-                $new_post_id = duplicate_post_create_duplicate( $post, "publish");
-                echo "new duplicate post of post ".$post->ID." = ".$new_post_id."<br>";
+        foreach ($posts as $post) {
+            // check if a translation of the post exists already
+            $postid_target_lang = pll_get_post($post->ID, $lang);
+            if ($postid_target_lang) continue;
+            
+            // duplicate the post
+            echo $post->ID." - ".$postid_target_lang."<br>";
+            $new_post_id = duplicate_post_create_duplicate( $post, "publish");
+            echo "new duplicate post of post ".$post->ID." = ".$new_post_id."<br>";
 
-                // change the title by suffixing "_LANG"
-                wp_update_post( [
-                    'ID' => $new_post_id,
-                    'post_title' => $post->post_title . '_' . strtoupper($lang),
-                    'post_status' => 'publish'
-                ] );
-
-                // set the post language 
-                pll_set_post_language($new_post_id, $lang);
-                // set the linked translated parent post
-                $translations = [];
-                foreach ($available_languages as $tr_lang) {
-                    $tr_postid = pll_get_post($post->ID, $tr_lang);
-                    if ($tr_postid) $translations[$tr_lang] = $tr_postid;
-                }
-                $translations[$lang] = $new_post_id;
-                echo "translations ".json_encode($translations)."<br>";
-                pll_save_post_translations($translations);
+            // change the title by suffixing "_LANG"
+            wp_update_post( [
+                'ID' => $new_post_id,
+                'post_title' => $post->post_title . '_' . strtoupper($lang),
+                'post_status' => 'publish'
+            ] );
+            // and add a category "catname-lang"
+            $post_categories = wp_get_post_categories($new_post_id);
+            $new_post_categories = [];
+            foreach ($post_categories as $post_cat) {
+                if (isset($new_cat_translations[$post_cat->slug])) $new_post_categories[] = $new_cat_translations[$post_cat->slug];
             }
+            wp_set_post_categories( $new_post_id, $new_post_categories, true);
+
+            // set the post language 
+            pll_set_post_language($new_post_id, $lang);
+            // set the linked translated parent post
+            $translations = [];
+            foreach ($available_languages as $tr_lang) {
+                $tr_postid = pll_get_post($post->ID, $tr_lang);
+                if ($tr_postid) $translations[$tr_lang] = $tr_postid;
+            }
+            $translations[$lang] = $new_post_id;
+            echo "translations ".json_encode($translations)."<br>";
+            pll_save_post_translations($translations);
         }
     }
 
