@@ -260,7 +260,7 @@ add_action('save_post', 'wtpprop_save_postdata');
 function wtpprop_register_fields() {
 	$fields = [array('key' => '_wtpprop_adj_metakey', 'descr' => 'Adjectif for post-type proposition'),
 				array('key' => '_wtpprop_descr_metakey', 'descr' => 'Description for post-type proposition'),
-				array('field' => 'wtpprop_linkedprop_field', 'metakey' => '_wtpprop_linkedprop_metakey')
+				array('key' => 'wtpprop_linkedprop_field', 'descr' => '_wtpprop_linkedprop_metakey')
 	];
 
 	foreach ($fields as $f) {

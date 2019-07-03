@@ -60,6 +60,7 @@ function wtp_admin_page_gen_content() {
 	<?php
 }
 
+if (!function_exists('wtp_prepare_translation')) {
 function wtp_prepare_translation($lang) {
     $available_languages = pll_languages_list();
     echo "Available languages ".json_encode($available_languages);
@@ -70,17 +71,32 @@ function wtp_prepare_translation($lang) {
     // translate categories
     $new_cat_translations = [];
     $categories = get_categories();
+    $categories = get_terms( array(
+        'taxonomy' => 'category',
+        'hide_empty' => false,
+        'lang' => $default_lang
+    ) );
+    echo "categories = ".json_encode($categories)."<br>\n";
     foreach ($categories as $cat) {
         if (pll_get_term_language($cat->term_id) != $default_lang) continue;
         $cat_translations = pll_get_term_translations($cat->term_id);
-        if (!empty($cat_translations[$lang])) continue;
+        if (!empty($cat_translations[$lang])) {
+            $new_cat_translations[$cat->term_id] = $cat_translations[$lang];
+            continue;
+        }
         $new_cat_id = wp_create_category($cat->slug . "-" . $lang);
         if ($new_cat_id > 0) {
             pll_set_term_language($new_cat_id, $lang);
             $cat_translations[$lang] = $new_cat_id;
             pll_save_term_translations($cat_translations);
-            $new_cat_translations[$cat->slug] = $new_cat_id;
+            $new_cat_translations[$cat->term_id] = $new_cat_id;
         }
+    }
+    if (empty($new_cat_translations)) {
+        echo "/!\ strange behaviour, categories translations is emtpy, returning<br>";
+        return;
+    } else {
+        echo "new_cat_translations = ".json_encode($new_cat_translations)."<br>\n";
     }
 
     //available post_types
@@ -109,6 +125,10 @@ function wtp_prepare_translation($lang) {
             // duplicate the post
             echo $post->ID." - ".$postid_target_lang."<br>";
             $new_post_id = duplicate_post_create_duplicate( $post, "publish");
+            if ($new_post_id < 1) {
+                echo "Error duplicating post ".$post->ID."<br>";
+                continue;
+            }
             echo "new duplicate post of post ".$post->ID." = ".$new_post_id."<br>";
 
             // change the title by suffixing "_LANG"
@@ -119,12 +139,15 @@ function wtp_prepare_translation($lang) {
             ] );
             // and add a category "catname-lang"
             $post_categories = wp_get_post_categories($new_post_id);
+            echo "current post categories = ".json_encode($post_categories)."<br>";
             $new_post_categories = [];
-            foreach ($post_categories as $post_cat) {
-                if (isset($new_cat_translations[$post_cat->slug])) $new_post_categories[] = $new_cat_translations[$post_cat->slug];
+            foreach ($post_categories as $post_cat_id) {
+                if (isset($new_cat_translations[$post_cat_id])) $new_post_categories[] = $new_cat_translations[$post_cat_id];
             }
-            wp_set_post_categories( $new_post_id, $new_post_categories, true);
-
+            echo "new post categories for post ".$new_post_id." : ".json_encode($new_post_categories)."<br>";
+            $cat_ids = wp_set_post_categories( $new_post_id, $new_post_categories, true);
+            echo "result = ".json_encode($cat_ids);
+            
             // set the post language 
             pll_set_post_language($new_post_id, $lang);
             // set the linked translated parent post
@@ -136,11 +159,13 @@ function wtp_prepare_translation($lang) {
             $translations[$lang] = $new_post_id;
             echo "translations ".json_encode($translations)."<br>";
             pll_save_post_translations($translations);
+            
         }
     }
 
     return "SUCCÈS ! Le site a été préparé pour la traduction en ".$lang;
 
+}
 }
 
 

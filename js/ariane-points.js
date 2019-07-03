@@ -160,7 +160,7 @@ function initArianePoints(section_selector = '.section', options = {}) {
             } else if (e.which == 38) {
                 goToSlide(curr_section-1)
             }
-            return false;
+            //return false;
         });
     }
 
