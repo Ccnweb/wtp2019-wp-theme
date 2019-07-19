@@ -122,7 +122,7 @@ Sinon il faut modifier les % de width dans les classes .open
 }
 
 img.menu_logo_ccn {
-    width: 30vw;
+    /* width: 30vw; */
     max-width: 128px;
 }
 

@@ -1,10 +1,7 @@
 <?php
 /**
-* Plugin Name: WTP Subscription Form
-* Description: Formulaire de préinscription
-* Version: 1.0.0
-* Author: Communauté du Chemin Neuf
-*/
+ * This file manages the logical part of the pre-inscriptions
+ */
 
 // we need to have the CCN Library plugin activated
 if (!defined('CCN_LIBRARY_PLUGIN_DIR')) {
