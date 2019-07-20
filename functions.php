@@ -200,6 +200,7 @@ function wtp2019_scripts() {
 	wp_enqueue_style( 'wtp2019-style-tiles', $get_template_uri('/styles/tiles.css'));
 	wp_enqueue_style( 'wtp2019-style-header', $get_template_uri('/styles/header.css'));
 	wp_enqueue_style( 'wtp2019-style-menu', $get_template_uri('/styles/menu.css'));
+	wp_enqueue_style( 'wtp2019-style-flags', $get_template_uri('/styles/flags.css'), [], '003');
 
 	/* wp_enqueue_script( 'wtp2019-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true ); */
 

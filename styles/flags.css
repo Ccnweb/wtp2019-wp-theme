@@ -1,0 +1,101 @@
+.flag-64 {
+    background-image: url('../img/flags64.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.flag-64.flag-BE {
+    width: 64px;
+    height: 64px;
+    background-position: -2px -2px;
+}
+
+.flag-64.flag-BR {
+    width: 64px;
+    height: 64px;
+    background-position: -70px -2px;
+}
+
+.flag-64.flag-CZ {
+    width: 64px;
+    height: 64px;
+    background-position: -138px -2px;
+}
+
+.flag-64.flag-DE {
+    width: 64px;
+    height: 64px;
+    background-position: -206px -2px;
+}
+
+.flag-64.flag-ES {
+    width: 64px;
+    height: 64px;
+    background-position: -2px -70px;
+}
+
+.flag-64.flag-FR {
+    width: 64px;
+    height: 64px;
+    background-position: -70px -70px;
+}
+
+.flag-64.flag-GB {
+    width: 64px;
+    height: 64px;
+    background-position: -138px -70px;
+}
+
+.flag-64.flag-HT {
+    width: 64px;
+    height: 64px;
+    background-position: -206px -70px;
+}
+
+.flag-64.flag-HU {
+    width: 64px;
+    height: 64px;
+    background-position: -2px -138px;
+}
+
+.flag-64.flag-IT {
+    width: 64px;
+    height: 64px;
+    background-position: -70px -138px;
+}
+
+.flag-64.flag-LB {
+    width: 64px;
+    height: 64px;
+    background-position: -138px -138px;
+}
+
+.flag-64.flag-LT {
+    width: 64px;
+    height: 64px;
+    background-position: -206px -138px;
+}
+
+.flag-64.flag-LV {
+    width: 64px;
+    height: 64px;
+    background-position: -2px -206px;
+}
+
+.flag-64.flag-NL {
+    width: 64px;
+    height: 64px;
+    background-position: -70px -206px;
+}
+
+.flag-64.flag-PL {
+    width: 64px;
+    height: 64px;
+    background-position: -138px -206px;
+}
+
+.flag-64.flag-RU {
+    width: 64px;
+    height: 64px;
+    background-position: -206px -206px;
+}
