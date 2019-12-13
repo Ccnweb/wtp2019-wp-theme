@@ -92,8 +92,8 @@ add_action('init', 'wtp_mediaupload_register_fields');
 function wtp_mediaupload_load_wp_admin_style() {
     wp_enqueue_media();
     wp_enqueue_script('media-upload');
-    wp_enqueue_style( 'wtp_mediaupload_admin_css', plugins_url( '/css/admin.css', __FILE__ ) );
-    wp_enqueue_script( 'wtp_mediaupload_admin_script', plugins_url('/js/wtp_mediaupload_admin.js', __FILE__), array(), '20181228', 'all');
+    //wp_enqueue_style( 'wtp_mediaupload_admin_css', plugins_url( '/css/admin.css', __FILE__ ) );
+    wp_enqueue_script( 'wtp_mediaupload_admin_script', get_template_directory_uri().'/custom post types/wtp-metabox-media/js/wtp_mediaupload_admin.js', array(), '20181228', 'all');
 }
 add_action( 'admin_enqueue_scripts', 'wtp_mediaupload_load_wp_admin_style' );
 ?>

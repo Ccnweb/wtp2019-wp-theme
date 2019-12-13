@@ -207,7 +207,7 @@ jQuery(document).ready(function(){
     initArianePoints('.section', {
         scroll_container: 'window', 
         on_section_change: dotsBW,
-        auto_scroll: !user_is_connected_with_rights(), // no auto scroll if user is connected
+        auto_scroll: false, // no auto scroll if user is connected
         key_control: !user_is_connected_with_rights(), // no keyboard control if user is connected
     })
 
@@ -218,8 +218,8 @@ jQuery(document).ready(function(){
         if (ind == 1 || ind == 4) { // texte intro
             $('#menu .burger').first().addClass('black')
         }
-        if (ind != 5) $('.ariane_points').addClass('black');
-        if (ind == 5) $('.ariane_points').removeClass('black');
+        if (ind != 6) $('.ariane_points').addClass('black');
+        if (ind == 6) $('.ariane_points').removeClass('black');
 
         // animations typewriter
         if (ind == 1) typewriter_lefestival()

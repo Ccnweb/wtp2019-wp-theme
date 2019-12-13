@@ -191,7 +191,7 @@ function wtp2019_scripts() {
 		return get_template_directory_uri().$relative_path;
 	};
 
-	$last_version = '008';
+	$last_version = '010';
 
 	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri(), [], '001', 'all' );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');
@@ -465,3 +465,15 @@ add_filter( 'kdmfi_featured_images', function( $featured_images ) {
     return $featured_images;
 });
 // to get mobile image url : kdmfi_get_featured_image_src( 'featured-image-mobile', 'full' );
+
+
+/* ========================================================= */
+/*                 DEFER PARSING OF JS		                 */
+/* ========================================================= */
+
+// If you activate this, it will show blank page on wordpress edit
+function defer_parsing_of_js ( $url ) {
+	if ( FALSE === strpos( $url, '.js' ) || strpos( $url, 'jquery.js' ) ) return $url;
+	return $url.'" defer ';
+}
+add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
