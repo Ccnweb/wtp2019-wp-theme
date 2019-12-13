@@ -191,7 +191,7 @@ function wtp2019_scripts() {
 		return get_template_directory_uri().$relative_path;
 	};
 
-	$last_version = '010';
+	$last_version = '011';
 
 	wp_enqueue_style( 'wtp2019-style', get_stylesheet_uri(), [], '001', 'all' );
 	wp_enqueue_style( 'wtp2019-style-fa', 'https://use.fontawesome.com/releases/v5.5.0/css/all.css');
